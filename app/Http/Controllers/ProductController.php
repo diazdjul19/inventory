@@ -1,0 +1,150 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+
+use App\Models\MsProduct;
+use App\Models\MsCategory;
+
+
+
+class ProductController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+
+        $data = MsProduct::with('category')->paginate(5); 
+
+        // dd($data);
+        return view('product',compact('data'));
+    }   
+
+
+    public function search(Request $request){
+
+        $search = $request->get('search');
+
+
+        $data = MsProduct::join('ms_categories','ms_products.id_category','ms_categories.id')
+        ->where(function($q) use($search) {
+            $q->where('category_name','LIKE','%'.$search.'%')
+                ->orWhere('product_name','LIKE','%'.$search.'%')
+                ->orWhere('product_code','LIKE','%'.$search.'%');
+        })->paginate(10);
+
+        return view('product',compact('data'));
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $category = MsCategory::all();
+        return view("create_product", compact('category'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = MsProduct::create($request->all());
+
+        $prona = $request->product_name;
+        $proco = $request->product_code;
+
+
+        if ($data) {
+            return redirect(route('product.index'))->with('sukses_create_product',"Data Baru Dengan Nama $prona Dan Kode Product $proco, Telah Berhasil Di Tambahkan");
+        } else {
+            # code...
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data = MsProduct::with('category')->find($id);
+        $category = MsCategory::all();
+
+
+
+        return view('edit_product', compact('data','category'));
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $data = MsProduct::find($id);
+
+        // $dala = $data->product_name;
+        // $daba = $request->product_name;
+
+        if ($data) {
+            $data->update($request->all());
+
+            $edco = $request->product_code;
+
+            return redirect(route('product.index'))->with('sukses_edit_product',"Data Dengan Kode Product $edco Berhasil Di Edit");
+            // return redirect(route('product.index'))->with('sukses_edit_product',"Data Dengan Kode Product $edco Berhasil Di Edit   $dala ,$daba");
+        } else {
+            # code...
+        }
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $data = MsProduct::find($id);
+        $haco = $data->product_code;
+
+        $data = MsProduct::find($id)->delete();
+
+        return redirect(route('product.index'))->with('sukses_hapus_product',"Data Dengan Kode Product $haco Berhasil Di Hapus");
+    }
+
+}
+
+
