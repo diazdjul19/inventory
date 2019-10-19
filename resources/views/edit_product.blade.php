@@ -18,10 +18,14 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Category</label>
                         <select class="form-control" id="exampleFormControlSelect1" name="id_category">
-                        <option value="{{$data->category->id}}">{{$data->category->category_name}}</option>
-                        @foreach ($category as $item)
-                        <option value="{{$item->id}}">{{$item->category_name}}</option>
-                        @endforeach
+                        <optgroup label="Kategori Lama">
+                            <option  value="{{$data->category->id}}">{{$data->category->category_name}}</option>
+                        </optgroup>  
+                        <optgroup label="Kategori Baru">  
+                            @foreach ($category as $item)
+                                <option value="{{$item->id}}">{{$item->category_name}}</option>
+                            @endforeach
+                        </optgroup>
                         </select>
                     </div>
 
@@ -33,6 +37,12 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Code Product</label>
                         <input type="text" name="product_code" class="form-control" id="exampleInputEmail1"  placeholder=" Product Code" value="{{$data->product_code}}">
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Harga Barang</label>
+                        <input type="text" name="item_price" class="form-control" id="exampleInputEmail1"  placeholder="Item Price"  value="{{$data->item_price}}">
                     </div>
 
                     <div class="form-group">
@@ -56,3 +66,6 @@
 
 </div>
 @endsection
+
+
+

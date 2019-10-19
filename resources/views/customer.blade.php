@@ -37,8 +37,8 @@
                     </form>
                 </div>
 
-                <div class="card-body">
-                    <table class="table table-hover table-striped">
+                <div class="card-body table-responsive">
+                    <table class="table table-hover table-striped ">
                         <tr>
                             <th>No</th>
                             <th>Nama </th>

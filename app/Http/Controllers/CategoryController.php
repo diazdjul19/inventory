@@ -19,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-    
+        
         $data = MsCategory::paginate(5); 
         return view('category',compact('data'));
 

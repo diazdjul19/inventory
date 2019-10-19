@@ -19,10 +19,11 @@ class CreateMsSalesTable extends Migration
             $table->integer('item_id');
             $table->integer('customers');
             $table->string('qty');
+            $table->string('item_price');
+            $table->string('payment_nominal');
+            $table->string('return_nominal');
 
-            $table->foreign("item_id")->references("id")->on("ms_products");
-            $table->foreign("customers")->references("id")->on("ms_customers");
-            $table->foreign("qty")->references("id")->on("ms_stocks");
+
 
             $table->timestamps();
         });

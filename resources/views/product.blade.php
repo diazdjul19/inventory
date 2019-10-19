@@ -25,7 +25,7 @@
     @endif
 
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Dashboard 
                     <a href="{{route('product.create')}}">Tambah Product</a>
@@ -36,13 +36,14 @@
                     </form>
                 </div>
 
-                <div class="card-body">
-                    <table class="table table-hover table-striped">
+                <div class="card-body table-responsive">
+                    <table class="table table-hover table-striped ">
                         <tr>
                             <th>No</th>
                             <th>Category</th>
                             <th>Nama Product</th>
                             <th>Kode Product</th>
+                            <th>Harga Barang</th>
                             <th>Foto Product</th>
                             <th>Tanggal Registrasi Product</th>
                             <th>Action</th>
@@ -56,6 +57,7 @@
                                 <td>{{$d->category->category_name}}</td>
                                 <td>{{$d->product_name}}</td>
                                 <td>{{$d->product_code}}</td>
+                                <td>{{$d->item_price}}</td>
                                 <td>{{$d->product_photo}}</td>
                                 <td>{{$d->registration_date}}</td>
 

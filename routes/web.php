@@ -24,6 +24,7 @@ Route::resource('category','CategoryController');
 Route::get('category/delete/{id}',"CategoryController@destroy")->name("category.destroy");
 Route::get('/search_category', "CategoryController@search");
 
+
 // Product
 Route::resource('product','ProductController');
 Route::get('product/delete/{id}',"ProductController@destroy")->name("product.destroy");
@@ -44,6 +45,23 @@ Route::get('/search_customer', "CustomerController@search");
 Route::resource('sales', 'SalesController');
 Route::get('sales/delete/{id}', "SalesController@destroy")->name("sales.destroy");
 Route::get('/search_sales', "SalesController@search");
+
+
+// Supplier
+Route::resource('supplier', 'SupplierController');
+Route::get('supplier/delete/{id}', "SupplierController@destroy")->name("supplier.destroy");
+Route::get('/search_supplier', "SupplierController@search");
+
+
+// Buying
+Route::resource('buying', 'BuyingController');
+Route::get('buying/delete/{id}', "BuyingController@destroy")->name("buying.destroy");
+Route::get('/search_buying', "BuyingController@search");
+
+Route::get('buying/approve/{id}', "BuyingController@approve")->name("buying.approve");
+Route::get('buying/cancel/{id}', "BuyingController@cancel")->name("buying.cancel");
+
+
 
 Route::get('testing',function(){
     return \App\Models\MsProduct::with('category')->paginate(5);

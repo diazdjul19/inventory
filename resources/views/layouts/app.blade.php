@@ -72,6 +72,14 @@
                                 <a class="nav-link" href="{{route('sales.index')}}">Menu Penjualan</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('supplier.index')}}">Supplier</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('buying.index')}}">Menu Pembelian</a>
+                            </li>
+
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -38,7 +38,7 @@
                 </div>
 
 
-                <div class="card-body">
+                <div class="card-body tabel-responsive">
                     <table class="table table-hover  table-striped ">
                         <tr>
                             <th>NO</th>

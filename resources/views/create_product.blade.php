@@ -34,6 +34,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="exampleInputEmail1">Harga Barang</label>
+                        <input type="text" name="item_price" class="form-control" id="exampleInputEmail1"  placeholder="Item Price">
+                    </div>
+
+                    <div class="form-group">
                         <label for="exampleInputEmail1">Foto Product</label>
                         <input type="text" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">
                     </div>
