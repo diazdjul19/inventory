@@ -37,7 +37,11 @@ class ProductController extends Controller
         ->where(function($q) use($search) {
             $q->where('category_name','LIKE','%'.$search.'%')
                 ->orWhere('product_name','LIKE','%'.$search.'%')
-                ->orWhere('product_code','LIKE','%'.$search.'%');
+                ->orWhere('product_code','LIKE','%'.$search.'%')
+                ->orWhere('item_price','LIKE','%'.$search.'%')
+                ->orWhere('product_photo','LIKE','%'.$search.'%')
+                ->orWhere('registration_date','LIKE','%'.$search.'%')
+                ->orWhere('pcs','LIKE','%'.$search.'%');
         })->paginate(10);
 
         return view('product',compact('data'));
@@ -63,14 +67,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $data = MsProduct::create($request->all());
+        // $data = MsProduct::create($request->all());
 
+        $data = new MsProduct();
+        $data->id_category = $request->id_category;
+        $data->product_name = $request->product_name;
+        $data->product_code = 'Product-'.$this->productCode(10);
+        $data->item_price = $request->item_price;
+        $data->pcs = $request->pcs;
+        $data->product_photo = $request->product_photo;
+        $data->registration_date = $request->registration_date;
+        $data->save();
+        
+        // alert
+        $proco = $data->product_code;
         $prona = $request->product_name;
-        $proco = $request->product_code;
-
-
         if ($data) {
-            return redirect(route('product.index'))->with('sukses_create_product',"Data Baru Dengan Nama $prona Dan Kode Product $proco, Telah Berhasil Di Tambahkan");
+            return redirect(route('product.index'))->with('sukses_create_product',"Data Baru Dengan Nama $prona Yang Codenya $proco, Telah Berhasil Di Tambahkan");
         } else {
             # code...
         }
@@ -144,6 +157,33 @@ class ProductController extends Controller
 
         return redirect(route('product.index'))->with('sukses_hapus_product',"Data Dengan Kode Product $haco Berhasil Di Hapus");
     }
+
+
+    // private function productCode($length = 10)
+    // {
+    //     $char = '0123456789';
+    //     $char_length = strlen($char);
+    //     $random_string = '';
+    //     for($i=0; $i < $length; $i++){
+    //         $random_string .= $char[rand(0, $char_length-1)];
+    //     }
+
+    //     return $random_string;
+    // }
+
+    private function productCode ($length = 10)
+    {
+        $char = '0123456789';
+        $char_length = strlen($char);
+        $random_string = '';
+        for($i=0; $i < $length; $i++){
+            $random_string .= $char[rand(0,$char_length-1)];
+        }
+        return $random_string;
+    }
+
+
+
 
 }
 

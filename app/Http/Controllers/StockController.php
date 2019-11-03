@@ -24,10 +24,10 @@ class StockController extends Controller
     public function search(Request $request){
         $search = $request->get('search');
 
-        $data = MsStock::where(function($query) use($search) {
-            $query->where('jml_barang','LIKE','%'.$search.'%')
-                ->orWhere('tgl_update','LIKE','%'.$search.'%')
-                ;
+        $data = MsStock::join('ms_Products', 'ms_stocks.product_id', 'ms_products.id')->where(function($q) use($search){
+            $q->where('product_name', 'LIKE', '%'.$search.'%')
+                ->orwhere('jml_barang', 'LIKE', '%'.$search.'%')
+                ->orwhere('tgl_update', 'LIKE', '%'.$search.'%');
         })->paginate(5);
         return view('stock', ['data' => $data]);
     }

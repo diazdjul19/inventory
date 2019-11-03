@@ -9,6 +9,10 @@ use App\Models\MsSupplier;
 use App\Models\MsProduct;
 use App\Models\MsStock;
 
+use App\Exports\BuyingExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 class BuyingController extends Controller
@@ -93,15 +97,16 @@ class BuyingController extends Controller
         $data->item_price = $request->item_price;
         $data->delivery_fee= $request->delivery_fee;
         $data->item_status= 'pending';
-
-        $data->total_price = $request->total_price;
-        $total = $request->qty * $request->item_price + $request->delivery_fee;
-        $data->total_price = $total;
+        $data->total_price_item = $request->total_price_item;
+        $data->total_all_price = $request->total_all_price;
+        // $data->total_price_item = $request->total_price_item;
+        // $total = $request->qty * $request->item_price + $request->delivery_fee;
+        // $data->total_price_item = $total;
         $data->save();
 
 
         if ($data) {
-            return redirect(route('buying.index'));
+            return redirect(route('buying.index'))->with("sukses_create_buying",'Yeyyy, Data Anda Berhasil Di Tambahkan');
         }
 
     }
@@ -114,7 +119,8 @@ class BuyingController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = MsBuying::find($id);
+        return view("details_buying", compact('data'));
     }
 
     /**
@@ -150,7 +156,7 @@ class BuyingController extends Controller
     {
         $data = MsBuying::find($id)->delete();
 
-        return redirect(route('buying.index'));
+        return redirect(route('buying.index'))->with("sukses_delete_buying",'Yeyyy, Data Anda Berhasil Di Hapus');
     }
 
     private function noInvoice($length = 10)
@@ -178,5 +184,37 @@ class BuyingController extends Controller
 
         return redirect(route('buying.index'));
     }
+
+
+    public function detail_buying_pdf($id){
+        $data = MsBuying::find($id);
+        $pdf = \PDF::loadView('pdf.download_detail_buying' , compact('data'));
+        return $pdf->download('Buying'.$data->no_invoice.'.pdf');
+    }
+
+
+    private function code_download($length = 10)
+    {
+        $char = '0123456789';
+        $char_length = strlen($char);
+        $random_string = '';
+        for($i=0; $i < $length; $i++){
+            $random_string .= $char[rand(0,$char_length-1)];
+        }
+        return $random_string;
+    }
+
+    public function data_pdf_buying(){
+        $data = MsBuying::all();
+        $pdf = \PDF::loadView('pdf.download_buying' , compact('data'))->setPaper('a4')->setOrientation('landscape');
+        return $pdf->download('BuyingDownload-'.$this->code_download(10).'.pdf');
+    }
+
+    public function export_buying() 
+    {
+        return Excel::download(new BuyingExport, 'buying.xlsx');
+    }
+
+
     
-}
+} 

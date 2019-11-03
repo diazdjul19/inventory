@@ -1,68 +1,99 @@
-@extends('layouts.app')
+@extends('layouts.master-admin ')
 
-@section('content')
+@section('wrapper')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-12 grid-margin">
             <div class="card">
-                {{-- <div class="card-header">Dashboard 
-                    <a href="{{route('category.create')}}">Tambah Category</a>
-                </div> --}}
-
                 <div class="card-body">
-                <h1 class="mb-3">Edit Product</h1>   
-                <form action="{{route('product.update', $data->id)}}" method="POST">
+                <h3 class="card-title">Edit Product</h3>
+                <form class="form-sample" action="{{route('product.update', $data->id)}}" method="POST">
                     {{method_field('put')}}
                     @csrf
-                    
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Category</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="id_category">
-                        <optgroup label="Kategori Lama">
-                            <option  value="{{$data->category->id}}">{{$data->category->category_name}}</option>
-                        </optgroup>  
-                        <optgroup label="Kategori Baru">  
-                            @foreach ($category as $item)
-                                <option value="{{$item->id}}">{{$item->category_name}}</option>
-                            @endforeach
-                        </optgroup>
-                        </select>
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Category</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="exampleFormControlSelect1" name="id_category">
+                                                <optgroup label="Kategori Lama">
+                                                    <option  value="{{$data->category->id}}">{{$data->category->category_name}}</option>
+                                                </optgroup>  
+                                                <optgroup label="Kategori Baru">  
+                                                    @foreach ($category as $item)
+                                                        <option value="{{$item->id}}">{{$item->category_name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Product Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="product_name" class="form-control" id="exampleInputEmail1"  placeholder=" Product" value="{{$data->product_name}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Code Product</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="product_code" class="form-control" id="exampleInputEmail1"  placeholder=" Product Code" value="{{$data->product_code}}">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Harga Barang</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="item_price" class="form-control" id="exampleInputEmail1"  placeholder="Item Price" value="{{$data->item_price}}">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Foto Product</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo" value="{{$data->product_photo}}">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">                      
+                                <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Tgl Registrasi</label>
+                                <div class="col-sm-9">
+                                    <input type="date" name="registration_date" class="form-control" id="exampleInputEmail1"  placeholder=" Registration Date" value="{{$data->registration_date}}">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                            <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Satuan Barang</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="pcs" class="form-control" id="exampleInputEmail1"  placeholder="Satuan Barang" value="{{$data->pcs}}">
+                            </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nama Product</label>
-                        <input type="text" name="product_name" class="form-control" id="exampleInputEmail1"  placeholder=" Product" value="{{$data->product_name}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Code Product</label>
-                        <input type="text" name="product_code" class="form-control" id="exampleInputEmail1"  placeholder=" Product Code" value="{{$data->product_code}}">
-                    </div>
-
-                    
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Harga Barang</label>
-                        <input type="text" name="item_price" class="form-control" id="exampleInputEmail1"  placeholder="Item Price"  value="{{$data->item_price}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Foto Product</label>
-                        <input type="text" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo" value="{{$data->product_photo}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tanggal Registrasi</label>
-                        <input type="date" name="registration_date" class="form-control" id="exampleInputEmail1"  placeholder=" Registration Date" value="{{$data->registration_date}}">
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
                 </div>
             </div>
         </div>
     </div>
-
+    </div>
+</div>
 
 </div>
 @endsection

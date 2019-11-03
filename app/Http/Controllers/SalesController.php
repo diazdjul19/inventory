@@ -11,6 +11,9 @@ use App\Models\MsProduct;
 use App\Models\MsCustomer;
 use App\Models\MsStock;
 
+use App\Exports\SalesExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 
@@ -84,7 +87,7 @@ class SalesController extends Controller
         $stock = MsStock::where('product_id', $request->item_id)->first();
         $stock_awal = $stock->jml_barang;
         if ($stock_awal < $request->qty) {
-            return redirect(route('sales.index'))->with('stock_kurang', 'Maaf Kami Kekurangan Stock :(');
+            return redirect(route('sales.index'))->with('stock_kurang', 'Maaf Kami Kekurangan Stock');
         }   
         $stock_akhir = $stock_awal - $request->qty;
         $stock->update(['jml_barang' => $stock_akhir]);
@@ -97,6 +100,8 @@ class SalesController extends Controller
         $data->customers = $request->customers;
         $data->qty = $request->qty;
         $data->item_price = $request->item_price;
+        $data->total_price = $request->total_price;
+
 
 
         $data->payment_nominal = $request->payment_nominal;
@@ -127,7 +132,8 @@ class SalesController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = MsSales::find($id);
+        return view("details_sales", compact('data'));
     }
 
     /**
@@ -156,12 +162,14 @@ class SalesController extends Controller
     public function update(Request $request, $id)
     {
         $data = MsSales::find($id);
-        
-        if ($data) {
 
-        
+
+        if ($data) {
             $data->update($request->all());
-            return redirect(route('sales.index'));
+
+            $alsal = $data->no_invoice;
+
+            return redirect(route('sales.index'))->with('sukses_edit_sales', "Yeyy, Data Dengan No Invoive $alsal Telah Berhasil Kami Edit");
 
         } else {
             # code...
@@ -177,9 +185,12 @@ class SalesController extends Controller
      */
     public function destroy($id)
     {
-        $data = MsSales::find($id)->delete();
 
-        return redirect(route('sales.index'));
+        $data = MsSales::find($id);
+        $alha = $data->no_invoice;
+
+        $data = MsSales::find($id)->delete();
+        return redirect(route('sales.index'))->with('sukses_delete_sales', "Yeyy, Data Dengan No Invoive $alha Telah Berhasil Kami Hapus");;
     }
 
 
@@ -192,6 +203,54 @@ class SalesController extends Controller
             $random_string .= $char[rand(0,$char_length-1)];
         }
         return $random_string;
+    }
+
+
+    public function getprice(Request $request)
+    {
+        $data = MsProduct::find($request->id);
+        return response()->json($data, 200);
+    }
+
+    
+    // public function generatePDF(){
+        
+    //     $data = ['title' => 'Selamat Datang Di Report Sales'];
+
+    //     $pdf = MsSales::loadView('pdf_sales', $data);
+    //     return $pdf->download('laporan-pdf.pdf');
+    // }
+    
+    public function detailpdf($id){
+        $data = MsSales::find($id);
+        $pdf = \PDF::loadView('pdf.download_detail_sales' , compact('data'));
+        return $pdf->download('Sales'.$data->no_invoice.'.pdf');
+    }
+
+
+    
+    private function code_download($length = 10)
+    {
+        $char = '0123456789';
+        $char_length = strlen($char);
+        $random_string = '';
+        for($i=0; $i < $length; $i++){
+            $random_string .= $char[rand(0,$char_length-1)];
+        }
+        return $random_string;
+    }
+
+
+
+    public function data_pdf_sales(){
+        $data = MsSales::all();
+        $pdf = \PDF::loadView('pdf.download_sales' , compact('data'))->setPaper('a4')->setOrientation('landscape');
+        return $pdf->download('SalesDownload-'.$this->code_download(10).'.pdf');
+    }
+
+    public function export_sales() 
+    {
+        return Excel::download(new SalesExport, 'sales.xlsx');
     }
 
 

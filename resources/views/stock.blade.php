@@ -1,6 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+
+@section('form')
+<form class="search-form d-none d-md-block" action="/search_stock" method="GET">
+    <i class="icon-magnifier"></i>
+    <input type="search" name="search" class="form-control" placeholder="Search Here" title="Search here" autocomplete="off">
+</form>
+@endsection
+
+
+
+@section('wrapper')
 <div class="container">
 
     @if(session('sukses_create_stock'))
@@ -25,29 +35,25 @@
     @endif
     
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-header">Dashboard 
-                    <a href="{{route('stock.create')}}">Tambah Stock</a>
-
-                    <form class="form-inline float-right" action="/search_stock" method="GET">
-                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" autocomplete="off">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-
+            <div class="card-body">
+                <div class="d-sm-flex align-items-center mb-4">
+                    <h4 class="card-title mb-sm-0">Stock Inventory</h4>
+                    <a href="{{route("stock.create")}}" class="btn btn-primary btn-fw ml-auto mb-3 mb-sm-0"> <i class="icon-plus mr-1"></i> Create Stock</a>
                 </div>
-
-                <div class="card-body table-responsive">
-                    <table class="table table-hover table-striped ">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Product</th>
-                            <th>Jumlah Barang</th>
-                            <th>Tanggal Update</th>
-                            <th>Action</th>
-
-                        </tr>
-                
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="font-weight-bold"> No </th>
+                        <th class="font-weight-bold"> Nama Product </th>
+                        <th class="font-weight-bold"> Jumlah Barang </th>
+                        <th class="font-weight-bold"> Tanggal Update </th>
+                        <th class="font-weight-bold"> Action </th>
+                    </tr>
+                    </thead>
+                    <tbody>
                         @foreach ($data as $d)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
@@ -56,15 +62,24 @@
                                 <td>{{$d->tgl_update}}</td>
                                 
                                 <td>
-                                    <a href="{{route('stock.edit', $d->id)}}">Edit |</a>
-                                    <a href="{{route('stock.destroy', $d->id)}}">Delete</a>
+                                    <a class="btn btn-success btn-rounded btn-sm" href="{{route('stock.edit', $d->id)}}"><i class="icon-note"></i> Edit</a>
+                                    <a class="btn btn-danger btn-rounded btn-sm" href="{{route('stock.destroy', $d->id)}}"><i class="icon-trash"></i> Delete</a>
                                 </td>
 
 
                             </tr>
                         @endforeach
-                        
+                    </tbody>
                 </table>
+            </div>
+            </div>
+                <div class="d-flex mt-2 mr-5 flex-wrap">
+                    <nav class="ml-auto">
+                    <ul class="pagination separated pagination-info">
+                        <li class="page-item">{{$data->links()}}</li>
+                        
+                    </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -73,9 +88,8 @@
 
 </div>
 
-<nav aria-label="Page navigation example" class="mt-3">
-    <ul class="pagination justify-content-center">
-        {{$data->links()}}
-    </ul>
-</nav>
+
 @endsection
+
+
+

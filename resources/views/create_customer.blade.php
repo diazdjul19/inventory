@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+@section('wrapper')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -10,7 +10,7 @@
                 </div> --}}
 
                 <div class="card-body">
-                <h1 class="mb-3">Tambah Customer</h1>   
+                <h3 class="mb-3">Tambah Customer</h3>   
                 <form action="{{route('customer.store')}}" method="POST">
                     @csrf
                     <div class="form-group">

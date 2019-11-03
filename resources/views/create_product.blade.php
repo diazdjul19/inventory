@@ -1,61 +1,92 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+@section('wrapper')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                {{-- <div class="card-header">Dashboard 
-                    <a href="{{route('category.create')}}">Tambah Category</a>
-                </div> --}}
-
-                <div class="card-body">
-                <h1 class="mb-3">Tambah Product</h1>   
-                <form action="{{route('product.store')}}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Category ID</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="id_category">
-                        <option>-- Pilih Category --</option>
-                        @foreach ($category as $item)
-                        <option value="{{$item->id}}">{{$item->category_name}}</option>
-                        @endforeach
-                        </select>
+        <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+            <h3 class="card-title">Create Product</h3>
+            <form class="form-sample" action="{{route('product.store')}}" method="POST">
+                @csrf
+                    <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="exampleFormControlSelect1" name="id_category">
+                                            <option>-- Pilih Category --</option>
+                                            @foreach ($category as $item)
+                                                <option value="{{$item->id}}">{{$item->category_name}}</option>
+                                            @endforeach
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Product Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="product_name" class="form-control" id="exampleInputEmail1"  placeholder=" Product">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Code Product</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="product_code" class="form-control" id="exampleInputEmail1"  placeholder=" Product Code">
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Harga Barang</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="item_price" class="form-control" id="exampleInputEmail1"  placeholder="Item Price">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                            <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Foto Product</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">                      
+                            <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Tgl Registrasi</label>
+                            <div class="col-sm-9">
+                                <input type="date" name="registration_date" class="form-control" id="exampleInputEmail1"  placeholder=" Registration Date">
+                            </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Nama Product</label>
-                        <input type="text" name="product_name" class="form-control" id="exampleInputEmail1"  placeholder=" Product">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                            <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Satuan Barang</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="pcs" class="form-control" id="exampleInputEmail1"  placeholder="Satuan Barang">
+                            </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Code Product</label>
-                        <input type="text" name="product_code" class="form-control" id="exampleInputEmail1"  placeholder=" Product Code">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Harga Barang</label>
-                        <input type="text" name="item_price" class="form-control" id="exampleInputEmail1"  placeholder="Item Price">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Foto Product</label>
-                        <input type="text" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tanggal Registrasi</label>
-                        <input type="date" name="registration_date" class="form-control" id="exampleInputEmail1"  placeholder=" Registration Date">
-                    </div>
-
 
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+            </form>
             </div>
         </div>
+        </div>
+
     </div>
-
-
 </div>
 @endsection

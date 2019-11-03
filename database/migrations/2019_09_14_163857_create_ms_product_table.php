@@ -20,6 +20,8 @@ class CreateMsProductTable extends Migration
             $table->string('product_code');
             $table->string('product_photo');
             $table->date('registration_date');
+            $table->date('pcs');
+
 
             $table->timestamps();
         });

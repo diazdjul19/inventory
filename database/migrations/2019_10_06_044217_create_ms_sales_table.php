@@ -25,6 +25,7 @@ class CreateMsSalesTable extends Migration
 
 
 
+
             $table->timestamps();
         });
     }

@@ -1,12 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+@section('wrapper')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Edit
-                
+            
+                <div class="d-sm-flex align-items-center mb-4">
+                    <h4 class="card-title mb-sm-0">Edit Category</h4>
                 </div>
 
                 <div class="card-body">

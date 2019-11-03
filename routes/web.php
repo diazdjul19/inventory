@@ -11,8 +11,33 @@
 |
 */
 
+// Route::get('/testpdf', function(){
+//     $data = [
+//         'nama' => 'diaz',
+//         'tempat' => 'IDC3D'
+//     ];
+//     $no_invoice = 'NoCode-123456789';
+//     $pdf = \PDF::loadView('pdf.test' , compact('data'));
+//     return $pdf->download($no_invoice.'.'.'pdf');
+// });
+
+// export exel
+Route::get('/export_sales', 'SalesController@export_sales')->name('export_sales');
+Route::get('/export_buying', 'BuyingController@export_buying')->name('export_buying');
+
+
+// pdf
+    // sales
+    Route::get('/generatepdf/{id}/','SalesController@detailpdf')->name('generatepdf');
+    Route::get('/datasales','SalesController@data_pdf_sales')->name('datasales');
+
+    // buying
+    Route::get('/generate_detail_buying/{id}/','BuyingController@detail_buying_pdf')->name('generate_detail_buying');
+    Route::get('/data_buying','BuyingController@data_pdf_buying')->name('data_buying');
+// akhir pdf
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -61,6 +86,14 @@ Route::get('/search_buying', "BuyingController@search");
 Route::get('buying/approve/{id}', "BuyingController@approve")->name("buying.approve");
 Route::get('buying/cancel/{id}', "BuyingController@cancel")->name("buying.cancel");
 
+
+
+// report pdf
+// Route::get('laporan_pdf','SalesController@generatePDF');
+
+
+// ajax
+Route::get('/get_item', "SalesController@getprice");
 
 
 Route::get('testing',function(){

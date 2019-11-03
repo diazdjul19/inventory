@@ -107,11 +107,16 @@ class CustomerController extends Controller
     {
         $data = MsCustomer::find($id);
         
+
         if ($data) {
 
             $data->update($request->all());
 
-            return redirect(route('customer.index'));
+            $result_name = $request->name;
+            $result_email = $request->email;
+
+
+            return redirect(route('customer.index'))->with('sukses_edit_customer',"Data Dengan Nama $result_name Dan Email $result_email, Telah Berhasil Di Edit");
         } else {
             # code...
         }
@@ -126,11 +131,15 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $data = MsCustomer::find($id)->delete();
+        $data = MsCustomer::find($id);
+        $result_name = $data->name;
+        $result_email = $data->email;
 
+
+        $data = MsCustomer::find($id)->delete();
         // $haco = $data->product_code;
         // $data = MsProduct::find($id)->delete();
 
-        return redirect(route('customer.index'));
+        return redirect(route('customer.index'))->with('sukses_delete_customer',"Data Dengan Nama $result_name Dan Email $result_email, Telah Berhasil Di Hapus");
     }
 }

@@ -16,9 +16,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $data_peginate = MsSupplier::paginate(5);
-        $data = MsSupplier::all();
-        return view('supplier', compact('data','data_peginate'));
+        $data = MsSupplier::paginate(5);
+        return view('supplier', compact('data'));
     }
 
 
@@ -65,7 +64,7 @@ class SupplierController extends Controller
         $data = MsSupplier::create($request->all());
 
         if ($data) {
-            return redirect(route('supplier.index'));
+            return redirect(route('supplier.index'))->with('sukses_create_supplier',"Data Berhasil Di Tambah");
         }
     }
 
@@ -77,7 +76,8 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = MsSupplier::find($id);
+        return view('details_supplier', compact('data'));
     }
 
     /**
@@ -107,7 +107,7 @@ class SupplierController extends Controller
 
             $data->update($request->all());
 
-            return redirect((route('supplier.index')));
+            return redirect((route('supplier.index')))->with('sukses_edit_supplier',"Data Berhasil Di Edit");
         }else {
             # code...
         }
@@ -122,6 +122,6 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $data = MsSupplier::find($id)->delete();
-        return redirect(route('supplier.index'));
+        return redirect(route('supplier.index'))->with('sukses_delete_supplier',"Data Berhasil Di Hapus");
     }
 }

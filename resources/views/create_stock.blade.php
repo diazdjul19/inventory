@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+@section('wrapper')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
 
                 <div class="card-body">
-                <h1 class="mb-3">Tambah Stock</h1>   
+                <h3 class="mb-3">Tambah Stock</h3>   
                 <form action="{{route('stock.store')}}" method="POST">
                     @csrf
                     <div class="form-group">

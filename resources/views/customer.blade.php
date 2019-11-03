@@ -1,6 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+
+@section('form')
+<form class="search-form d-none d-md-block" action="/search_customer" method="GET">
+    <i class="icon-magnifier"></i>
+    <input type="search" name="search" class="form-control" placeholder="Search Here" title="Search here" autocomplete="off">
+</form>
+@endsection
+
+@section('wrapper')
 <div class="container">
 
     @if(session('sukses_create_customer'))
@@ -10,72 +18,73 @@
         </div>
     @endif
 
-{{-- 
-    @if(session('sukses_edit_product'))
+
+    @if(session('sukses_edit_customer'))
         <div class="alert alert-primary" role="alert" style="text-align:center">
             <h4 class="alert-heading">Data Berhasil Di Edit</h4> 
-            <p>{{session('sukses_edit_product')}}&#128523;</p>
+            <p>{{session('sukses_edit_customer')}}&#128523;</p>
         </div>
     @endif
 
-    @if(session('sukses_hapus_product'))
+    @if(session('sukses_delete_customer'))
         <div class="alert alert-danger" role="alert" style="text-align:center">
             <h4 class="alert-heading">Data Berhasil Di Hapus</h4> 
-            <p>{{session('sukses_hapus_product')}}&#128517;</p>
+            <p>{{session('sukses_delete_customer')}}&#128517;</p>
         </div>
-    @endif --}}
+    @endif
 
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <div class="card-header">Dashboard 
-                    <a href="{{route('customer.create')}}"> Tambah Data Customer</a>
-
-                    <form class="form-inline float-right" action="/search_customer" method="GET">
-                        <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" autocomplete="off">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-
-                <div class="card-body table-responsive">
-                    <table class="table table-hover table-striped ">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama </th>
-                            <th>Email </th>
-                            <th>No HP</th>
-                            <th>Alamat</th>
-                            <th>Action</th>
-
-                        </tr>
-                        
-                        
-                        @foreach ($data as $dc)
+                <div class="card-body">
+                    <div class="d-sm-flex align-items-center mb-4">
+                        <h4 class="card-title mb-sm-0">Customer Inventory</h4>
+                        <a href="{{route("customer.create")}}" class="btn btn-primary btn-fw ml-auto mb-3 mb-sm-0"> <i class="icon-plus mr-1"></i> Create Customer</a>
+                    </div>
+                    <div class="table-responsive border rounded p-1">
+                        <table class="table">
+                        <thead>
                             <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$dc->name}}</td>
-                                <td>{{$dc->email}}</td>
-                                <td>{{$dc->no_hp}}</td>
-                                <td>{{$dc->address}}</td>
-
-                                <td>
-                                    <a href="{{route('customer.edit', $dc->id)}}">Edit |</a>
-                                    <a href="{{route('customer.destroy', $dc->id)}}">Delete</a>
-                                </td>
+                            <th class="font-weight-bold">No</th>
+                            <th class="font-weight-bold">Nama</th>
+                            <th class="font-weight-bold">Email</th>
+                            <th class="font-weight-bold">No HP</th>
+                            <th class="font-weight-bold">Alamat</th>
+                            <th class="font-weight-bold">Action</th>
                             </tr>
-                        @endforeach
-                        
-                </table>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($data as $dc)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$dc->name}}</td>
+                                    <td>{{$dc->email}}</td>
+                                    <td>{{$dc->no_hp}}</td>
+                                    <td>{{$dc->address}}</td>
+
+                                    <td>
+                                        <a class="btn btn-success btn-rounded btn-sm" href="{{route('customer.edit', $dc->id)}}"><i class="icon-note"></i> Edit</a>
+                                        <a class="btn btn-danger btn-rounded btn-sm" href="{{route('customer.destroy', $dc->id)}}"><i class="icon-trash"></i> Delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex mt-2 mr-5 flex-wrap">
+                        <nav class="ml-auto">
+                        <ul class="pagination separated pagination-info">
+                            <li class="page-item">{{$data->links()}}</li>
+                            
+                        </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>   
+</div>     
 
-
-<nav aria-label="Page navigation example" class="mt-3">
-    <ul class="pagination justify-content-center">
-        {{$data->links()}}
-    </ul>
-</nav> 
 @endsection
