@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Models\MsProduct;
 use App\Models\MsCategory;
 
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 class ProductController extends Controller
@@ -41,7 +45,7 @@ class ProductController extends Controller
                 ->orWhere('item_price','LIKE','%'.$search.'%')
                 ->orWhere('product_photo','LIKE','%'.$search.'%')
                 ->orWhere('registration_date','LIKE','%'.$search.'%')
-                ->orWhere('pcs','LIKE','%'.$search.'%');
+                ->orWhere('satuan','LIKE','%'.$search.'%');
         })->paginate(10);
 
         return view('product',compact('data'));
@@ -74,7 +78,8 @@ class ProductController extends Controller
         $data->product_name = $request->product_name;
         $data->product_code = 'Product-'.$this->productCode(10);
         $data->item_price = $request->item_price;
-        $data->pcs = $request->pcs;
+        $data->satuan = $request->satuan;
+        $data->stock = $request->stock;
         $data->product_photo = $request->product_photo;
         $data->registration_date = $request->registration_date;
         $data->save();
@@ -182,6 +187,11 @@ class ProductController extends Controller
         return $random_string;
     }
 
+
+    public function export_product() 
+    {
+        return Excel::download(new ProductExport, 'Product.xlsx');
+    }
 
 
 

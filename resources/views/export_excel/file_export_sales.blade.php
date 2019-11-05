@@ -16,6 +16,7 @@
                 <th class="font-weight-bold">Nama Product</th>
                 <th class="font-weight-bold">Harga Per Item</th>
                 <th class="font-weight-bold">Jumlah Barang</th>
+                <th class="font-weight-bold">Satuan Barang</th>
                 <th class="font-weight-bold">Tanggal Dan Waktu Penjualan</th>
                 <th class="font-weight-bold">Nominal Pembayaran</th>
                 <th class="font-weight-bold">Total Harga</th>
@@ -31,6 +32,7 @@
                     <td>{{$item->product['product_name']}}</td>
                     <td>Rp. {{number_format($item->item_price,2,',','.')}}</td>
                     <td>{{$item->qty}}</td>
+                    <td>{{$item->satuan}}</td>
                     <td>{{$item->created_at}}</td>
                     <td>Rp. {{number_format($item->payment_nominal,2,',','.')}}</td>
                     <td>Rp. {{number_format($item->total_price,2,',','.')}}</td>

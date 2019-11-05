@@ -37,38 +37,41 @@
             <div class="card-body">
                 <div class="d-sm-flex align-items-center mb-4">
                     <h4 class="card-title mb-sm-0">Product Inventory</h4>
-                    <a href="{{route("product.create")}}" class="btn btn-primary btn-fw ml-auto mb-3 mb-sm-0"> <i class="icon-plus mr-1"></i> Create Product</a>
+                        <a href="{{route("export_product")}}" class="btn btn-success btn-icon-text btn-sm ml-auto mb-3 mb-sm-0 mr-3">Export Exel <i class="fas fa-file-excel btn-icon-append"></i></a>
+                        <a href="{{route("product.create")}}" class="btn btn-primary btn-fw"> <i class="icon-plus mr-1"></i> Create Product</a>
                 </div>
-            <div class="table-responsive">
-                <table class="table table-bordered" border="1px solid black">
+            <div class="table-responsive border rounded p-1">
+                <table class="table table-bordered  table-striped" border="1px solid black">
                     <thead>
                     <tr  class="table-info">
-                        <th>No</th>
-                        <th>Category</th>
-                        <th>Nama Product</th>
-                        <th>Pcs</th>
-                        <th>Kode Product</th>
-                        <th>Harga Barang</th>
-                        <th>Foto Product</th>
-                        <th>Tgl Registrasi</th>
-                        <th>Action</th>
+                        <th class="font-weight-bold">No</th>
+                        <th class="font-weight-bold">Category</th>
+                        <th class="font-weight-bold">Kode Product</th>
+                        <th class="font-weight-bold">Nama Product</th>
+                        <th class="font-weight-bold">Jumlah Stock</th>
+                        <th class="font-weight-bold">Satuan</th>
+                        <th class="font-weight-bold">Harga Per Barang</th>
+                        <th class="font-weight-bold">Foto Product</th>
+                        <th class="font-weight-bold">Tgl Registrasi</th>
+                        <th class="font-weight-bold text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($data as $d)
-                        <tr  class="table-primary">
+                        <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$d->category->category_name}}</td>
-                            <td>{{$d->product_name}}</td>
-                            <td>{{$d->pcs}}</td>
                             <td>{{$d->product_code}}</td>
+                            <td>{{$d->product_name}}</td>
+                            <td class="text-center">{{number_format($d->stock,'0','','.')}}</td>
+                            <td>{{$d->satuan}}</td>
                             <td>Rp. {{number_format($d->item_price,'2',',','.')}}</td>
                             <td>{{$d->product_photo}}</td>
                             <td>{{$d->registration_date}}</td>
 
                             <td>
-                                <a class="btn btn-success btn-rounded btn-sm" href="{{route('product.edit', $d->id)}}"><i class="icon-note"></i></a>
-                                <a class="btn btn-danger btn-rounded btn-sm" href="{{route('product.destroy', $d->id)}}"><i class="icon-trash"></i></a>
+                                <a class="btn btn-success btn-rounded btn-sm" href="{{route('product.edit', $d->id)}}"><i class="icon-note"></i> Edit</a>
+                                <a class="btn btn-danger btn-rounded btn-sm" href="{{route('product.destroy', $d->id)}}"><i class="icon-trash"></i> Delete</a>
                             </td>
                         </tr>
                     @endforeach

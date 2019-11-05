@@ -39,7 +39,7 @@
                                 <div class="form-group row">
                                     <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Harga Per Item (Rp)</label>
                                     <div class="col-sm-9">
-                                        <input type="number"  name="item_price" class="form-control" id="harga_per_item"  placeholder="item_price" autocomplete="off">
+                                        <input type="number"  name="item_price" readonly class="form-control" id="harga_per_item"  placeholder="item_price" autocomplete="off">
                                     </div>
                                 </div>
 
@@ -47,6 +47,13 @@
                                     <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Jumlah Barang</label>
                                     <div class="col-sm-9">
                                     <input type="number" name="qty" class="form-control" id="quantity"  placeholder="Quantity" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="satuan_barang">Satuan Barang</label>
+                                    <div class="col-sm-9">
+                                    <input type="text" name="satuan" readonly class="form-control" id="satuan_barang"  placeholder="Satuan Barang" autocomplete="off">
                                     </div>
                                 </div>
                                 
@@ -68,7 +75,7 @@
                                         <li class="list-group-item">
                                             <div class="form-group">
                                                 <label for="total_harga">Total Harga (Rp)</label>
-                                                <input type="number" name="total_price" class="form-control" id="total_harga"  placeholder="total_price" autocomplete="off">
+                                                <input type="number" name="total_price" readonly class="form-control" id="total_harga"  placeholder="total_price" autocomplete="off">
                                             </div>
 
                                             <div class="form-group">
@@ -121,6 +128,8 @@
             success: function (response) {
                 // console.log(response);
                 $('#harga_per_item').val(response.item_price);
+                $('#satuan_barang').val(response.satuan);
+
             },
             error: function (response) {
                 console.log(response);

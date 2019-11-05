@@ -14,13 +14,16 @@ class CreateMsProductTable extends Migration
     public function up()
     {
         Schema::create('ms_product', function (Blueprint $table) {
-            $table->Increments('id_product');
+            $table->Increments('id');
             $table->integer('id_category');
             $table->string('product_name');
             $table->string('product_code');
+            $table->string('item_price');
+            $table->string('status');
+            $table->string('stock');
             $table->string('product_photo');
             $table->date('registration_date');
-            $table->date('pcs');
+            
 
 
             $table->timestamps();

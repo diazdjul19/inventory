@@ -83,14 +83,24 @@ class SalesController extends Controller
     public function store(Request $request)
     {
 
+        // SCRIPT SEBELUM MENU UNTUK STOCK DI HILANGKAN
+        // $stock = MsStock::where('product_id', $request->item_id)->first();
+        // $stock_awal = $stock->jml_barang;
+        // if ($stock_awal < $request->qty) {
+        //     return redirect(route('sales.index'))->with('stock_kurang', 'Maaf Kami Kekurangan Stock');
+        // }   
+        // $stock_akhir = $stock_awal - $request->qty;
+        // $stock->update(['jml_barang' => $stock_akhir]);
 
-        $stock = MsStock::where('product_id', $request->item_id)->first();
-        $stock_awal = $stock->jml_barang;
+
+        // SCRIPT SETELAH MENU STOCK DI GANTI KE PRODUCT
+        $stock = MsProduct::where('id', $request->item_id)->first();
+        $stock_awal = $stock->stock;
         if ($stock_awal < $request->qty) {
             return redirect(route('sales.index'))->with('stock_kurang', 'Maaf Kami Kekurangan Stock');
         }   
         $stock_akhir = $stock_awal - $request->qty;
-        $stock->update(['jml_barang' => $stock_akhir]);
+        $stock->update(['stock' => $stock_akhir]);
 
 
 
@@ -99,6 +109,7 @@ class SalesController extends Controller
         $data->item_id = $request->item_id;
         $data->customers = $request->customers;
         $data->qty = $request->qty;
+        $data->satuan = $request->satuan;
         $data->item_price = $request->item_price;
         $data->total_price = $request->total_price;
 
@@ -250,7 +261,7 @@ class SalesController extends Controller
 
     public function export_sales() 
     {
-        return Excel::download(new SalesExport, 'sales.xlsx');
+        return Excel::download(new SalesExport, 'Sales.xlsx');
     }
 
 

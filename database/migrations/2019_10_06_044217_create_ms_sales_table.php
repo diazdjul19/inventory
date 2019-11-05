@@ -20,11 +20,10 @@ class CreateMsSalesTable extends Migration
             $table->integer('customers');
             $table->string('qty');
             $table->string('item_price');
+            $table->string('total_price');
+            $table->string('satuan');
             $table->string('payment_nominal');
             $table->string('return_nominal');
-
-
-
 
             $table->timestamps();
         });

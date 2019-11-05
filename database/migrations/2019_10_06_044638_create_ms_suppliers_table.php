@@ -23,6 +23,8 @@ class CreateMsSuppliersTable extends Migration
             $table->string('country');
             $table->string('zib_code');
             $table->string('bank_name');
+            $table->string('districts');
+            $table->string('city');
             $table->timestamps();
         });
     }

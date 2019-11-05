@@ -124,6 +124,13 @@
                                     <input type="number" name="qty" class="form-control" id="quantity"  placeholder="Quantity" autocomplete="off" value="{{$data->qty}}">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="satuan_barang">Satuan Barang</label>
+                                    <div class="col-sm-9">
+                                    <input type="text" name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang" autocomplete="off" value="{{$data->satuan}}">
+                                    </div>
+                                </div>
                                 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 

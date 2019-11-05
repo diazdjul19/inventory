@@ -93,9 +93,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Nama Item</label>
+                                    <label class="col-sm-3 col-form-label" for="item_id">Nama Item</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="exampleFormControlSelect1" name="item_id">
+                                        <select class="form-control" id="item_id" name="item_id">
                                             <option>-- Pilih Nama Item --</option>
                                                 @foreach ($data_product as $item)
                                                     <option value="{{$item->id}}">{{$item->product_name}}</option>
@@ -115,6 +115,13 @@
                                     <label class="col-sm-3 col-form-label" for="qty">Jumlah Barang</label>                                   
                                     <div class="col-sm-9">
                                         <input type="number" name="qty" class="form-control" id="jumlah_barang"  placeholder="Quantity ">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="satuan_harga">Jumlah Barang</label>                                   
+                                    <div class="col-sm-9">
+                                        <input type="text" name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang ">
                                     </div>
                                 </div>
 
@@ -161,6 +168,27 @@
 
 @push('script')
     <script>
+
+        $('#item_id').on('change', function(){
+            var id = $(this).children('option:selected').val();
+
+            $.ajax({
+            url: '/satuan_barang',
+            method : 'get',
+            type : 'json',
+            data: {
+                id: id
+            },
+            success: function (response) {
+                // console.log(response);
+                $('#satuan_barang').val(response.satuan);
+            },
+            error: function (response) {
+                console.log(response);
+            }
+
+            })
+        })
 
 
         $('#jumlah_barang'). on('keyup', function(){

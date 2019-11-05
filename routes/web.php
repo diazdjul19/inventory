@@ -24,6 +24,8 @@
 // export exel
 Route::get('/export_sales', 'SalesController@export_sales')->name('export_sales');
 Route::get('/export_buying', 'BuyingController@export_buying')->name('export_buying');
+Route::get('/export_product', 'ProductController@export_product')->name('export_product');
+
 
 
 // pdf
@@ -92,8 +94,11 @@ Route::get('buying/cancel/{id}', "BuyingController@cancel")->name("buying.cancel
 // Route::get('laporan_pdf','SalesController@generatePDF');
 
 
-// ajax
+// ajax sales
 Route::get('/get_item', "SalesController@getprice");
+
+// ajax buying
+Route::get('/satuan_barang', "BuyingController@satuan_barang");
 
 
 Route::get('testing',function(){

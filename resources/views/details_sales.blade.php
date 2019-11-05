@@ -39,6 +39,10 @@
                                         <td>{{$data->qty}}</td>
                                     </tr>
                                     <tr>
+                                        <th>Satuan Barang</th>
+                                        <td>{{$data->satuan}}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Tanggal & Waktu Penjualan</th>
                                         <td>{{$data->created_at}}</td>
                                     </tr>

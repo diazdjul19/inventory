@@ -42,6 +42,10 @@
                             <td>Rp. {{number_format($data->item_price,2,',','.')}}</td>
                         </tr>
                         <tr>
+                            <th>Satuan Barang</th>
+                            <td>{{$data->satuan}}</td>
+                        </tr>
+                        <tr>
                             <th>Jumlah Barang</th>
                             <td>{{$data->qty}}</td>
                         </tr>

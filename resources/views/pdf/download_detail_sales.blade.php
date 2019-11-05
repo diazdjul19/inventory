@@ -46,6 +46,10 @@
                             <td>{{$data->qty}}</td>
                         </tr>
                         <tr>
+                            <th>Satuan Barang</th>
+                            <td>{{$data->satuan}}</td>
+                        </tr>
+                        <tr>
                             <th>Total Harga</th>
                             <td>Rp. {{number_format($data->total_price,2,',','.')}}</td>
                         </tr>

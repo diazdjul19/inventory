@@ -28,6 +28,7 @@
                             <th>Nama Product</th>
                             <th>Harga Per Item</th>
                             <th>Jumlah Barang</th>
+                            <th>Satuan Barang</th>
                             <th>Tanggal & Waktu Penjualan</th>
                             <th>Total Harga</th>
                             <th>Biaya Antar</th>
@@ -40,6 +41,7 @@
                             <td>{{$d->product->product_name}}</td>
                             <td>Rp. {{number_format($d->item_price,2,',','.')}}</td>
                             <td>{{$d->qty}}</td>
+                            <td>{{$d->satuan}}</td>                            
                             <td>{{$d->created_at}}</td>
                             <td>Rp. {{number_format($d->total_price_item,2,',','.')}}</td>
                             <td>Rp. {{number_format($d->delivery_fee,2,',','.')}}</td>

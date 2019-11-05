@@ -80,7 +80,7 @@
                             <div class="form-group row">
                             <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Satuan Barang</label>
                             <div class="col-sm-9">
-                                <input type="text" name="pcs" class="form-control" id="exampleInputEmail1"  placeholder="Satuan Barang" value="{{$data->pcs}}">
+                                <input type="text" name="satuan" class="form-control" id="exampleInputEmail1"  placeholder="Satuan Barang" value="{{$data->satuan}}">
                             </div>
                             </div>
                         </div>

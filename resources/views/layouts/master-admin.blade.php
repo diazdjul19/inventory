@@ -130,12 +130,12 @@
             <i class="icon-bag menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{route('stock.index')}}">
             <span class="menu-title">Stock</span>
             <i class="icon-graph menu-icon"></i>
             </a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{route('customer.index')}}">
             <span class="menu-title">Customers</span>

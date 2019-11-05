@@ -83,10 +83,19 @@ class BuyingController extends Controller
     public function store(Request $request)
     {
 
-        $stock = MsStock::where('product_id',$request->item_id)->first();
-        $stock_awal = $stock->jml_barang;
+        // SCRIPT SEBELUM MENU UNTUK STOCK DI HILANGKAN
+        // $stock = MsStock::where('product_id',$request->item_id)->first();
+        // $stock_awal = $stock->jml_barang;
+        // $stock_akhir = $stock_awal + $request->qty;
+        // $stock->update(['jml_barang' => $stock_akhir]);
+
+        
+        // SCRIPT SETELAH MENU STOCK DI GANTI KE PRODUCT
+        $stock = MsProduct::where('id',$request->item_id)->first();
+        $stock_awal = $stock->stock;
         $stock_akhir = $stock_awal + $request->qty;
-        $stock->update(['jml_barang' => $stock_akhir]);
+        $stock->update(['stock' => $stock_akhir]);
+
 
         
         $data = new MsBuying();
@@ -94,6 +103,7 @@ class BuyingController extends Controller
         $data->supplier_id = $request->supplier_id;
         $data->item_id = $request->item_id;
         $data->qty = $request->qty;
+        $data->satuan = $request->satuan;
         $data->item_price = $request->item_price;
         $data->delivery_fee= $request->delivery_fee;
         $data->item_status= 'pending';
@@ -153,7 +163,7 @@ class BuyingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
         $data = MsBuying::find($id)->delete();
 
         return redirect(route('buying.index'))->with("sukses_delete_buying",'Yeyyy, Data Anda Berhasil Di Hapus');
@@ -186,6 +196,15 @@ class BuyingController extends Controller
     }
 
 
+    // ajax
+    public function satuan_barang(Request $request)
+    {
+        $data = MsProduct::find($request->id);
+        return response()->json($data, 200);
+    }
+
+
+
     public function detail_buying_pdf($id){
         $data = MsBuying::find($id);
         $pdf = \PDF::loadView('pdf.download_detail_buying' , compact('data'));
@@ -212,7 +231,7 @@ class BuyingController extends Controller
 
     public function export_buying() 
     {
-        return Excel::download(new BuyingExport, 'buying.xlsx');
+        return Excel::download(new BuyingExport, 'Buying.xlsx');
     }
 
 
