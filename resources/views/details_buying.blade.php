@@ -24,7 +24,7 @@
                                     </tr>
                                     <tr>
                                         <th>Nama Supplier</th>
-                                        <td>{{$data->supplier->supplier_name}}</td>
+                                        <td>{{$data->supplier}}</td>
                                     </tr>
                                     <tr>
                                         <th>Nama Product</th>
@@ -63,6 +63,7 @@
                                         <td>Rp. {{number_format($data->total_all_price,2,',','.')}}</td>
                                     </tr>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>

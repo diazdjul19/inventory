@@ -10,12 +10,17 @@ class MsBuying extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(MsSupplier::class, 'supplier_id', 'id');
+        return $this->belongsTo(MsSupplier::class, 'supplier', 'id');
     }
 
     
     public function product()
     {
         return $this->belongsTo(MsProduct::class, 'item_id', 'id');
+    }
+
+    public function foto_product()
+    {
+        return $this->belongsTo(MsProduct::class, 'product_photo', 'id');
     }
 }

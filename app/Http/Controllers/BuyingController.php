@@ -41,16 +41,8 @@ class BuyingController extends Controller
         $search = $request->get('search');
 
 
-        $data = MsBuying::join('ms_products','ms_buyings.item_id', 'ms_products.id')
-        ->join('ms_suppliers','ms_buyings.supplier_id', 'ms_suppliers.id')
-                
-        ->where(function($q) use($search){
-            $q->where('product_name','LIKE','%'.$search.'%')
-                ->orWhere('supplier_name','LIKE','%'.$search.'%')
-                ->orWhere('no_invoice','LIKE','%'.$search.'%');
-
-
-            
+        $data = MsBuying::where(function($query) use ($search){
+            $query->where('no_invoice','LIKE','%'.$search.'%');
         })->paginate(10);
         
 
@@ -100,7 +92,7 @@ class BuyingController extends Controller
         
         $data = new MsBuying();
         $data->no_invoice = 'NoCode-'.$this->noInvoice(10);
-        $data->supplier_id = $request->supplier_id;
+        $data->supplier = $request->supplier;
         $data->item_id = $request->item_id;
         $data->qty = $request->qty;
         $data->satuan = $request->satuan;

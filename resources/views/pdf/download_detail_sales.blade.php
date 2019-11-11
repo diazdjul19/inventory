@@ -14,7 +14,7 @@
             <ul class="list-group">
                 <li class="list-group-item active">
                     <p>{{$data->no_invoice}}</p><br>
-                    <p>Dear {{$data->customer->name}}</p>
+                    <p>Dear {{$data->customers}}</p>
                 </li>
                 <li class="list-group-item">
                     <p>Terimakasih Karena Telah Belanja Di Toko Kami, Berikut Ini Detail Belanjaan Anda</p>
@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <th>Nama Customer</th>
-                            <td>{{$data->customer->name}}</td>
+                            <td>{{$data->customers}}</td>
                         </tr>
                         <tr>
                             <th>Nama Item (Item ID)</th>

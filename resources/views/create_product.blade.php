@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-body">
             <h3 class="card-title">Create Product</h3>
-            <form class="form-sample" action="{{route('product.store')}}" method="POST">
+            <form class="form-sample" action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="row">
                             <div class="col-md-6">
@@ -56,7 +56,7 @@
                             <div class="form-group row">
                             <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Foto Product</label>
                             <div class="col-sm-9">
-                                <input type="text" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">
+                                <input type="file" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">
                             </div>
                             </div>
                         </div>

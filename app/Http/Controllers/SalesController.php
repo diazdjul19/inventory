@@ -41,19 +41,20 @@ class SalesController extends Controller
 
         $search = $request->get('search');
 
+        // SCRIPT UNTUK JOIN SEARCH ANTAR TABLE
+        // $data = MsSales::join('ms_products','ms_sales.item_id', 'ms_products.id')
+        // ->where(function($q) use($search){
+        //     $q->where('product_name','LIKE','%'.$search.'%')
+        //         ->orWhere('no_invoice','LIKE','%'.$search.'%')
+        //         ->orWhere('qty','LIKE','%'.$search.'%')
+        //         ->orWhere('customers','LIKE','%'.$search.'%');
 
-        $data = MsSales::join('ms_products','ms_sales.item_id', 'ms_products.id')
-        ->join('ms_customers','ms_sales.customers', 'ms_customers.id')
+        // })->paginate(10);
         
         
-        ->where(function($q) use($search){
-            $q->where('product_name','LIKE','%'.$search.'%')
-                ->orWhere('no_invoice','LIKE','%'.$search.'%')
-                ->orWhere('qty','LIKE','%'.$search.'%')
-                ->orWhere('name','LIKE','%'.$search.'%');
-
+        $data = MsSales::where(function($query) use ($search){
+            $query->where('no_invoice','LIKE','%'.$search.'%');
         })->paginate(10);
-        
 
         return view('sales',compact('data'));
     }
@@ -112,11 +113,10 @@ class SalesController extends Controller
         $data->satuan = $request->satuan;
         $data->item_price = $request->item_price;
         $data->total_price = $request->total_price;
-
-
-
         $data->payment_nominal = $request->payment_nominal;
         $data->return_nominal = $request->return_nominal;
+        // // $data->discounts_item = $request->discounts_item;
+
         $data->save();
 
 

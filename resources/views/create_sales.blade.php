@@ -18,7 +18,7 @@
                                         <select class="form-control" id="customer" name="customers">
                                             <option>-- Pilih Nama Customer --</option>
                                             @foreach ($customer as $cos)
-                                                <option value="{{$cos->id}}"> {{$cos->name}} </option>
+                                                <option value="{{$cos->name}}"> {{$cos->name}} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -56,6 +56,7 @@
                                     <input type="text" name="satuan" readonly class="form-control" id="satuan_barang"  placeholder="Satuan Barang" autocomplete="off">
                                     </div>
                                 </div>
+
                                 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 
@@ -129,6 +130,7 @@
                 // console.log(response);
                 $('#harga_per_item').val(response.item_price);
                 $('#satuan_barang').val(response.satuan);
+
 
             },
             error: function (response) {

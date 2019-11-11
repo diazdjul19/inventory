@@ -117,9 +117,8 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$d->no_invoice}}</td>
-                                <td>{{$d->supplier->supplier_name}}</td>
+                                <td>{{$d->supplier}}</td>
                                 <td>{{$d->product->product_name}}</td>
-                                
                                 <td class="text-center">
                                     @if ($d->item_status == 'pending')
                                         <span class="badge badge-warning p-2">{{$d->item_status}}</span>                                        

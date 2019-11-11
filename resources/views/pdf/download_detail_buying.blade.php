@@ -14,7 +14,7 @@
             <ul class="list-group">
                 <li class="list-group-item active">
                     <p>{{$data->no_invoice}}</p><br>
-                    <p>Dear {{$data->supplier->supplier_name}}</p>
+                    <p>Dear {{$data->supplier}}</p>
                 </li>
                 <li class="list-group-item">
                     <p>Terimakasih Karena Telah Menjadi Supplier Toko Kami, Berikut Detail Penjualan Anda</p>
@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <th>Nama Supplier</th>
-                            <td>{{$data->supplier->supplier_name}}</td>
+                            <td>{{$data->supplier}}</td>
                         </tr>
                         <tr>
                             <th>Nama Item</th>

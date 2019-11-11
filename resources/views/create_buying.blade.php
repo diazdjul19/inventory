@@ -83,10 +83,10 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Nama Supplier</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="exampleFormControlSelect1" name="supplier_id">
+                                        <select class="form-control" id="exampleFormControlSelect1" name="supplier">
                                             <option>-- Pilih Supplier --</option>
                                                 @foreach ($data_supplier as $item)
-                                                    <option value="{{$item->id}}">{{$item->supplier_name}}</option>
+                                                    <option value="{{$item->supplier_name}}">{{$item->supplier_name}}</option>
                                                 @endforeach
                                         </select>
                                     </div>
@@ -124,6 +124,7 @@
                                         <input type="text" name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang ">
                                     </div>
                                 </div>
+
 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 

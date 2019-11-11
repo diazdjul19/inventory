@@ -127,7 +127,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('product.index')}}">
             <span class="menu-title">Product</span>
-            <i class="icon-bag menu-icon"></i>
+            <i class="icon-briefcase menu-icon"></i>
             </a>
         </li>
         {{-- <li class="nav-item">
@@ -139,7 +139,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('customer.index')}}">
             <span class="menu-title">Customers</span>
-            <i class=" icon-user-follow menu-icon"></i>
+            <i class=" icon-user menu-icon"></i>
             </a>
         </li>
         <li class="nav-item">
@@ -204,5 +204,7 @@ crossorigin="anonymous" defer></script>
 
 
 @stack('script')
+
+@stack('chart_js')
 </body>
 </html>

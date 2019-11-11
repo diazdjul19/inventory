@@ -28,7 +28,7 @@
                 <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$item->no_invoice}}</td>
-                    <td>{{$item->supplier['supplier_name']}}</td>
+                    <td>{{$item->supplier}}</td>
                     <td>{{$item->product['product_name']}}</td>
                     <td>Rp. {{number_format($item->item_price,2,',','.')}}</td>
                     <td>{{$item->qty}}</td>

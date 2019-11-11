@@ -42,9 +42,9 @@
                         <a href="{{route("customer.create")}}" class="btn btn-primary btn-fw ml-auto mb-3 mb-sm-0"> <i class="icon-plus mr-1"></i> Create Customer</a>
                     </div>
                     <div class="table-responsive border rounded p-1">
-                        <table class="table">
+                        <table class="table table-striped">
                         <thead>
-                            <tr>
+                            <tr class="table-secondary">
                             <th class="font-weight-bold">No</th>
                             <th class="font-weight-bold">Nama</th>
                             <th class="font-weight-bold">Email</th>

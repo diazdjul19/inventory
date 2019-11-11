@@ -108,7 +108,7 @@
                                 <th class="font-weight-bold">Nama Customers</th>
                                 <th class="font-weight-bold">Nama Product</th>
                                 {{-- <th class="font-weight-bold">Quantity</th> --}}
-                                <th class="font-weight-bold">Harga Per Item</th>
+                                {{-- <th class="font-weight-bold">Harga Per Item</th> --}}
                                 {{--<th class="font-weight-bold">Total Harga</th>
                                 <th class="font-weight-bold">Nominal Pembayaran (Rp)</th>
                                 <th class="font-weight-bold">Nominal Kembalian (Rp)</th> --}}
@@ -122,18 +122,18 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$d->no_invoice}}</td>
-                                    <td>{{$d->customer->name}}</td>
+                                    <td>{{$d->customers}}</td>
                                     <td>{{$d->product->product_name}}</td>
                                     {{-- <td>{{$d->qty}}</td> --}}
-                                    <td>Rp. {{number_format($d->item_price,2,',','.')}}</td>
+                                    {{-- <td>Rp. {{number_format($d->item_price,2,',','.')}}</td> --}}
                                     {{--<td>Rp. {{number_format($d->total_price,2,',','.')}}</td>
                                     <td>Rp. {{number_format($d->payment_nominal,2,',','.')}}</td>
                                     <td>Rp. {{number_format($d->return_nominal,2,',','.')}}</td> --}}
-                                    <td>
+                                    <td class="text-center">
                                         <a class="btn btn-success btn-rounded btn-sm" href="{{route('sales.edit', $d->id)}}"><i class="icon-note"></i> Edit</a>
                                         <a class="btn btn-danger btn-rounded btn-sm" href="{{route('sales.destroy', $d->id)}}"><i class="icon-trash"></i> Delete</a>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a class="btn btn-info btn-rounded btn-sm" href="{{route('sales.show', $d->id)}}"><i class="icon-info"></i> Info</a>
                                     </td>
                                 </tr>

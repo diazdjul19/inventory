@@ -1,13 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.master-admin')
 
-@section('content')
+@section('wrapper')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
 
                 <div class="card-body">
-                <h1 class="mb-3">Edit Data Customer</h1>   
+                <h3 class="mb-3">Edit Data Customer</h3>   
                 <form action="{{route('customer.update', $data->id)}}" method="POST">
                     {{method_field('put')}}
                     @csrf

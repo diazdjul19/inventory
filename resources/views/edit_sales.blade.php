@@ -84,11 +84,11 @@
                                     <div class="col-sm-9">
                                         <select class="form-control" id="exampleFormControlSelect1" name="customers">
                                             <optgroup label="Customer Lama">   
-                                                <option value="{{$data->customer->id}}">{{$data->customer->name}}</option>
+                                                <option value="{{$data->customers}}">{{$data->customers}}</option>
                                             </optgroup>
                                             <optgroup label="Customer Baru">
                                                 @foreach ($customer as $item)
-                                                    <option value="{{$item->id}}"> {{$item->name}} </option>
+                                                    <option value="{{$item->name}}"> {{$item->name}} </option>
                                                 @endforeach
                                             </optgroup>
                                         </select>

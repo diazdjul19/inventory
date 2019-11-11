@@ -37,7 +37,7 @@
                         @foreach ($data as $d)
                         <tr>
                             <td>{{$d->no_invoice}}</td>
-                            <td>{{$d->customer->name}}</td>
+                            <td>{{$d->customers}}</td>
                             <td>{{$d->product->product_name}}</td>
                             <td>Rp. {{number_format($d->item_price,2,',','.')}}</td>
                             <td>{{$d->qty}}</td>

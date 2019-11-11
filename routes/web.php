@@ -97,6 +97,7 @@ Route::get('buying/cancel/{id}', "BuyingController@cancel")->name("buying.cancel
 // ajax sales
 Route::get('/get_item', "SalesController@getprice");
 
+
 // ajax buying
 Route::get('/satuan_barang', "BuyingController@satuan_barang");
 

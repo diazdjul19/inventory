@@ -37,12 +37,9 @@ class ProductController extends Controller
         $search = $request->get('search');
 
 
-        $data = MsProduct::join('ms_categories','ms_products.id_category','ms_categories.id')
-        ->where(function($q) use($search) {
-            $q->where('category_name','LIKE','%'.$search.'%')
-                ->orWhere('product_name','LIKE','%'.$search.'%')
+        $data = MsProduct::where(function($query) use ($search) {
+        $query->Where('product_name','LIKE','%'.$search.'%')
                 ->orWhere('product_code','LIKE','%'.$search.'%')
-                ->orWhere('item_price','LIKE','%'.$search.'%')
                 ->orWhere('product_photo','LIKE','%'.$search.'%')
                 ->orWhere('registration_date','LIKE','%'.$search.'%')
                 ->orWhere('satuan','LIKE','%'.$search.'%');
@@ -80,8 +77,16 @@ class ProductController extends Controller
         $data->item_price = $request->item_price;
         $data->satuan = $request->satuan;
         $data->stock = $request->stock;
-        $data->product_photo = $request->product_photo;
+        // $data->product_photo = $request->product_photo;
+        if($request->file('product_photo')){
+            $imageFile = $request->product_name.'/'.\Str::random(60).'.'.$request->product_photo->getClientOriginalExtension();
+            $image_path = $request->file('product_photo')->move(storage_path('app/public/product/'.$request->product_name), $imageFile);
+
+            $data->product_photo = $imageFile;
+        }
         $data->registration_date = $request->registration_date;
+
+        // dd($data);
         $data->save();
         
         // alert
@@ -131,19 +136,29 @@ class ProductController extends Controller
     {
         $data = MsProduct::find($id);
 
-        // $dala = $data->product_name;
-        // $daba = $request->product_name;
+        $dala = $data->product_name;
+        $daba = $request->product_name;
 
-        if ($data) {
-            $data->update($request->all());
+         $data->product_name = $request->get('product_name');
+        $data->product_code = $request->get('product_code');
+        $data->item_price = $request->get('item_price');
+        $data->registration_date = $request->get('registration_date');
+        $data->satuan = $request->get('satuan');
+        $data->stock = $request->get('stock');
+
+        if(isset($request->product_photo)){
+            $imageFile = $request->product_name.'/'.\Str::random(60).'.'.$request->product_photo->getClientOriginalExtension();
+            $image_path = $request->file('product_photo')->move(storage_path('app/public/product/'.$request->product_name), $imageFile);
+
+            $data->product_photo = $imageFile;
+        }
+        $data->save();
+
 
             $edco = $request->product_code;
 
             return redirect(route('product.index'))->with('sukses_edit_product',"Data Dengan Kode Product $edco Berhasil Di Edit");
-            // return redirect(route('product.index'))->with('sukses_edit_product',"Data Dengan Kode Product $edco Berhasil Di Edit   $dala ,$daba");
-        } else {
-            # code...
-        }
+
         
     }
 

@@ -47,11 +47,11 @@
                         <th class="font-weight-bold">No</th>
                         <th class="font-weight-bold">Category</th>
                         <th class="font-weight-bold">Kode Product</th>
+                        <th class="font-weight-bold">Foto Product</th>
                         <th class="font-weight-bold">Nama Product</th>
                         <th class="font-weight-bold">Jumlah Stock</th>
                         <th class="font-weight-bold">Satuan</th>
                         <th class="font-weight-bold">Harga Per Barang</th>
-                        <th class="font-weight-bold">Foto Product</th>
                         <th class="font-weight-bold">Tgl Registrasi</th>
                         <th class="font-weight-bold text-center">Action</th>
                     </tr>
@@ -62,11 +62,16 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$d->category->category_name}}</td>
                             <td>{{$d->product_code}}</td>
+                            
+
+                            <td><img class="rounded mx-auto d-block" style="width: 70px; height:50px;" src="{{url('/storage/product/'.$d->product_photo)}}"></td>
+
+
+
                             <td>{{$d->product_name}}</td>
                             <td class="text-center">{{number_format($d->stock,'0','','.')}}</td>
                             <td>{{$d->satuan}}</td>
                             <td>Rp. {{number_format($d->item_price,'2',',','.')}}</td>
-                            <td>{{$d->product_photo}}</td>
                             <td>{{$d->registration_date}}</td>
 
                             <td>

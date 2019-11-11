@@ -28,7 +28,7 @@
                 <tr>
                     <td>{{$item->id}}</td>
                     <td>{{$item->no_invoice}}</td>
-                    <td>{{$item->customer['name']}}</td>
+                    <td>{{$item->customers}}</td>
                     <td>{{$item->product['product_name']}}</td>
                     <td>Rp. {{number_format($item->item_price,2,',','.')}}</td>
                     <td>{{$item->qty}}</td>

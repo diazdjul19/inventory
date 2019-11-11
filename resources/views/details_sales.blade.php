@@ -24,7 +24,7 @@
                                     </tr>
                                     <tr>
                                         <th>Customer</th>
-                                        <td>{{$data->customer->name}}</td>
+                                        <td>{{$data->customers}}</td>
                                     </tr>
                                     <tr>
                                         <th>Nama Item (Item ID)</th>

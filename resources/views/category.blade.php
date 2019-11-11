@@ -35,7 +35,7 @@
     
 
     <div class="row justify-content-center">
-    <div class="col-lg-6 grid-margin stretch-card center">
+    <div class="col-md-12 grid-margin stretch-card center">
         <div class="card">
             <div class="card-body">
             <div class="d-sm-flex align-items-center mb-4">
