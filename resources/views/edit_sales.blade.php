@@ -131,6 +131,13 @@
                                     <input type="text" name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang" autocomplete="off" value="{{$data->satuan}}">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="diskon_barang">Diskon Barang ( % )</label>
+                                    <div class="col-sm-9">
+                                    <input type="text" name="discounts_item" class="form-control" id="diskon_barang"  placeholder="Satuan Barang" autocomplete="off" value="{{$data->discounts_item}}">
+                                    </div>
+                                </div>
                                 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 

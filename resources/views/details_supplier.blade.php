@@ -39,7 +39,7 @@
                                         <td>{{$data->bank_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Tanggal & Waktu Penjualan</th>
+                                        <th>Tanggal & Waktu</th>
                                         <td>{{$data->created_at}}</td>
                                     </tr>
                                 </table>

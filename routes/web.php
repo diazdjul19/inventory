@@ -1,4 +1,6 @@
 <?php
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -96,10 +98,13 @@ Route::get('buying/cancel/{id}', "BuyingController@cancel")->name("buying.cancel
 
 // ajax sales
 Route::get('/get_item', "SalesController@getprice");
+Route::get('get_customer', "SalesController@getemail");
 
 
 // ajax buying
 Route::get('/satuan_barang', "BuyingController@satuan_barang");
+Route::get('get_supplier', "BuyingController@getemail");
+
 
 
 Route::get('testing',function(){

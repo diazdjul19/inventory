@@ -14,7 +14,19 @@
             <ul class="list-group">
                 <li class="list-group-item active">
                     <p>{{$data->no_invoice}}</p><br>
-                    <p>Dear {{$data->supplier}}</p>
+                    <tr>
+                        <th>Dear</th>
+                        <th>:</th>
+                        <td>{{$data->name_supplier->supplier_name}}</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <th>From</th>
+                        <th>:</th>
+                        <td>{{$data->company}}</td>
+                    </tr>
+                    
+                    
                 </li>
                 <li class="list-group-item">
                     <p>Terimakasih Karena Telah Menjadi Supplier Toko Kami, Berikut Detail Penjualan Anda</p>
@@ -31,10 +43,18 @@
                         </tr>
                         <tr>
                             <th>Nama Supplier</th>
-                            <td>{{$data->supplier}}</td>
+                            <td>{{$data->name_supplier->supplier_name}}</td>
                         </tr>
                         <tr>
-                            <th>Nama Item</th>
+                            <th>Nama Perusahaan</th>
+                            <td>{{$data->company}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email Perusahaan</th>
+                            <td>{{$data->supplier_email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Nama Product</th>
                             <td>{{$data->product->product_name}}</td>
                         </tr>
                         <tr>
@@ -42,12 +62,12 @@
                             <td>Rp. {{number_format($data->item_price,2,',','.')}}</td>
                         </tr>
                         <tr>
-                            <th>Satuan Barang</th>
-                            <td>{{$data->satuan}}</td>
+                            <th>Jumlah Barang</th>
+                            <td>{{$data->qty}} {{$data->satuan}}</td>
                         </tr>
                         <tr>
-                            <th>Jumlah Barang</th>
-                            <td>{{$data->qty}}</td>
+                            <th>Diskon Barang</th>
+                            <td>{{$data->discounts_item}}%</td>
                         </tr>
                         <tr>
                             <th>Tanggal & Waktu Penjualan</th>

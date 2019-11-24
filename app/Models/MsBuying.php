@@ -8,12 +8,11 @@ class MsBuying extends Model
 {
     protected $guarded = [];
 
-    public function supplier()
+    public function name_supplier()
     {
         return $this->belongsTo(MsSupplier::class, 'supplier', 'id');
     }
 
-    
     public function product()
     {
         return $this->belongsTo(MsProduct::class, 'item_id', 'id');

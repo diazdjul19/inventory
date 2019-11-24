@@ -23,8 +23,12 @@
                                         <td>{{$data->no_invoice}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Customer</th>
-                                        <td>{{$data->customers}}</td>
+                                        <th>Nama Customer</th>
+                                        <td>{{$data->customer->name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email Customer</th>
+                                        <td>{{$data->customer_email}}</td>
                                     </tr>
                                     <tr>
                                         <th>Nama Item (Item ID)</th>
@@ -36,14 +40,14 @@
                                     </tr>
                                     <tr>
                                         <th>Jumlah Barang</th>
-                                        <td>{{$data->qty}}</td>
+                                        <td>{{$data->qty}} {{$data->satuan}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Satuan Barang</th>
-                                        <td>{{$data->satuan}}</td>
+                                        <th>Diskon Barang</th>
+                                        <td>{{$data->discounts_item}}%</td>
                                     </tr>
                                     <tr>
-                                        <th>Tanggal & Waktu Penjualan</th>
+                                        <th>Tanggal & Waktu </th>
                                         <td>{{$data->created_at}}</td>
                                     </tr>
                                 </table>

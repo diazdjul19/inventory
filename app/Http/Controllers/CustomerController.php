@@ -65,7 +65,7 @@ class CustomerController extends Controller
         $request_email = $request->email;
 
         if ($data) {
-            return redirect(route('customer.index'))->with('sukses_create_customer',"Data Dengan Nama $result_name Dan Email $request_email, Telah Berhasil Di Tambahkan");
+            return redirect(route('customer.index'))->with('toast_success',"Customer Dengan Nama '$result_name', Telah Berhasil Di Tambahkan");
         } else {
             # code...
         }
@@ -116,7 +116,7 @@ class CustomerController extends Controller
             $result_email = $request->email;
 
 
-            return redirect(route('customer.index'))->with('sukses_edit_customer',"Data Dengan Nama $result_name Dan Email $result_email, Telah Berhasil Di Edit");
+            return redirect(route('customer.index'))->with('toast_info',"Customer Dengan Nama '$result_name', Telah Berhasil Di Ubah");
         } else {
             # code...
         }
@@ -140,6 +140,6 @@ class CustomerController extends Controller
         // $haco = $data->product_code;
         // $data = MsProduct::find($id)->delete();
 
-        return redirect(route('customer.index'))->with('sukses_delete_customer',"Data Dengan Nama $result_name Dan Email $result_email, Telah Berhasil Di Hapus");
+        return redirect(route('customer.index'))->with('toast_error',"Customer Dengan Nama '$result_name', Telah Berhasil Di Hapus");
     }
 }

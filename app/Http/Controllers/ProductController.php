@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $data = MsProduct::with('category')->paginate(5); 
+        $data = MsProduct::with('category')->paginate(10); 
 
         // dd($data);
         return view('product',compact('data'));
@@ -77,7 +77,7 @@ class ProductController extends Controller
         $data->item_price = $request->item_price;
         $data->satuan = $request->satuan;
         $data->stock = $request->stock;
-        // $data->product_photo = $request->product_photo;
+        $data->product_photo = $request->product_photo;
         if($request->file('product_photo')){
             $imageFile = $request->product_name.'/'.\Str::random(60).'.'.$request->product_photo->getClientOriginalExtension();
             $image_path = $request->file('product_photo')->move(storage_path('app/public/product/'.$request->product_name), $imageFile);
@@ -85,7 +85,6 @@ class ProductController extends Controller
             $data->product_photo = $imageFile;
         }
         $data->registration_date = $request->registration_date;
-
         // dd($data);
         $data->save();
         
@@ -93,7 +92,7 @@ class ProductController extends Controller
         $proco = $data->product_code;
         $prona = $request->product_name;
         if ($data) {
-            return redirect(route('product.index'))->with('sukses_create_product',"Data Baru Dengan Nama $prona Yang Codenya $proco, Telah Berhasil Di Tambahkan");
+            return redirect(route('product.index'))->with('toast_success',"Product Dengan Nama '$prona', Berhasil Di Tambahkan");
         } else {
             # code...
         }
@@ -139,7 +138,8 @@ class ProductController extends Controller
         $dala = $data->product_name;
         $daba = $request->product_name;
 
-         $data->product_name = $request->get('product_name');
+        $data->id_category = $request->get('id_category');
+        $data->product_name = $request->get('product_name');
         $data->product_code = $request->get('product_code');
         $data->item_price = $request->get('item_price');
         $data->registration_date = $request->get('registration_date');
@@ -152,12 +152,14 @@ class ProductController extends Controller
 
             $data->product_photo = $imageFile;
         }
+
+        // return $data;
         $data->save();
 
 
             $edco = $request->product_code;
 
-            return redirect(route('product.index'))->with('sukses_edit_product',"Data Dengan Kode Product $edco Berhasil Di Edit");
+            return redirect(route('product.index'))->with('toast_info',"Product Dengan Kode Product '$edco', Berhasil Di Ubah");
 
         
     }
@@ -175,7 +177,7 @@ class ProductController extends Controller
 
         $data = MsProduct::find($id)->delete();
 
-        return redirect(route('product.index'))->with('sukses_hapus_product',"Data Dengan Kode Product $haco Berhasil Di Hapus");
+        return redirect(route('product.index'))->with('toast_error',"Data Dengan Kode Product '$haco', Berhasil Di Hapus");
     }
 
 

@@ -14,6 +14,8 @@ use App\Models\MsStock;
 use App\Exports\SalesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Mail;
+
 
 
 
@@ -30,7 +32,7 @@ class SalesController extends Controller
     public function index(Request $request)
     {
         
-        $data = MsSales::with('product','customer')->paginate(5); 
+        $data = MsSales::with('product','customer')->paginate(10); 
 
         return view('sales', compact('data'));
         
@@ -83,7 +85,6 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-
         // SCRIPT SEBELUM MENU UNTUK STOCK DI HILANGKAN
         // $stock = MsStock::where('product_id', $request->item_id)->first();
         // $stock_awal = $stock->jml_barang;
@@ -104,7 +105,6 @@ class SalesController extends Controller
         $stock->update(['stock' => $stock_akhir]);
 
 
-
         $data = new MsSales();
         $data->no_invoice = 'NoCode-'.$this->noInvoice(10);
         $data->item_id = $request->item_id;
@@ -115,24 +115,33 @@ class SalesController extends Controller
         $data->total_price = $request->total_price;
         $data->payment_nominal = $request->payment_nominal;
         $data->return_nominal = $request->return_nominal;
-        // // $data->discounts_item = $request->discounts_item;
-
+        $data->discounts_item = $request->discounts_item;
+        $data->customer_email = $request->customer_email;
         $data->save();
 
-
-        // Jika ingin sekaligus membuat create daya
-        // $data = MsSales::create($request->all());
-
+        // Kirim Ke Email
         if ($data) {
-            return redirect(route('sales.index'))->with('sukses_create_sales', "Yeyy, Data Anda Telah Berhasil Kami Tambahkan");
+            // $email = MsSales::first('customer_email');
+            // dd($email);
+            // Kirim email, Jika barang berhasil disimpan
+
+            Mail::send('sand_to_email.sales_to_email_owner', ['data' => $data], function($data) {
+                $data->to('diazdjul19@gmail.com', 'Lapor')->subject('Laporan Penjualan Barang');
+                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+            });
+
+            Mail::send('sand_to_email.sales_to_email_customer', ['data' => $data], function($data) use($request){
+                $data->to($request->customer_email, 'Lapor')->subject('Laporan Pembelian Barang');
+                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+            });
+
             
-        } else {
-            # code...
+
+            return redirect()->route('sales.index')->with('sukses_create_sales', "Yeyy, Data Anda Telah Berhasil Kami Tambahkan");;
+        }else{
+            // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
+            return "Gagal";
         }
-
-        
-
-
     }
 
     /**
@@ -216,12 +225,18 @@ class SalesController extends Controller
         return $random_string;
     }
 
-
+    //Ajax 
     public function getprice(Request $request)
     {
         $data = MsProduct::find($request->id);
         return response()->json($data, 200);
     }
+    public function getemail(Request $request)
+    {
+        $data = MsCustomer::find($request->id);
+        return response()->json($data, 200);
+    }
+    // Akhir Ajax
 
     
     // public function generatePDF(){
@@ -255,7 +270,7 @@ class SalesController extends Controller
 
     public function data_pdf_sales(){
         $data = MsSales::all();
-        $pdf = \PDF::loadView('pdf.download_sales' , compact('data'))->setPaper('a4')->setOrientation('landscape');
+        $pdf = \PDF::loadView('pdf.download_sales' , compact('data'))->setPaper('legal')->setOrientation('landscape');
         return $pdf->download('SalesDownload-'.$this->code_download(10).'.pdf');
     }
 

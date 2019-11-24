@@ -5,12 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                {{-- <div class="card-header">Dashboard 
-                    <a href="{{route('category.create')}}">Tambah Category</a>
-                </div> --}}
-
+                
                 <div class="card-body">
-                <h3 class="mb-3">Tambah Customer</h3>   
+
+                <div class="d-sm-flex align-items-center mb-4">
+                    <a href="{{route('customer.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                        <i class="icon-arrow-left-circle"></i>
+                    </a>
+                    
+                    <h4 class="card-title mb-sm-0">Create Customer</h4>
+                </div>
+
                 <form action="{{route('customer.store')}}" method="POST">
                     @csrf
                     <div class="form-group">

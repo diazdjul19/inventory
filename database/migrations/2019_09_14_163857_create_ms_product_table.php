@@ -15,7 +15,7 @@ class CreateMsProductTable extends Migration
     {
         Schema::create('ms_product', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('id_category');
+            $table->string('id_category');
             $table->string('product_name');
             $table->string('product_code');
             $table->string('item_price');

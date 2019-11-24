@@ -17,11 +17,11 @@
                                         <div class="col-sm-9">
                                             <select class="form-control" id="exampleFormControlSelect1" name="id_category">
                                                 <optgroup label="Kategori Lama">
-                                                    <option  value="{{$data->category->id}}">{{$data->category->category_name}}</option>
+                                                    <option  value="{{$data->id_category}}">{{$data->id_category}}</option>
                                                 </optgroup>  
                                                 <optgroup label="Kategori Baru">  
                                                     @foreach ($category as $item)
-                                                        <option value="{{$item->id}}">{{$item->category_name}}</option>
+                                                        <option value="{{$item->category_name}}">{{$item->category_name}}</option>
                                                     @endforeach
                                                 </optgroup>
                                             </select>

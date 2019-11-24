@@ -16,7 +16,7 @@ class BuyingExport implements FromView
 
     public function view(): View
     {
-        $data = MsBuying::with('supplier' , 'product')->get();
+        $data = MsBuying::with('name_supplier' , 'product')->get();
         return view('export_excel.file_export_buying' , compact('data'));
     }
     

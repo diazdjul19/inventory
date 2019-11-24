@@ -106,6 +106,7 @@
                                 <th class="font-weight-bold">No Invoice</th>
                                 <th class="font-weight-bold">Nama Supplier</th>
                                 <th class="font-weight-bold">Nama Product</th>
+                                <th class="font-weight-bold">Jumlah Barang</th>
                                 <th class="font-weight-bold text-center">Status</th>
                                 <th class="font-weight-bold text-center">Status Action</th>
                                 <th class="font-weight-bold text-center">Action</th>
@@ -117,8 +118,9 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$d->no_invoice}}</td>
-                                <td>{{$d->supplier}}</td>
+                                <td>{{$d->name_supplier->supplier_name }}</td>
                                 <td>{{$d->product->product_name}}</td>
+                                <td>( {{$d->qty}} ) {{$d->satuan}}</td>
                                 <td class="text-center">
                                     @if ($d->item_status == 'pending')
                                         <span class="badge badge-warning p-2">{{$d->item_status}}</span>                                        

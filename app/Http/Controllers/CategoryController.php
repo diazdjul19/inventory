@@ -64,7 +64,7 @@ class CategoryController extends Controller
 
         if ($data) {
             $cc = $request->category_name;
-            return redirect(route('category.index'))->with('sukses_create_category', "Data Baru Dengan Nama $cc ,Telah Berhasil Di Tambahkan");
+            return redirect(route('category.index'))->with('toast_success', "Category $cc, Berhasil Di Tambahkan");
         } else {
             # code...
         }
@@ -106,10 +106,10 @@ class CategoryController extends Controller
     {
         $data =  MsCategory::find($id);
         $cu_sb = $data->category_name;
-        if($data){
+        if($data == true){
             $data->update($request->all());
             $cu_ss = $request->category_name;
-            return redirect(route('category.index'))->with('sukses_edit_category', "Data Dengan Nama $cu_sb Telah Di Ubah Menjadi $cu_ss");
+            return redirect(route('category.index'))->with('toast_info', "Category '$cu_sb',  Berhasil Di Ubah Menjadi Category '$cu_ss' ");
         }
     }
 
@@ -119,6 +119,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $data =  MsCategory::find($id);
@@ -126,10 +127,9 @@ class CategoryController extends Controller
 
         $data = MsCategory::find($id)->delete();
         
-        return redirect(route('category.index'))->with('sukses_hapus_category', "Data Dengan Nama $cd, Telah Berhasil Di Hapus");
+        return redirect(route('category.index'))->with('toast_error', "Category $cd, Berhasil Di Hapus");
         
     }
-
 
 
 }

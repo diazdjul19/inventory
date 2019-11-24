@@ -7,7 +7,15 @@
             <div class="card">
 
                 <div class="card-body">
-                <h3 class="mb-3">Edit Data Customer</h3>   
+                
+                <div class="d-sm-flex align-items-center mb-4">
+                    <a href="{{route('customer.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                        <i class="icon-arrow-left-circle"></i>
+                    </a>
+                    
+                    <h4 class="card-title mb-sm-0">Create Customer</h4>
+                </div>
+
                 <form action="{{route('customer.update', $data->id)}}" method="POST">
                     {{method_field('put')}}
                     @csrf

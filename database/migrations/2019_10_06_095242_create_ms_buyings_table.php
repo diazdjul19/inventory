@@ -24,7 +24,9 @@ class CreateMsBuyingsTable extends Migration
             $table->string('total_all_price');
             $table->string('delivery_fee');
             $table->string('item_status');
-            $table->string('satuan');           
+            $table->string('satuan');
+            $table->string('discounts_item');           
+            
 
 
             $table->timestamps();

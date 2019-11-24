@@ -96,7 +96,7 @@
 <!-- endinject -->
 <!-- Layout styles -->
 <link rel="stylesheet" href="/stellar-master/css/style.css" <!-- End layout styles -->
-<link rel="shortcut icon" href="/stellar-master/images/favicon.png" />
+<link rel="shortcut icon" href="/stellar-master/images/favicon-32x32.png" />
 </head>
 <body>
 <div class="container-scroller">

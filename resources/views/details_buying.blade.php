@@ -24,7 +24,15 @@
                                     </tr>
                                     <tr>
                                         <th>Nama Supplier</th>
-                                        <td>{{$data->supplier}}</td>
+                                        <td>{{$data->name_supplier->supplier_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nama Perusahaan</th>
+                                        <td>{{$data->company}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email Perusahaan</th>
+                                        <td>{{$data->supplier_email}}</td>
                                     </tr>
                                     <tr>
                                         <th>Nama Product</th>
@@ -36,11 +44,11 @@
                                     </tr>
                                     <tr>
                                         <th>Jumlah Barang</th>
-                                        <td>{{$data->qty}}</td>
+                                        <td>{{$data->qty}} {{$data->satuan}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Satuan Barang</th>
-                                        <td>{{$data->satuan}}</td>
+                                        <th>Diskon Barang</th>
+                                        <td>{{$data->discounts_item}}%</td>
                                     </tr>
                                     <tr>
                                         <th>Tanggal & Waktu Penjualan</th>

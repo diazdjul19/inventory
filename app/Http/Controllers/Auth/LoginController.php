@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Auth;
+
+use RealRashid\SweetAlert\Facades\Alert;
+
 class LoginController extends Controller
 {
     /*
@@ -25,7 +29,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
+    public function redirectTo(){
+        $nama_user = Auth::user()->name;
+        toast('Hi '. $nama_user .', Welcome To Inventory Application','success');
+        return $redirectTo = '/home';
+    }
 
     /**
      * Create a new controller instance.

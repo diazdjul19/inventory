@@ -13,10 +13,11 @@
                 <th class="font-weight-bold">NO</th>
                 <th class="font-weight-bold">No Invoice</th>
                 <th class="font-weight-bold">Nama Customer</th>
+                <th class="font-weight-bold">Email Customer</th>
                 <th class="font-weight-bold">Nama Product</th>
                 <th class="font-weight-bold">Harga Per Item</th>
                 <th class="font-weight-bold">Jumlah Barang</th>
-                <th class="font-weight-bold">Satuan Barang</th>
+                <th class="font-weight-bold">Diskon Barang</th>
                 <th class="font-weight-bold">Tanggal Dan Waktu Penjualan</th>
                 <th class="font-weight-bold">Nominal Pembayaran</th>
                 <th class="font-weight-bold">Total Harga</th>
@@ -28,11 +29,12 @@
                 <tr>
                     <td>{{$item->id}}</td>
                     <td>{{$item->no_invoice}}</td>
-                    <td>{{$item->customers}}</td>
+                    <td>{{$item->customer['name']}}</td>
+                    <td>{{$item->customer_email}}</td>
                     <td>{{$item->product['product_name']}}</td>
                     <td>Rp. {{number_format($item->item_price,2,',','.')}}</td>
-                    <td>{{$item->qty}}</td>
-                    <td>{{$item->satuan}}</td>
+                    <td>{{$item->qty}} {{$item->satuan}}</td>
+                    <td>{{$item->discounts_item}}%</td>
                     <td>{{$item->created_at}}</td>
                     <td>Rp. {{number_format($item->payment_nominal,2,',','.')}}</td>
                     <td>Rp. {{number_format($item->total_price,2,',','.')}}</td>

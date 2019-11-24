@@ -14,7 +14,11 @@
             <ul class="list-group">
                 <li class="list-group-item active">
                     <p>{{$data->no_invoice}}</p><br>
-                    <p>Dear {{$data->customers}}</p>
+                    <tr>
+                        <th>Dear</th>
+                        <th>:</th>
+                        <td>{{$data->customer->name}}</td>
+                    </tr>
                 </li>
                 <li class="list-group-item">
                     <p>Terimakasih Karena Telah Belanja Di Toko Kami, Berikut Ini Detail Belanjaan Anda</p>
@@ -22,7 +26,7 @@
             </ul>
             <br>
             <ul class="list-group">
-                <li class="list-group-item active text-center">Detail Penjualan</li>
+                <li class="list-group-item active text-center">Detail Pembelian</li>
                 <li class="list-group-item">
                     <table class="table w-100">
                         <tr>
@@ -31,7 +35,11 @@
                         </tr>
                         <tr>
                             <th>Nama Customer</th>
-                            <td>{{$data->customers}}</td>
+                            <td>{{$data->customer->name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email Customer</th>
+                            <td>{{$data->customer_email}}</td>
                         </tr>
                         <tr>
                             <th>Nama Item (Item ID)</th>
@@ -43,18 +51,14 @@
                         </tr>
                         <tr>
                             <th>Jumlah Barang</th>
-                            <td>{{$data->qty}}</td>
+                            <td>{{$data->qty}} {{$data->satuan}}</td>
                         </tr>
                         <tr>
-                            <th>Satuan Barang</th>
-                            <td>{{$data->satuan}}</td>
+                            <th>Diskon Barang</th>
+                            <td>{{$data->discounts_item}}%</td>
                         </tr>
                         <tr>
-                            <th>Total Harga</th>
-                            <td>Rp. {{number_format($data->total_price,2,',','.')}}</td>
-                        </tr>
-                        <tr>
-                            <th>Tanggal & Waktu Penjualan</th>
+                            <th>Tanggal & Waktu</th>
                             <td>{{$data->created_at}}</td>
                         </tr>
                     </table>
@@ -70,6 +74,10 @@
                         <tr>
                             <th>Nominal Pembayaran</th>
                             <td>Rp. {{number_format($data->payment_nominal,2,',','.')}}</td>
+                        </tr>
+                        <tr>
+                            <th>Total Harga</th>
+                            <td>Rp. {{number_format($data->total_price,2,',','.')}}</td>
                         </tr>
                         <tr>
                             <th>Jumlah Kembalian</th>

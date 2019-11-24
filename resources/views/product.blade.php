@@ -9,7 +9,7 @@
 
 @section('wrapper')
 <div class="container">
-
+{{-- 
     @if(session('sukses_create_product'))
         <div class="alert alert-success" role="alert" style="text-align:center">
             <h4 class="alert-heading">Data Berhasil Di Tambahkan</h4> 
@@ -29,7 +29,7 @@
             <h4 class="alert-heading">Data Berhasil Di Hapus</h4> 
             <p>{{session('sukses_hapus_product')}}&#128517;</p>
         </div>
-    @endif
+    @endif --}}
 
     <div class="row justify-content-center">
     <div class="col-md-12 grid-margin stretch-card">
@@ -60,11 +60,11 @@
                     @foreach ($data as $d)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$d->category->category_name}}</td>
+                            <td>{{$d->id_category}}</td>
                             <td>{{$d->product_code}}</td>
                             
 
-                            <td><img class="rounded mx-auto d-block" style="width: 70px; height:50px;" src="{{url('/storage/product/'.$d->product_photo)}}"></td>
+                            <td><img class="rounded mx-auto d-block" style="width: 70px; height:60px;" src="{{url('/storage/product/'.$d->product_photo)}}"></td>
 
 
 
@@ -98,7 +98,7 @@
 </div>
 
 
-
+@include('sweetalert::alert')
 @endsection
 
 

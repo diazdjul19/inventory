@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\MsBuying;
 use App\Models\MsSupplier;
 use App\Models\MsProduct;
@@ -12,7 +11,7 @@ use App\Models\MsStock;
 use App\Exports\BuyingExport;
 use Maatwebsite\Excel\Facades\Excel;
 
-
+use Mail;
 
 
 class BuyingController extends Controller
@@ -22,16 +21,12 @@ class BuyingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = MsBuying::paginate(5);
-        $data_supplier = MsSupplier::all();
-        $data_product = MsProduct::all();
-
-
-
-
-        return view("buying", compact('data','data_supplier','data_product'));
+        $data = MsBuying::with('product','name_supplier')->paginate(10); 
+        // return $data;
+        return view('buying', compact('data'));
+    
     }
 
 
@@ -101,6 +96,10 @@ class BuyingController extends Controller
         $data->item_status= 'pending';
         $data->total_price_item = $request->total_price_item;
         $data->total_all_price = $request->total_all_price;
+        $data->discounts_item = $request->discounts_item;
+        $data->supplier_email = $request->supplier_email;
+        $data->company = $request->company;
+
         // $data->total_price_item = $request->total_price_item;
         // $total = $request->qty * $request->item_price + $request->delivery_fee;
         // $data->total_price_item = $total;
@@ -108,7 +107,21 @@ class BuyingController extends Controller
 
 
         if ($data) {
-            return redirect(route('buying.index'))->with("sukses_create_buying",'Yeyyy, Data Anda Berhasil Di Tambahkan');
+
+            Mail::send('sand_to_email.buying_to_email_owner', ['data' => $data], function($data){
+                $data->to('diazdjul19@gmail.com', 'Lapor')->subject('Laporan Pembelian Barang');
+                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+            });
+
+            Mail::send('sand_to_email.buying_to_email_supplier', ['data' => $data], function($data) use($request){
+                $data->to($request->supplier_email, 'Lapor')->subject('Laporan Penjualan Barang');
+                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+            });
+
+            return redirect()->route('buying.index')->with('sukses_create_buying', "Yeyy, Data Anda Telah Berhasil Kami Tambahkan");;
+        }else{
+            // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
+            return "Gagal";
         }
 
     }
@@ -192,6 +205,11 @@ class BuyingController extends Controller
     public function satuan_barang(Request $request)
     {
         $data = MsProduct::find($request->id);
+        return response()->json($data, 200);
+    }
+    public function getemail(Request $request)
+    {
+        $data = MsSupplier::find($request->id);
         return response()->json($data, 200);
     }
 

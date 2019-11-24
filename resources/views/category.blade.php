@@ -12,7 +12,7 @@
 @section('wrapper')
 <div class="container">
 
-    @if(session('sukses_create_category'))
+    {{-- @if(session('sukses_create_category'))
         <div class="alert alert-success" role="alert" style="text-align:center">
             <h4 class="alert-heading">Data Berhasil Di Tambahkan</h4> 
             <p>{{session('sukses_create_category')}}&#128516;</p>
@@ -31,7 +31,7 @@
             <h4 class="alert-heading">Data Berhasil Di Hapus</h4> 
             <p>{{session('sukses_hapus_category')}}&#128517;</p>
         </div>
-    @endif
+    @endif --}}
     
 
     <div class="row justify-content-center">
@@ -58,7 +58,8 @@
                             <td>{{$d->category_name}}</td>
                             <td>
                                 <a class="btn btn-success btn-rounded btn-sm" href="{{route('category.edit', $d->id)}}">Edit</a> 
-                                <a  class="btn btn-danger btn-rounded btn-sm" href="{{route('category.destroy', $d->id)}}">Delete</a>    
+                                <a class="btn btn-danger btn-rounded btn-sm" href="{{route('category.destroy', $d->id)}}">Delete</a> 
+                                {{-- <button type="button" id="button" data-id="{{$d->id}}">Delete</button> --}}
                             </td>
                         </tr>
                         @endforeach
@@ -82,7 +83,31 @@
 
 </div>
 
+{{-- <script>
+$('#button').on('click', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    swal({
+            title: "Are you sure!",
+            type: "error",
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes!",
+            showCancelButton: true,
+        },
+        function() {
+            $.ajax({
+                type: "POST",
+                url: "{{url('/category.destroy')}}",
+                data: {id:id},
+                success: function (data) {
+                              //
+                    }         
+            });
+    });
+});
+</script> --}}
 
+@include('sweetalert::alert')
 @endsection
 
 

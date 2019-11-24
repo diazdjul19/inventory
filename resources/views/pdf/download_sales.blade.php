@@ -25,10 +25,11 @@
                         <tr>
                             <th>No Invoice</th>
                             <th>Nama Customer</th>
+                            <th>Email Customer</th>
                             <th>Nama Item (Item ID)</th>
                             <th>Harga Per Item</th>
                             <th>Jumlah Barang</th>
-                            <th>Satuan Barang</th>
+                            <th>Diskon Barang</th>
                             <th>Total Harga</th>
                             <th>Tanggal & Waktu Penjualan</th>
                             <th>Nominal Pembayaran</th>
@@ -37,11 +38,12 @@
                         @foreach ($data as $d)
                         <tr>
                             <td>{{$d->no_invoice}}</td>
-                            <td>{{$d->customers}}</td>
+                            <td>{{$d->customer->name}}</td>
+                            <td>{{$d->customer_email}}</td>
                             <td>{{$d->product->product_name}}</td>
                             <td>Rp. {{number_format($d->item_price,2,',','.')}}</td>
-                            <td>{{$d->qty}}</td>
-                            <td>{{$d->satuan}}</td>
+                            <td>{{$d->qty}} {{$d->satuan}}</td>
+                            <td>{{$d->discounts_item}}%</td>
                             <td>Rp. {{number_format($d->total_price,2,',','.')}}</td>
                             <td>{{$d->created_at}}</td>
                             <td>Rp. {{number_format($d->payment_nominal,2,',','.')}}</td>

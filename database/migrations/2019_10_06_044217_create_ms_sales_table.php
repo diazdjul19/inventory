@@ -24,6 +24,8 @@ class CreateMsSalesTable extends Migration
             $table->string('satuan');
             $table->string('payment_nominal');
             $table->string('return_nominal');
+            $table->string('discounts_item');
+            
 
             $table->timestamps();
         });

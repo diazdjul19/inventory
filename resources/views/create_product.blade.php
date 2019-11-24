@@ -6,18 +6,26 @@
         <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-            <h3 class="card-title">Create Product</h3>
+
+            <div class="d-sm-flex align-items-center mb-4">
+                <a href="{{route('product.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                    <i class="icon-arrow-left-circle"></i>
+                </a>
+                
+                <h3 class="card-title mb-sm-0">Create Product</h3>
+            </div>
             <form class="form-sample" action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
+                                    
                                     <label class="col-sm-3 col-form-label">Category</label>
                                     <div class="col-sm-9">
                                         <select class="form-control" id="exampleFormControlSelect1" name="id_category">
                                             <option>-- Pilih Category --</option>
                                             @foreach ($category as $item)
-                                                <option value="{{$item->id}}">{{$item->category_name}}</option>
+                                                <option value="{{$item->category_name}}">{{$item->category_name}}</option>
                                             @endforeach
                                         </select>
                                 </div>

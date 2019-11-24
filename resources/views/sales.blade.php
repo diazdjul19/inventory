@@ -107,6 +107,7 @@
                                 <th class="font-weight-bold">No Invoice</th>
                                 <th class="font-weight-bold">Nama Customers</th>
                                 <th class="font-weight-bold">Nama Product</th>
+                                <th class="font-weight-bold">Jumlah Pembelian</th>
                                 {{-- <th class="font-weight-bold">Quantity</th> --}}
                                 {{-- <th class="font-weight-bold">Harga Per Item</th> --}}
                                 {{--<th class="font-weight-bold">Total Harga</th>
@@ -122,8 +123,9 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$d->no_invoice}}</td>
-                                    <td>{{$d->customers}}</td>
+                                    <td>{{$d->customer->name}}</td>
                                     <td>{{$d->product->product_name}}</td>
+                                    <td>( {{$d->qty}} ) {{$d->satuan}}</td>
                                     {{-- <td>{{$d->qty}}</td> --}}
                                     {{-- <td>Rp. {{number_format($d->item_price,2,',','.')}}</td> --}}
                                     {{--<td>Rp. {{number_format($d->total_price,2,',','.')}}</td>

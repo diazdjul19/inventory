@@ -8,6 +8,10 @@
                 <div class="card-body">
 
                 <div class="d-sm-flex align-items-center mb-4">
+                    <a href="{{route('category.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                        <i class="icon-arrow-left-circle"></i>
+                    </a>
+                    
                     <h4 class="card-title mb-sm-0">Create Category</h4>
                 </div>
 

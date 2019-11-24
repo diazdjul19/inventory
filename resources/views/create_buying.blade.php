@@ -81,14 +81,28 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Nama Supplier</label>
+                                    <label class="col-sm-3 col-form-label" for="nama_supplier">Nama Supplier</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="exampleFormControlSelect1" name="supplier">
+                                        <select class="form-control" id="nama_supplier" name="supplier">
                                             <option>-- Pilih Supplier --</option>
                                                 @foreach ($data_supplier as $item)
-                                                    <option value="{{$item->supplier_name}}">{{$item->supplier_name}}</option>
+                                                    <option value="{{$item->id}}">{{$item->supplier_name}}</option>
                                                 @endforeach
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label  class="col-sm-3 col-form-label" for="company_name">Nama Perusahaan</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  name="company" class="form-control" id="company_name"  placeholder="company" autocomplete="off" readonly >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label  class="col-sm-3 col-form-label" for="email_supplier">Email Perusahaan</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  name="supplier_email" class="form-control" id="email_supplier"  placeholder="Supplier Email" autocomplete="off" readonly >
                                     </div>
                                 </div>
 
@@ -105,7 +119,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="item_price">Harga Per Item</label>                                   
+                                    <label class="col-sm-3 col-form-label" for="item_price">Harga Per Item ( Rp. )</label>                                   
                                     <div class="col-sm-9">
                                         <input type="number" name="item_price" class="form-control" id="harga_per_item"  placeholder="Item Price">
                                     </div>
@@ -119,11 +133,19 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="satuan_harga">Jumlah Barang</label>                                   
+                                    <label class="col-sm-3 col-form-label" for="satuan_harga">Satuan Barang</label>                                   
                                     <div class="col-sm-9">
-                                        <input type="text" name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang ">
+                                        <input type="text" readonly  name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang ">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="diskon_harga">Masukan Diskon ( % )</label>
+                                    <div class="col-sm-9">
+                                    <input type="number" name="discounts_item"  class="form-control" id="diskon_harga"  placeholder="Discount Item" autocomplete="off" value="0" >
+                                    </div>
+                                </div>
+                                
 
 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -137,19 +159,19 @@
 
                                         <li class="list-group-item">
                                             <div class="form-group">
-                                                <label class="font-weight-bold" for="total_harga">Total Harga Barang</label>
-                                                <input type="number" name="total_price_item" class="form-control" id="total_harga_item"  placeholder="Total Price Item ">      
+                                                <label class="font-weight-bold" for="total_harga"> Total Harga Barang ( Rp. )</label>
+                                                <input readonly  type="number" name="total_price_item" class="form-control" id="total_harga_item"  placeholder="Total Price Item ">      
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="biaya_antar">Biaya Antar</label>
-                                                <input type="number" name="delivery_fee" class="form-control" id="biaya_antar"  placeholder="Delivery Fee">                                                
+                                                <label for="biaya_antar">Biaya Antar ( Rp. )</label>
+                                                <input type="number" name="delivery_fee" class="form-control" id="biaya_antar"  placeholder="Delivery Fee" value="0">                                                
                                             </div>
                                         </li>                                                  
                                         <li class="list-group-item">
                                             <div class="form-group">
-                                                <label class="font-weight-bold" for="exampleInputEmail1">Total Semua Harga (Rp)</label>
-                                                <input type="number" name="total_all_price" class="form-control" id="total_semua_harga"  placeholder="Total All Price" autocomplete="off">
+                                                <label class="font-weight-bold" for="exampleInputEmail1"> Total Semua Harga ( Rp. )</label>
+                                                <input readonly  type="number" name="total_all_price" class="form-control" id="total_semua_harga"  placeholder="Total All Price" autocomplete="off">
                                             </div>
                                         </li>
                                         
@@ -191,24 +213,121 @@
             })
         })
 
+        $('#nama_supplier').on('change', function(){
+            var id = $(this).children('option:selected').val();
+
+            $.ajax({
+                url: '/get_supplier',
+                method:'get',
+                type:'json',
+                data:{
+                    id: id
+                },
+
+                success: function(response){
+                    // console.log(response);
+                    $('#email_supplier').val(response.email);
+                    $('#company_name').val(response.legal_name)
+                },
+
+                error: function (response) {
+                console.log(response);
+                }
+
+
+            })
+        })
+
+
+        // $('#jumlah_barang'). on('keyup', function(){
+        //     var harga_per_item = $('#harga_per_item').val();
+        //     var jumlah_barang = $(this).val();
+
+        //     var total_harga_item = harga_per_item * jumlah_barang;
+        //     // var total_semua_harga = harga_per_item * jumlah_barang;
+
+        //     $('#total_harga_item').val(total_harga_item);
+        //     $('#total_semua_harga').val(total_harga_item);
+
+        // })
+            
 
         $('#jumlah_barang'). on('keyup', function(){
             var harga_per_item = $('#harga_per_item').val();
+            var biaya_antar = $('#biaya_antar').val();
+            var diskon_harga = $('#diskon_harga').val();
             var jumlah_barang = $(this).val();
 
             var total_harga_item = harga_per_item * jumlah_barang;
-            var total_semua_harga = harga_per_item * jumlah_barang;
+
+            var total_harga_diskon = (harga_per_item * jumlah_barang) * diskon_harga / 100; 
+            var total_harga_item = (harga_per_item * jumlah_barang) - total_harga_diskon ;
 
             $('#total_harga_item').val(total_harga_item);
+
+
+            // var total_harga_item = harga_per_item * jumlah_barang;
+            var total_semua_harga = parseInt(biaya_antar) + parseInt(total_harga_item);
+            
+            if (isNaN(total_semua_harga)) {
+                total_semua_harga = 0;
+            }
+            console.log(total_semua_harga);
             $('#total_semua_harga').val(total_semua_harga);
 
         })
+
+
+        // hpi cara 1
+        // $('#harga_per_item'). on('keyup', function(){
+        //     var jumlah_barang = $('#jumlah_barang').val();
+        //     var harga_per_item = $(this).val();
+
+        //     var total_harga_item = jumlah_barang * harga_per_item ;
+        //     // var total_semua_harga = harga_per_item * jumlah_barang;
+
+        //     $('#total_harga_item').val(total_harga_item);
+        //     $('#total_semua_harga').val(total_harga_item);
+
+        // })
+
+            // hpi cara 2
+            $('#harga_per_item'). on('keyup', function(){
+                var jumlah_barang = $('#jumlah_barang').val();
+                var biaya_antar = $('#biaya_antar').val();
+                var diskon_harga = $('#diskon_harga').val();
+                var harga_per_item = $(this).val();
+                
+                // mendapatkan diskon & total harga item
+                var total_harga_item = jumlah_barang * harga_per_item ;
+                var total_harga_diskon = (harga_per_item * jumlah_barang) * diskon_harga / 100; 
+                var total_harga_item = (harga_per_item * jumlah_barang) - total_harga_diskon ;
+                $('#total_harga_item').val(total_harga_item);
+
+                // mendapatkan kembalian
+                var total_semua_harga = parseInt(biaya_antar) + parseInt(total_harga_item);
+
+                if (isNaN(total_semua_harga)) {
+                    total_semua_harga = 0;
+                }
+                console.log(total_semua_harga);
+                $('#total_semua_harga').val(total_semua_harga);
+
+
+            })
+
 
         $('#biaya_antar'). on('keyup', function(){
             var harga_per_item = $('#harga_per_item').val();
             var jumlah_barang = $('#jumlah_barang').val();
             var biaya_antar = $(this).val();
-            var total_harga_item = harga_per_item * jumlah_barang;
+
+            // setelah ada diskon
+            var diskon_harga = $('#diskon_harga').val();            
+            var total_harga_diskon = (harga_per_item * jumlah_barang) * diskon_harga / 100; 
+            var total_harga_item = (harga_per_item * jumlah_barang) - total_harga_diskon ;
+
+            // var total_harga_item = harga_per_item * jumlah_barang;
             var total_semua_harga = parseInt(biaya_antar) + parseInt(total_harga_item);
 
             if (isNaN(total_semua_harga)) {
@@ -218,6 +337,46 @@
             $('#total_semua_harga').val(total_semua_harga);
 
         })
+
+
+        // diskon harga cara 1
+        // $('#diskon_harga'). on('keyup', function(){
+        //     var harga_per_item = $('#harga_per_item').val();
+        //     var jumlah_barang = $('#jumlah_barang').val();
+        //     var biaya_antar = $('#biaya_antar').val();
+
+        //     var diskon_harga = $(this).val();
+        //     var total_harga_diskon = (harga_per_item * jumlah_barang) * diskon_harga / 100; 
+        //     var total_harga_item = (harga_per_item * jumlah_barang) - total_harga_diskon;
+            
+        //     console.log(total_harga_item);
+        //     $('#total_harga_item').val(total_harga_item);
+
+        //     console.log(total_harga_item);
+        //     $('#total_semua_harga').val(total_harga_item);
+
+        // })
+
+        // diskon harga cara 2
+        $('#diskon_harga'). on('keyup', function(){
+            var harga_per_item = $('#harga_per_item').val();
+            var jumlah_barang = $('#jumlah_barang').val();
+            var biaya_antar = $('#biaya_antar').val();
+            var diskon_harga = $(this).val();
+
+            // mendapatkan diskon & total harga item
+            var total_harga_diskon = (harga_per_item * jumlah_barang) * diskon_harga / 100; 
+            var total_harga_item = (harga_per_item * jumlah_barang) - total_harga_diskon;
+            console.log(total_harga_item);
+            $('#total_harga_item').val(total_harga_item);
+
+            // total_kembalian-harga_biaya-antar_bulak-balik = tkhbabb
+            var tkhbabb = parseInt(biaya_antar) + parseInt(total_harga_item);
+            console.log(tkhbabb);
+            $('#total_semua_harga').val(tkhbabb);
+
+        })
+
 
 
     </script>

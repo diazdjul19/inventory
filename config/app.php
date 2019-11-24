@@ -166,6 +166,8 @@ return [
         Barryvdh\Snappy\ServiceProvider::class,
         // exel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        // sweetalert 2
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         
 
@@ -233,11 +235,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        
         // pdf
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         // exel
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        // sweetalert 2
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];

@@ -17,6 +17,12 @@
         });
     </script>
 
+
+{{-- 
+    <script
+        src="js/jquery-3.4.1.min.js">
+    </script> --}}
+
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.min.js"></script> --}}
 
 <meta charset="utf-8">
@@ -37,7 +43,7 @@
 <!-- endinject -->
 <!-- Layout styles -->
 <link rel="stylesheet" href="/stellar-master/css/style.css" <!-- End layout styles -->
-<link rel="shortcut icon" href="/stellar-master/images/favicon.png" />
+<link rel="shortcut icon" href="/stellar-master/images/favicon-32x32.png" />
 </head>
 <body>
 <div class="container-scroller">
@@ -52,7 +58,7 @@
         <a class="navbar-brand brand-logo-mini" href="/stellar-master/index.html"><img src="/stellar-master/images/logo-mini.svg" alt="logo" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
-        <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Welcome To The Inventory Application</h5>
+        <h5 class="mb-0 font-weight-medium d-none d-lg-flex">The Inventory Application</h5>
         <ul class="navbar-nav navbar-nav-right ml-auto">
 
         <main class="py-4">
@@ -202,9 +208,12 @@ src="https://code.jquery.com/jquery-3.4.1.min.js"
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous" defer></script>
 
-
+{{-- ajax --}}
 @stack('script')
 
+{{-- chart js --}}
 @stack('chart_js')
+
+{{-- sweetalret 2 --}}
 </body>
 </html>

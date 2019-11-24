@@ -76,8 +76,10 @@
 </div>
 </div>
 
-@endsection
+@include('sweetalert::alert')
 
+
+@endsection
 @push('chart_js')
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
@@ -147,4 +149,7 @@
         });
     </script>
 @endpush
+
+
+
 

@@ -13,14 +13,20 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Customer</label>
+                                    <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Nama Customer</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" id="customer" name="customers">
+                                        <select class="form-control" id="nama_customer" name="customers">
                                             <option>-- Pilih Nama Customer --</option>
                                             @foreach ($customer as $cos)
-                                                <option value="{{$cos->name}}"> {{$cos->name}} </option>
+                                                <option value="{{$cos->id}}"> {{$cos->name}} </option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label  class="col-sm-3 col-form-label" for="email_customer">Email Customer</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  name="customer_email" readonly class="form-control" id="email_customer"  placeholder="Customer Email" autocomplete="off">
                                     </div>
                                 </div>
 
@@ -57,6 +63,16 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="diskon_harga">Masukan Diskon ( % )</label>
+                                    <div class="col-sm-9">
+                                    <input type="number" name="discounts_item"  class="form-control" id="diskon_harga"  placeholder="Discount Item" autocomplete="off" value="0">
+                                    </div>
+                                </div>
+                                
+                                {{-- <input type="datetime-local" name="" id=""> --}}
+                                
+
                                 
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 
@@ -81,7 +97,7 @@
 
                                             <div class="form-group">
                                                 <label class="font-weight-bold" for="exampleInputEmail1">Nominal Kembalian (Rp)</label>
-                                                <input type="number" name="return_nominal" class="form-control" id="nominal_kembalian"  placeholder="return_nominal" autocomplete="off">
+                                                <input type="number" name="return_nominal" readonly class="form-control" id="nominal_kembalian"  placeholder="return_nominal" autocomplete="off">
                                             </div>
                                         </li>
                                         
@@ -115,7 +131,7 @@
     {{-- Ajax create --}}
     <script>
         
-        // harga per item
+        //Nama Item -> harga_per_item, Satuan
         $('#item-id').on('change', function(){
             var id = $(this).children('option:selected').val();
 
@@ -139,32 +155,122 @@
 
             })
         })
+        //Nama Customer -> customer_email
+
+        $('#nama_customer').on('change', function(){
+            var id = $(this).children('option:selected').val();
+
+            $.ajax({
+                url: '/get_customer',
+                method:'get',
+                type:'json',
+                data:{
+                    id: id
+                },
+
+                success: function(response){
+                    // console.log(response);
+                    $('#email_customer').val(response.email);
+                },
+
+                error: function (response) {
+                console.log(response);
+                }
+
+
+            })
+        })
 
 
         // 
-        $('#nominal_pembayaran'). on('keyup', function(){
+    $('#nominal_pembayaran'). on('keyup', function(){
             var harga_per_item = $('#harga_per_item').val();
             var quantity = $('#quantity').val();
             var nominal_pembayaran = $(this).val();
-            var total_harga = harga_per_item * quantity;
+             // var total_harga = harga_per_item * quantity;
+            
+            //ngambil cara dari diskon 
+            var diskon_harga = $('#diskon_harga').val();
+            var total_harga_diskon = (harga_per_item * quantity) * diskon_harga / 100; 
+            
+            var total_harga = (harga_per_item * quantity) - total_harga_diskon ;
             var nominal_kembalian = parseInt(nominal_pembayaran) - parseInt(total_harga);
+            if (isNaN(nominal_kembalian)) {
+                nominal_kembalian = 0;
+            }
+            console.log(nominal_kembalian);
+            $('#nominal_kembalian').val(nominal_kembalian);
+        })
 
+        // qty cara 1
+        // $('#quantity'). on('keyup', function(){
+        //     var harga_per_item = $('#harga_per_item').val();
+        //     var quantity = $(this).val();
+
+        //     var total_harga = harga_per_item * quantity;
+        //     $('#total_harga').val(total_harga);
+        // })
+
+        // qty cara 2
+        $('#quantity'). on('keyup', function(){
+            var harga_per_item = $('#harga_per_item').val();
+            var quantity = $(this).val();
+            var diskon_harga = $('#diskon_harga').val();
+            var nominal_pembayaran = $('#nominal_pembayaran').val();
+
+
+            var total_harga_diskon = (harga_per_item * quantity) * diskon_harga / 100; 
+            var total_harga = (harga_per_item * quantity) - total_harga_diskon ;
+
+            // var total_harga = harga_per_item * quantity;
+            $('#total_harga').val(total_harga);
+
+            var nominal_kembalian = parseInt(nominal_pembayaran) - parseInt(total_harga);
+            if (isNaN(nominal_kembalian)) {
+                nominal_kembalian = 0;
+            }
+            console.log(nominal_kembalian);
+            $('#nominal_kembalian').val(nominal_kembalian);
+        })
+
+        
+        // diskon cara 1
+        // $('#diskon_harga'). on('keyup', function(){
+        //     var harga_per_item = $('#harga_per_item').val();
+        //     var quantity = $('#quantity').val();
+        //     var diskon_harga = $(this).val();
+        //     var total_harga_diskon = (harga_per_item * quantity) * diskon_harga / 100; 
+        //     var total_harga = (harga_per_item * quantity) - total_harga_diskon ;
+        //     console.log(total_harga);
+        //     $('#total_harga').val(total_harga);
+        // })
+        
+        // diskon cara 2
+        $('#diskon_harga'). on('keyup', function(){
+            var harga_per_item = $('#harga_per_item').val();
+            var quantity = $('#quantity').val();
+            var nominal_pembayaran = $('#nominal_pembayaran').val();
+            var diskon_harga = $(this).val();
+
+            // mendapatkan diskon
+            var total_harga_diskon = (harga_per_item * quantity) * diskon_harga / 100; 
+            var total_harga = (harga_per_item * quantity) - total_harga_diskon ;
+
+            // mendapatkan total harga
+            console.log(total_harga);
+            $('#total_harga').val(total_harga);
+
+            // mendapatkan total kembalian
+            var nominal_kembalian = parseInt(nominal_pembayaran) - parseInt(total_harga);
             if (isNaN(nominal_kembalian)) {
                 nominal_kembalian = 0;
             }
             console.log(nominal_kembalian);
             $('#nominal_kembalian').val(nominal_kembalian);
 
+            
         })
-
-        $('#quantity'). on('keyup', function(){
-            var harga_per_item = $('#harga_per_item').val();
-            var quantity = $(this).val();
-
-            var total_harga = harga_per_item * quantity;
-            $('#total_harga').val(total_harga);
-        })
-
+        
 
 
         
