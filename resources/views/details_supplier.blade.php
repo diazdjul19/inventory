@@ -27,7 +27,7 @@
                                         <td>{{$data->legal_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Nomor Telfon</th>
+                                        <th>Nomor Telepon</th>
                                         <td>{{$data->mobile_number}}</td>
                                     </tr>
                                     <tr>
@@ -47,10 +47,6 @@
                             <div class="col-sm-6">
                                 <table class="table w-100">
                                     <tr>
-                                        <th>Negara</th>
-                                        <td>{{$data->country}}</td>
-                                    </tr>
-                                    <tr>
                                         <th>Kode Pos</th>
                                         <td>{{$data->zib_code}}</td>
                                     </tr>
@@ -69,6 +65,10 @@
                                     <tr>
                                         <th>Kota</th>
                                         <td>{{$data->city}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Negara</th>
+                                        <td>{{$data->country}}</td>
                                     </tr>
                                 </table>
                             </div>

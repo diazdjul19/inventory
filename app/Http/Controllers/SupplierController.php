@@ -62,9 +62,9 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $data = MsSupplier::create($request->all());
-
+        $suna = $request->supplier_name;
         if ($data) {
-            return redirect(route('supplier.index'))->with('sukses_create_supplier',"Data Berhasil Di Tambah");
+            return redirect(route('supplier.index'))->with('toast_success',"Supplier Dengan Nama '$suna', Berhasil Di Tambahkan");
         }
     }
 
@@ -106,8 +106,8 @@ class SupplierController extends Controller
         if ($data) {
 
             $data->update($request->all());
-
-            return redirect((route('supplier.index')))->with('sukses_edit_supplier',"Data Berhasil Di Edit");
+            $edna = $data->supplier_name;
+            return redirect((route('supplier.index')))->with('toast_info',"Data Dengan Nama '$edna', Berhasil Di Ubah");
         }else {
             # code...
         }
@@ -121,7 +121,11 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
+
+        $data = MsSupplier::find($id);
+        $delna = $data->supplier_name;
+
         $data = MsSupplier::find($id)->delete();
-        return redirect(route('supplier.index'))->with('sukses_delete_supplier',"Data Berhasil Di Hapus");
+        return redirect(route('supplier.index'))->with('toast_error',"Supplier Dengan Nama '$delna', Berhasil Di Hapus");
     }
 }

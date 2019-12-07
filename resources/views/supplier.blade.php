@@ -10,13 +10,12 @@
 @section('wrapper')
     <div class="container">
 
-    @if(session('sukses_create_supplier'))
+    {{-- @if(session('sukses_create_supplier'))
         <div class="alert alert-success" role="alert" style="text-align:center">
             <h4 class="alert-heading">Data Berhasil Di Tambahkan</h4> 
             <p>{{session('sukses_create_supplier')}}&#128516;</p>
         </div>
     @endif
-
 
     @if(session('sukses_edit_supplier'))
         <div class="alert alert-primary" role="alert" style="text-align:center">
@@ -30,7 +29,7 @@
             <h4 class="alert-heading">Data Berhasil Di Hapus</h4> 
             <p>{{session('sukses_delete_supplier')}}&#128517;</p>
         </div>
-    @endif
+    @endif --}}
 
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -143,5 +142,5 @@
             </div>
         </div>
     </div>
-
+@include('sweetalert::alert')
 @endsection

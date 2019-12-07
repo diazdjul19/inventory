@@ -6,8 +6,15 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body"> 
-                    <h4 class="card-title">Create Sales</h4>
-                    <br> 
+
+                    <div class="d-sm-flex align-items-center mb-4">
+                        <a href="{{route('sales.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                            <i class="icon-arrow-left-circle"></i>
+                        </a>
+                        
+                        <h3 class="card-title mb-sm-0">Create Sales</h3>
+                    </div>
+
                     <form action="{{route('sales.store')}}" method="POST">
                         @csrf
                         <div class="row">
@@ -42,6 +49,22 @@
                                     </div>
                                 </div>
 
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="diskon_harga">Sisa Barang Di Toko</label>
+                                    <div class="col">
+                                        <div id="the-basics">
+                                            <input class="typeahead form-control" type="number" name="" readonly id="sisa_barang"  placeholder="Leftover goods" autocomplete="off" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div id="bloodhound">
+                                            <input class="typeahead form-control" type="text" name="" readonly id="satuan_barang_sisa"  placeholder="Unit of goods" autocomplete="off" >
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="form-group row">
                                     <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Harga Per Item (Rp)</label>
                                     <div class="col-sm-9">
@@ -50,16 +73,16 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Jumlah Barang</label>
-                                    <div class="col-sm-9">
-                                    <input type="number" name="qty" class="form-control" id="quantity"  placeholder="Quantity" autocomplete="off">
+                                    <label class="col-sm-3 col-form-label" for="diskon_harga">Jml Pembelian Barang</label>
+                                    <div class="col">
+                                        <div id="the-basics">
+                                            <input type="number" name="qty" class="typeahead form-control" id="quantity"  placeholder="Quantity" autocomplete="off">
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="satuan_barang">Satuan Barang</label>
-                                    <div class="col-sm-9">
-                                    <input type="text" name="satuan" readonly class="form-control" id="satuan_barang"  placeholder="Satuan Barang" autocomplete="off">
+                                    <div class="col">
+                                        <div id="bloodhound">
+                                            <input type="text" name="satuan" readonly class="typeahead form-control" id="satuan_barang"  placeholder="Satuan Barang" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -69,6 +92,8 @@
                                     <input type="number" name="discounts_item"  class="form-control" id="diskon_harga"  placeholder="Discount Item" autocomplete="off" value="0">
                                     </div>
                                 </div>
+
+                                
                                 
                                 {{-- <input type="datetime-local" name="" id=""> --}}
                                 
@@ -79,6 +104,8 @@
                             </div>
 
                             <div class="col-md-4">
+
+
                                 <div class="row ml-5">
                                     <ul class="list-group">
                                         <li class="list-group-item active ">Pebayaran</li>
@@ -103,6 +130,7 @@
                                         
                                     </ul>
                                 </div>
+
                             </div>
                         </div>
                     </form>
@@ -146,6 +174,10 @@
                 // console.log(response);
                 $('#harga_per_item').val(response.item_price);
                 $('#satuan_barang').val(response.satuan);
+
+                $('#satuan_barang_sisa').val(response.satuan);
+                $('#sisa_barang').val(response.stock);
+
 
 
             },

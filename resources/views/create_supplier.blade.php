@@ -58,7 +58,14 @@
         <div class="col-12 grid-margin">
             <div class="card">
                 <div class="card-body">
-                <h3 class="card-title mb-4">Create Supplier</h3>
+
+                <div class="d-sm-flex align-items-center mb-4">
+                    <a href="{{route('supplier.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                        <i class="icon-arrow-left-circle"></i>
+                    </a>
+                    <h3 class="card-title mb-sm-0">Create Supplier</h3>
+                </div>
+                
                 <form class="form-sample" action="{{route('supplier.store')}}" method="POST">
                     @csrf
                         <div class="row">
@@ -66,7 +73,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label" for="exampleInputEmail1">Nama Supplier</label>                                    
                                     <div class="col-sm-9">
-                                        <input type="text" name="Supplier Name" class="form-control" id="exampleInputEmail1"  placeholder=" Supplier Name">
+                                        <input type="text" name="supplier_name" class="form-control" id="exampleInputEmail1"  placeholder=" Supplier Name">
                                     </div>
                                 </div>
                             </div>

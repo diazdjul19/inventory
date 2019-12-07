@@ -126,16 +126,16 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="qty">Jumlah Barang</label>                                   
-                                    <div class="col-sm-9">
-                                        <input type="number" name="qty" class="form-control" id="jumlah_barang"  placeholder="Quantity ">
+                                    <label class="col-sm-3 col-form-label" for="diskon_harga">Jml Pembelian Barang</label>
+                                    <div class="col">
+                                        <div id="the-basics">
+                                            <input type="number" name="qty" class="form-control" id="jumlah_barang"  placeholder="Quantity ">
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="satuan_harga">Satuan Barang</label>                                   
-                                    <div class="col-sm-9">
-                                        <input type="text" readonly  name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang ">
+                                    <div class="col">
+                                        <div id="bloodhound">
+                                            <input type="text" readonly  name="satuan" class="form-control" id="satuan_barang"  placeholder="Satuan Barang ">
+                                        </div>
                                     </div>
                                 </div>
 

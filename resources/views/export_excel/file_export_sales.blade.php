@@ -27,7 +27,7 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
-                    <td>{{$item->id}}</td>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$item->no_invoice}}</td>
                     <td>{{$item->customer['name']}}</td>
                     <td>{{$item->customer_email}}</td>

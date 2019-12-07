@@ -14,7 +14,11 @@ use App\Models\MsStock;
 use App\Exports\SalesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+// email
 use Mail;
+
+// sweetalert
+use Alert;
 
 
 
@@ -98,8 +102,11 @@ class SalesController extends Controller
         // SCRIPT SETELAH MENU STOCK DI GANTI KE PRODUCT
         $stock = MsProduct::where('id', $request->item_id)->first();
         $stock_awal = $stock->stock;
+        $stock_name = $stock->product_name;
+        // dd($stock_name);
         if ($stock_awal < $request->qty) {
-            return redirect(route('sales.index'))->with('stock_kurang', 'Maaf Kami Kekurangan Stock');
+            Alert::error('Oopss...', "Maaf Kami Kekurangan Stock $stock_name");
+            return redirect(route('sales.index'));
         }   
         $stock_akhir = $stock_awal - $request->qty;
         $stock->update(['stock' => $stock_akhir]);
@@ -135,9 +142,10 @@ class SalesController extends Controller
                 $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
             });
 
-            
-
-            return redirect()->route('sales.index')->with('sukses_create_sales', "Yeyy, Data Anda Telah Berhasil Kami Tambahkan");;
+            // name alert
+            $daca = MsCustomer::where('id', $request->customers)->first();
+            $naca = $daca->name;
+            return redirect()->route('sales.index')->with('toast_success', "$naca, Successful Transaction");;
         }else{
             // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
             return "Gagal";
@@ -189,7 +197,7 @@ class SalesController extends Controller
 
             $alsal = $data->no_invoice;
 
-            return redirect(route('sales.index'))->with('sukses_edit_sales', "Yeyy, Data Dengan No Invoive $alsal Telah Berhasil Kami Edit");
+            return redirect(route('sales.index'))->with('toast_info', "Data With Invoice Number $alsal, Successfully Updated");
 
         } else {
             # code...
@@ -210,7 +218,7 @@ class SalesController extends Controller
         $alha = $data->no_invoice;
 
         $data = MsSales::find($id)->delete();
-        return redirect(route('sales.index'))->with('sukses_delete_sales', "Yeyy, Data Dengan No Invoive $alha Telah Berhasil Kami Hapus");;
+        return redirect(route('sales.index'))->with('toast_error', "Data With Invoice Number $alha,  Successfully Deleted");
     }
 
 

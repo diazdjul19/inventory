@@ -10,7 +10,7 @@
 
 @section('wrapper')
 
-    @if(session('sukses_create_sales'))
+    {{-- @if(session('sukses_create_sales'))
         <div class="alert alert-success" role="alert" style="text-align:center">
             <h4 class="alert-heading">Data Berhasil Di Tambahkan</h4> 
             <p>{{session('sukses_create_sales')}}&#128516;</p>
@@ -36,7 +36,7 @@
             <h4 class="alert-heading">Stock Kurang</h4> 
             <p>{{session('stock_kurang')}}&#128549;</p>
         </div>
-    @endif
+    @endif --}}
 
     
     <div class="row justify-content-center">
@@ -157,5 +157,5 @@
 
     </div>
 
-
+@include('sweetalert::alert')
 @endsection

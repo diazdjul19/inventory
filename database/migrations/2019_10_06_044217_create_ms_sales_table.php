@@ -26,7 +26,6 @@ class CreateMsSalesTable extends Migration
             $table->string('return_nominal');
             $table->string('discounts_item');
             
-
             $table->timestamps();
         });
     }

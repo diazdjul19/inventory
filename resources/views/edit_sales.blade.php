@@ -72,26 +72,40 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body"> 
-                    <h4 class="card-title">Create Sales</h4>
-                    <br> 
+
+                    <div class="d-sm-flex align-items-center mb-4">
+                        <a href="{{route('sales.index')}}" style="font-size:25px; margin-right:10px; text-decoration:none;" href="">
+                            <i class="icon-arrow-left-circle"></i>
+                        </a>
+                        
+                        <h3 class="card-title mb-sm-0">Edit Sales</h3>
+                    </div>
+
                     <form action="{{route('sales.update', $data->id)}}" method="POST">
                         {{method_field('put')}}
                         @csrf
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Customer</label>
+                                    <label class="col-sm-3 col-form-label" for="exampleFormControlSelect1">Nama Customer</label>
                                     <div class="col-sm-9">
                                         <select class="form-control" id="exampleFormControlSelect1" name="customers">
                                             <optgroup label="Customer Lama">   
-                                                <option value="{{$data->customers}}">{{$data->customers}}</option>
+                                                <option value="{{$data->customer->id}}">{{$data->customer->name}}</option>
                                             </optgroup>
                                             <optgroup label="Customer Baru">
                                                 @foreach ($customer as $item)
-                                                    <option value="{{$item->name}}"> {{$item->name}} </option>
+                                                    <option value="{{$item->id}}"> {{$item->name}} </option>
                                                 @endforeach
                                             </optgroup>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label  class="col-sm-3 col-form-label" for="email_customer">Email Customer</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  name="customer_email" readonly class="form-control" id="email_customer"  placeholder="Customer Email" autocomplete="off" value="{{$data->customer_email}}">
                                     </div>
                                 </div>
 

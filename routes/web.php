@@ -48,6 +48,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// keuntungan_kerugian
+Route::get('/keuntungan_toko', 'HomeController@keuntungan_kerugian')->name('keuntungan_toko');
+Route::get('/cari_laporan_untung', 'HomeController@cari_laporan_untung')->name('cari_laporan_untung');
+
+
+
+
+
 // Category
 Route::resource('category','CategoryController');
 Route::get('category/delete/{id}',"CategoryController@destroy")->name("category.destroy");

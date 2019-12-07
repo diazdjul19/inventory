@@ -65,7 +65,10 @@
             @yield('form')
         </main>
 
-        <li class="nav-item"><a href="#" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
+        <li class="nav-item"><a href="{{route('buying.index')}}" class="nav-link"><i class="icon-basket-loaded"></i></a></li>
+        <li class="nav-item"><a href="{{route('sales.index')}}" class="nav-link"><i class=" icon-basket menu-icon"></i></li>
+        
+
         
         
         <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">

@@ -118,7 +118,9 @@ class BuyingController extends Controller
                 $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
             });
 
-            return redirect()->route('buying.index')->with('sukses_create_buying', "Yeyy, Data Anda Telah Berhasil Kami Tambahkan");;
+            $dasu = MsSupplier::where('id', $request->supplier)->first();
+            $nasu = $dasu->supplier_name;
+            return redirect()->route('buying.index')->with('toast_success', "$nasu ,Successful Transaction");;
         }else{
             // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
             return "Gagal";
@@ -169,9 +171,11 @@ class BuyingController extends Controller
      */
     public function destroy($id)
     {   
+        $dasu = MsBuying::find($id);
+        $nasu = $dasu->no_invoice;
+        
         $data = MsBuying::find($id)->delete();
-
-        return redirect(route('buying.index'))->with("sukses_delete_buying",'Yeyyy, Data Anda Berhasil Di Hapus');
+        return redirect(route('buying.index'))->with('toast_success',"Data With Invoice Number $nasu,  Successfully Deleted");
     }
 
     private function noInvoice($length = 10)

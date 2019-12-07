@@ -30,9 +30,9 @@
                             <th>Harga Per Item</th>
                             <th>Jumlah Barang</th>
                             <th>Diskon Barang</th>
-                            <th>Total Harga</th>
                             <th>Tanggal & Waktu Penjualan</th>
                             <th>Nominal Pembayaran</th>
+                            <th>Total Harga</th>
                             <th>Jumlah Kembalian</th>
                         </tr>
                         @foreach ($data as $d)
@@ -44,9 +44,9 @@
                             <td>Rp. {{number_format($d->item_price,2,',','.')}}</td>
                             <td>{{$d->qty}} {{$d->satuan}}</td>
                             <td>{{$d->discounts_item}}%</td>
-                            <td>Rp. {{number_format($d->total_price,2,',','.')}}</td>
                             <td>{{$d->created_at}}</td>
                             <td>Rp. {{number_format($d->payment_nominal,2,',','.')}}</td>
+                            <td>Rp. {{number_format($d->total_price,2,',','.')}}</td>
                             <td>Rp. {{number_format($d->return_nominal,2,',','.')}}</td>
                         </tr>
                         @endforeach
