@@ -85,7 +85,7 @@
                 <div class="card bg-info ml-2" style="width: 20rem;border-radius:5px; color:white;">
                     <div class="card-body">
                         <div class="card-body-icon">
-                            <i class="fas fa-users" style="position:absolute;z-index:0;top:50px;right:15px;opacity:0.4;font-size:80px;"></i>
+                            <i class="fas fa-users-cog" style="position:absolute;z-index:0;top:50px;right:15px;opacity:0.4;font-size:80px;"></i>
                         </div>
                         <h5 class="card-title text-white font-weight-bold" style="font-size:18px"> Jumlah User</h5>
                         <div class="display-5 mt-4">36 User</div>

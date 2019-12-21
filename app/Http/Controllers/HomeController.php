@@ -13,6 +13,12 @@ use Carbon\Carbon;
 
 // use RealRashid\SweetAlert\Facades\Alert;
 
+// export excel
+use App\Exports\LaporanKeuntunganEachProduct;
+use App\Exports\LaporanKeuntunganAllProduct;
+
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 use Illuminate\Http\Request;
@@ -62,16 +68,110 @@ class HomeController extends Controller
 
     public function cari_laporan_untung(Request $request){
 
-        $product = MsProduct::all();
+        // data url untuk pdf
+        $data_url = $request->fullUrl();
+        $data_url = \Str::substr($data_url, 42);
+        
 
+        $product = MsProduct::all();
         $this->validate($request,[
             'dari' => 'required',
             'sampai' => 'required'
         ]);
-        
+
         $nama_product = $request->nama_product;
         $dari = date('Y-m-d',strtotime($request->input('dari')));
         $sampai = date('Y-m-d',strtotime($request->input('sampai')."+1 day"));
+
+        if ($nama_product > 0) {
+
+            $jumlah_uang_with_name_product = \DB::table('ms_products')
+                        ->join('ms_sales', 'ms_sales.item_id', '=', 'ms_products.id')
+                        ->where('item_id',[$nama_product])
+                        ->whereBetween('ms_sales.created_at', [$dari,$sampai])
+                        ->get();
+            
+            $total_uang_with_name_product = \DB::table('ms_sales')
+                        ->where('item_id',[$nama_product])
+                        ->whereBetween('created_at', [$dari,$sampai])
+                        ->sum('total_price'); 
+            
+            //Mencari keuntungan tiap product 
+            $data1 = MsSales::where('item_id',[$nama_product])->value('item_price');
+            $data2 = MsBuying::where('item_id',[$nama_product])->orderBy('id', 'DESC')->value('item_price');
+            $data3 = MsSales::where('item_id',[$nama_product])->whereBetween('created_at', [$dari,$sampai])->sum('qty');
+
+            $data_untung_with_product = ($total_uang_with_name_product) - ($data2 * $data3);
+            
+            return view('keuntungan_kerugian.keuntungan_toko', compact('jumlah_uang_with_name_product','total_uang_with_name_product','data_untung_with_product','product', 'data_url'));
+
+        } else {
+            
+            $jumlah_uang_not_with_product = \DB::table('ms_products')
+                        ->join('ms_sales', 'ms_sales.item_id', '=', 'ms_products.id')
+                        ->whereBetween('ms_sales.created_at', [$dari,$sampai])
+                        ->get();
+            
+            
+            $total_harga_penjualan = \DB::table('ms_sales')
+                        ->whereBetween('created_at', [$dari,$sampai])
+                        ->sum('total_price');
+
+
+            $total_harga_pembelian = \DB::table('ms_buyings')
+                        ->whereBetween('created_at', [$dari,$sampai])
+                        ->sum('total_price_item');
+            
+
+            $data_untung_not_with_product = $total_harga_penjualan - $total_harga_pembelian;
+
+
+            return view('keuntungan_kerugian.keuntungan_toko', compact('jumlah_uang_not_with_product', 'total_harga_penjualan','data_untung_not_with_product', 'product', 'data_url'));
+            
+        }
+    
+    }
+
+
+
+
+
+
+
+
+    // mendapatkan code acak untuk download
+    private function code_download($length = 10)
+    {
+        $char = '0123456789';
+        $char_length = strlen($char);
+        $random_string = '';
+        for($i=0; $i < $length; $i++){
+            $random_string .= $char[rand(0,$char_length-1)];
+        }
+        return $random_string;
+    }
+
+    // function untuk download laporan keuntungan to PDF
+    public function download_laporan_pdf_keuntungan(Request $request){
+
+        $product = MsProduct::all();
+
+        // membuat validasi jikan (dari,sampai) belum di isi maka tidak akan berjalan
+        $this->validate($request,[
+            'dari' => 'required',
+            'sampai' => 'required'
+        ]);
+
+        // menerima request dari url
+        $nama_product = $request->nama_product;
+        $dari = date('Y-m-d',strtotime($request->input('dari')));
+        $sampai = date('Y-m-d',strtotime($request->input('sampai')."+1 day"));
+        
+        // mendapatkan code acak dari code_download yg nanti akan di compact untuk view
+        $laporan_code = 'LaporanCode-'.$this->code_download(10);
+
+        // script untuk mendapatkan data dari - sampai yg nantinya akan di compact untuk view
+        $data_dari_sampai = "Dari Tanggal " .date('d M Y', strtotime($request->input('dari'))). " - " ."Sampai Tanggal " .date('d M Y', strtotime($request->input('sampai')));
         
 
         if ($nama_product > 0) {
@@ -89,12 +189,15 @@ class HomeController extends Controller
             
             //Mencari keuntungan tiap product 
             $data1 = MsSales::where('item_id',[$nama_product])->value('item_price');
-            $data2 = MsBuying::where('item_id',[$nama_product])->value('item_price');
+            $data2 = MsBuying::where('item_id',[$nama_product])->orderBy('id', 'DESC')->value('item_price');  
             $data3 = MsSales::where('item_id',[$nama_product])->whereBetween('created_at', [$dari,$sampai])->sum('qty');
-
+            // dd($data1);
             $data_untung_with_product = ($total_uang_with_name_product) - ($data2 * $data3);
             
-            return view('keuntungan_kerugian.keuntungan_toko', compact('jumlah_uang_with_name_product','total_uang_with_name_product','data_untung_with_product','product'));
+            $pdf = \PDF::loadView('pdf.download_laporan_keuntungan_with_product',  compact('jumlah_uang_with_name_product','total_uang_with_name_product','data_untung_with_product','product','laporan_code', 'data_dari_sampai'))->setPaper('legal')->setOrientation('landscape');
+
+            return $pdf->download('LaporanCode_WithProduct-'.$laporan_code.'.pdf');
+
 
         } else {
             
@@ -102,43 +205,40 @@ class HomeController extends Controller
                         ->join('ms_sales', 'ms_sales.item_id', '=', 'ms_products.id')
                         ->whereBetween('ms_sales.created_at', [$dari,$sampai])
                         ->get();
-
+            
             
             $total_harga_penjualan = \DB::table('ms_sales')
                         ->whereBetween('created_at', [$dari,$sampai])
                         ->sum('total_price');
 
+
             $total_harga_pembelian = \DB::table('ms_buyings')
                         ->whereBetween('created_at', [$dari,$sampai])
                         ->sum('total_price_item');
+            
 
             $data_untung_not_with_product = $total_harga_penjualan - $total_harga_pembelian;
 
+            $pdf = \PDF::loadView('pdf.download_laporan_keuntungan_not_with_product', compact('jumlah_uang_not_with_product', 'total_harga_penjualan','data_untung_not_with_product','laporan_code', 'product', 'data_dari_sampai'))->setPaper('legal')->setOrientation('landscape');
 
-            return view('keuntungan_kerugian.keuntungan_toko', compact('jumlah_uang_not_with_product', 'total_harga_penjualan','data_untung_not_with_product', 'product'));
+            return $pdf->download('LaporanCode_ALL-'.$laporan_code.'.pdf');
+
             
         }
-    
     }
 
 
-    // public function cari_laporan_untung(Request $request){
 
-    //     $this->validate($request,[
-    //         'dari' => 'required',
-    //         'sampai' => 'required'
-    //     ]);
+    public function export_laporan_excel_keuntungan_each_product(){
 
-    //     $dari = date('Y-m-d',strtotime($request->input('dari')));
-    //     $sampai = date('Y-m-d',strtotime($request->input('sampai')."+1 day"));
+        return Excel::download(new LaporanKeuntunganEachProduct, 'LaporanKeuntungan_EachProduct.xlsx');
+        
+    }
 
-    //     $jumlah_uang = \DB::table('ms_sales')->whereBetween('created_at', [$dari,$sampai])->get();
+    public function export_laporan_excel_keuntungan_all_product(){
 
-    //     $total_uang = \DB::table('ms_sales')->whereBetween('created_at', [$dari,$sampai])->sum('total_price');      
+        return Excel::download(new LaporanKeuntunganAllProduct, 'LaporanKeuntungan_AllProduct.xlsx');
+        
+    }
 
-    //     return view('keuntungan_kerugian.keuntungan_toko', compact('jumlah_uang', 'total_uang'));
-    // }
-    
-
-    
 }

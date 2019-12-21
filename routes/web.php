@@ -52,8 +52,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/keuntungan_toko', 'HomeController@keuntungan_kerugian')->name('keuntungan_toko');
 Route::get('/cari_laporan_untung', 'HomeController@cari_laporan_untung')->name('cari_laporan_untung');
 
+// keuntungan barang to PDF
+Route::get('/download_laporan_keuntungan_to_pdf', 'HomeController@download_laporan_pdf_keuntungan')->name('download_laporan_keuntungan_to_pdf');
+
+// keuntungan barang to Excel
+Route::get('/export_laporan_keuntungan_each_product_to_excel', 'HomeController@export_laporan_excel_keuntungan_each_product')->name('export_laporan_keuntungan_each_product_to_excel');
+Route::get('/export_laporan_keuntungan_all_product_to_excel', 'HomeController@export_laporan_excel_keuntungan_all_product')->name('export_laporan_keuntungan_all_product_to_excel');
 
 
+
+// User
+Route::resource('user', 'UserController');
 
 
 // Category

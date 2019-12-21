@@ -144,7 +144,6 @@ class ProductController extends Controller
         $data->item_price = $request->get('item_price');
         $data->registration_date = $request->get('registration_date');
         $data->satuan = $request->get('satuan');
-        $data->stock = $request->get('stock');
 
         if(isset($request->product_photo)){
             $imageFile = $request->product_name.'/'.\Str::random(60).'.'.$request->product_photo->getClientOriginalExtension();

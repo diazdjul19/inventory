@@ -128,6 +128,12 @@
         <li class="nav-item nav-category"><span class="nav-link">All Features</span></li>
 
         <li class="nav-item">
+            <a class="nav-link" href="{{route('user.index')}}">
+            <span class="menu-title">Management User</span>
+            <i class="fas fa-users-cog menu-icon"></i>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{route('category.index')}}">
             <span class="menu-title">Category</span>
             <i class=" icon-layers menu-icon"></i>
