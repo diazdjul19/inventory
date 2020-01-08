@@ -2,7 +2,7 @@
 
 
 @section('form')
-<form class="search-form d-none d-md-block" action="/search_customer" method="GET">
+<form class="search-form d-none d-md-block" action="/search_user" method="GET">
     <i class="icon-magnifier"></i>
     <input type="search" name="search" class="form-control" placeholder="Search Here" title="Search here" autocomplete="off">
 </form>
@@ -27,7 +27,7 @@
                             <th class="font-weight-bold">Foto User</th>
                             <th class="font-weight-bold">Nama User</th>
                             <th class="font-weight-bold">Email User</th>
-                            <th class="font-weight-bold">Status User</th>
+                            <th class="font-weight-bold">Tingkat User</th>
                             <th class="font-weight-bold text-center">Tanggal Registrasi</th>
                             <th class="font-weight-bold text-center">Action</th>
                             </tr>
@@ -38,17 +38,23 @@
                                 <tr>
                                     <td class="text-center">{{$loop->iteration}}</td>
                                     <td class="py-1 text-center">
-                                        <img src="/stellar-master/images/faces/face1.jpg" alt="image" />
+                                        <img style="width: 50px; height:50px;" src="{{url('/storage/user/'.$du->user_photo)}}">
                                     </td>
                                     <td>{{$du->name}}</td>
                                     <td>{{$du->email}}</td>
-                                    <td></td>
-                                    <td>{{date('d M Y  - H:i:s', strtotime($du->created_at))}}</td>
+                                    <td class="text-center">
+                                        @if ($du->role == 'admin')
+                                            <span class="badge badge-info p-2">ADMIN</span>                                        
+                                        @elseif($du->role == 'kasir')
+                                            <span class="badge badge-primary p-2">KASIR</span>                                                                                                               
+                                        @endif
+                                    </td> 
+                                    <td class="text-center">{{date('d M Y  - H:i:s', strtotime($du->created_at))}}</td>
 
 
                                     <td class="text-center">
-                                        <a class="btn btn-success btn-rounded btn-sm" href=""><i class="icon-note"></i> Edit</a>
-                                        <a class="btn btn-danger btn-rounded btn-sm" href=""><i class="icon-trash"></i> Delete</a>
+                                        <a class="btn btn-success btn-rounded btn-sm" href="{{route('user.edit', $du->id)}}"><i class="icon-note"></i></a>
+                                        <a class="btn btn-danger btn-rounded btn-sm" href="{{route('user.destroy', $du->id)}}"><i class="icon-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -70,5 +76,6 @@
     </div>   
 </div>     
 
-{{-- @include('sweetalert::alert') --}}
+@include('sweetalert::alert')
 @endsection
+

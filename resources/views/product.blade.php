@@ -38,6 +38,8 @@
                 <div class="d-sm-flex align-items-center mb-4">
                     <h4 class="card-title mb-sm-0">Product Inventory</h4>
                         <a href="{{route("export_product")}}" class="btn btn-success btn-icon-text btn-sm ml-auto mb-3 mb-sm-0 mr-3">Export Exel <i class="fas fa-file-excel btn-icon-append"></i></a>
+                        <a href="{{route("product_qr")}}" class="btn btn-info btn-icon-text btn-sm mr-3">Download QRCode <i class="fas fa-qrcode btn-icon-append"></i></a>
+
                         <a href="{{route("product.create")}}" class="btn btn-primary btn-fw"> <i class="icon-plus mr-1"></i> Create Product</a>
                 </div>
             <div class="table-responsive border rounded p-1">
@@ -45,6 +47,7 @@
                     <thead>
                     <tr  class="table-info">
                         <th class="font-weight-bold">No</th>
+                        <th class="font-weight-bold text-center">QR Code</th>
                         <th class="font-weight-bold">Category</th>
                         <th class="font-weight-bold">Kode Product</th>
                         <th class="font-weight-bold">Foto Product</th>
@@ -53,13 +56,22 @@
                         <th class="font-weight-bold">Satuan</th>
                         <th class="font-weight-bold">Harga Per Barang</th>
                         <th class="font-weight-bold">Tgl Registrasi</th>
-                        <th class="font-weight-bold text-center">Action</th>
+                        <th class="font-weight-bold text-center">Download QR</th>
+
+
+                        
+                        @if (Auth::user()->role == 'admin')
+                            <th class="font-weight-bold text-center">Action</th>
+                        @elseif(Auth::user()->role == 'kasir')
+                            {{-- KOSONG --}}
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($data as $d)
-                        <tr>
+                        <tr>    
                             <td>{{$loop->iteration}}</td>
+                            <td>{!! DNS2D::getBarcodeHTML("$d->product_code ", "QRCODE") !!}</td>
                             <td>{{$d->id_category}}</td>
                             <td>{{$d->product_code}}</td>
                             
@@ -72,12 +84,22 @@
                             <td class="text-center">{{number_format($d->stock,'0','','.')}}</td>
                             <td>{{$d->satuan}}</td>
                             <td>Rp. {{number_format($d->item_price,'2',',','.')}}</td>
-                            <td>{{$d->registration_date}}</td>
+                            <td>{{date('d M Y', strtotime($d->registration_date))}} </td>
 
-                            <td>
-                                <a class="btn btn-success btn-rounded btn-sm" href="{{route('product.edit', $d->id)}}"><i class="icon-note"></i> Edit</a>
-                                <a class="btn btn-danger btn-rounded btn-sm" href="{{route('product.destroy', $d->id)}}"><i class="icon-trash"></i> Delete</a>
-                            </td>
+                            
+
+                            @if (Auth::user()->role == 'admin')
+                                <td>
+                                    <a href="{{route('each_product_qr', $d->id)}}" class="btn btn-info btn-rounded btn-sm"><i class="fas fa-qrcode mr-1"></i>Download</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-rounded btn-sm" href="{{route('product.edit', $d->id)}}"><i class="icon-note"></i></a>
+                                    <a class="btn btn-danger btn-rounded btn-sm" href="{{route('product.destroy', $d->id)}}"><i class="icon-trash"></i></a>
+                                </td>
+                            @elseif(Auth::user()->role == 'kasir')
+                                {{-- KOSONG --}}
+                            @endif
+                            
                         </tr>
                     @endforeach
                     </tbody>

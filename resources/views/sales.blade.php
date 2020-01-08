@@ -95,9 +95,16 @@
                 <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
                         <h4 class="card-title mb-sm-0">Sales Inventory</h4>
-                        <a href="{{route("export_sales")}}" class="btn btn-success btn-icon-text btn-sm ml-auto mb-3 mb-sm-0 mr-3">Export Exel <i class="fas fa-file-excel btn-icon-append"></i></a>
-                        <a href="{{route("datasales")}}" class="btn btn-danger btn-icon-text btn-sm  mr-2">Download PDF <i class="fas fa-file-pdf btn-icon-append"></i> </a>
-                        <a href="{{route("sales.create")}}" class="btn btn-primary btn-fw "> <i class="icon-plus mr-1"></i> Create Sales</a>
+
+                        @if (Auth::user()->role == 'admin')
+                            <a href="{{route("export_sales")}}" class="btn btn-success btn-icon-text btn-sm ml-auto mb-3 mb-sm-0 mr-3">Export Exel <i class="fas fa-file-excel btn-icon-append"></i></a>
+                            <a href="{{route("datasales")}}" class="btn btn-danger btn-icon-text btn-sm  mr-2">Download PDF <i class="fas fa-file-pdf btn-icon-append"></i> </a>
+                            <a href="{{route("sales.create")}}" class="btn btn-primary btn-fw "> <i class="icon-plus mr-1"></i> Create Sales</a>
+                        
+                        @elseif(Auth::user()->role == 'kasir') 
+                            <a href="{{route("sales.create")}}" class="btn btn-primary btn-fw ml-auto mb-3 mb-sm-0 mr-3"> <i class="icon-plus mr-1"></i> Create Sales</a>
+                        @endif
+
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
@@ -113,7 +120,13 @@
                                 {{--<th class="font-weight-bold">Total Harga</th>
                                 <th class="font-weight-bold">Nominal Pembayaran (Rp)</th>
                                 <th class="font-weight-bold">Nominal Kembalian (Rp)</th> --}}
-                                <th class="font-weight-bold text-center">Action</th>
+
+                                
+                                @if (Auth::user()->role == 'admin')
+                                    <th class="font-weight-bold text-center">Action</th>
+                                @elseif(Auth::user()->role == 'kasir') 
+                                    {{-- KOSONG --}}
+                                @endif
                                 <th class="font-weight-bold text-center">Details</th>
 
                             </tr>
@@ -131,10 +144,15 @@
                                     {{--<td>Rp. {{number_format($d->total_price,2,',','.')}}</td>
                                     <td>Rp. {{number_format($d->payment_nominal,2,',','.')}}</td>
                                     <td>Rp. {{number_format($d->return_nominal,2,',','.')}}</td> --}}
-                                    <td class="text-center">
-                                        <a class="btn btn-success btn-rounded btn-sm" href="{{route('sales.edit', $d->id)}}"><i class="icon-note"></i> Edit</a>
-                                        <a class="btn btn-danger btn-rounded btn-sm" href="{{route('sales.destroy', $d->id)}}"><i class="icon-trash"></i> Delete</a>
-                                    </td>
+                                    @if (Auth::user()->role == 'admin')
+                                        <td class="text-center">
+                                            <a class="btn btn-success btn-rounded btn-sm" href="{{route('sales.edit', $d->id)}}"><i class="icon-note"></i> Edit</a>
+                                            <a class="btn btn-danger btn-rounded btn-sm" href="{{route('sales.destroy', $d->id)}}"><i class="icon-trash"></i> Delete</a>
+                                        </td>
+                                    @elseif(Auth::user()->role == 'kasir') 
+                                        {{-- KOSONG --}}
+                                    @endif
+                                    
                                     <td class="text-center">
                                         <a class="btn btn-info btn-rounded btn-sm" href="{{route('sales.show', $d->id)}}"><i class="icon-info"></i> Info</a>
                                     </td>

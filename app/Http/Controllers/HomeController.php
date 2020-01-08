@@ -9,8 +9,11 @@ use App\Models\MsSales;
 use App\Models\MsBuying;
 use App\User;
 use Carbon\Carbon;
-// use Auth;
+use Auth;
 
+
+// sweetalert2
+use Alert;
 // use RealRashid\SweetAlert\Facades\Alert;
 
 // export excel
@@ -32,7 +35,22 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //
+    }
+
+    public function kasir()
+    {
+        
+        $jumlah_data_Product = count(MsProduct::all());
+        $jumlah_data_Customer = count(MsCustomer::all());
+        $jumlah_data_Sales = count(MsSales::all());
+        $jumlah_data_Buying = count(MsBuying::all());
+
+
+        $total_keuntungan = MsSales::get()->sum('total_price');
+        
+        // keuntungan
+        return view('home_kasir', compact('jumlah_data_Product','jumlah_data_Customer','jumlah_data_Sales','jumlah_data_Buying', 'total_keuntungan'));
     }
 
     /**
@@ -61,9 +79,18 @@ class HomeController extends Controller
         // // $data_penjualan_untung = MsSales::get()->where('item_id')->sum('total_price');
         // // $data_pembelian_untung = MsBuying::get()->sum('total_all_price'); 
         // // $asd =  MsBuying::get()->sum('qty'); 
-        
-        $product = MsProduct::all();
-        return view('keuntungan_kerugian.keuntungan_toko', compact('product'));
+
+
+
+        if (Auth::user()->role == 'admin') {
+            $product = MsProduct::all();
+            return view('keuntungan_kerugian.keuntungan_toko', compact('product'));
+        }
+        elseif (Auth::user()->role == 'kasir') {
+            $nama_user = Auth::user()->name;
+            Alert::error('Sorry...', "$nama_user, Anda Bukan Admin...");
+            return redirect(route('home_kasir'));
+        }
     }
 
     public function cari_laporan_untung(Request $request){

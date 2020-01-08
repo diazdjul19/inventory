@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Models\MsSupplier;
 
+use Auth;
+// sweetalert2
+use Alert;
+
+
 class SupplierController extends Controller
 {
     /**
@@ -16,8 +21,15 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $data = MsSupplier::paginate(5);
-        return view('supplier', compact('data'));
+        if (Auth::user()->role == 'admin') {
+            $data = MsSupplier::paginate(5);
+            return view('supplier', compact('data'));
+        }
+        elseif (Auth::user()->role == 'kasir') {
+            $nama_user = Auth::user()->name;
+            Alert::error('Sorry...', "$nama_user, Anda Bukan Admin...");
+            return redirect(route('home_kasir'));
+        }
     }
 
 

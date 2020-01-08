@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 use App\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Auth;
+
+// sweetalert2
+use Alert;
 
 class UserController extends Controller
 {
@@ -14,9 +20,34 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::paginate(5);
-        return view("user", compact('data'));
+        if (Auth::user()->role == 'admin') {
+            $data = User::paginate(5);
+            return view("user", compact('data'));
+
+        }elseif (Auth::user()->role == 'kasir') {
+            $nama_user = Auth::user()->name;
+            Alert::error('Sorry...', "$nama_user, Anda Bukan Admin...");
+            return redirect(route('sales.index'));
+        }
+        
     }
+
+
+
+    public function search_user(Request $request){
+
+        $search = $request->get('search');
+
+        $data = User::where(function($query) use ($search) {
+        $query->Where('name','LIKE','%'.$search.'%')
+                ->orWhere('email','LIKE','%'.$search.'%')
+                ->orWhere('created_at','LIKE','%'.$search.'%');
+        })->paginate(10);
+
+        return view('user',compact('data'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +56,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('create_user');
+        return view('user_create');
     }
 
     /**
@@ -36,7 +67,37 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Membuat Validasi Dulu
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role' => ['required', 'string'],
+            'user_photo' => ['required', 'file'],
+        ]);
+        
+        // Membuat Data User
+        $data = new User();
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->password = Hash::make($request->password);
+        $data->role = $request->role;
+
+        if(isset($request->user_photo)){
+            $imageFile = $request->name.'/'.\Str::random(60).'.'.$request->user_photo->getClientOriginalExtension();
+            $image_path = $request->file('user_photo')->move(storage_path('app/public/user/'.$request->name), $imageFile);
+
+            $data->user_photo = $imageFile;
+        }
+        $data->save();
+
+        // alert
+        $find_name = $request->name;
+        return redirect(route('user.index'))->with('toast_success',"User Dengan Nama '$find_name', Berhasil Di Tambahkan");
+
+        
+
+
     }
 
     /**
@@ -58,7 +119,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = User::find($id);
+        return view('user_edit', compact('data'));
+
     }
 
     /**
@@ -70,7 +133,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = User::find($id);
+        
+        $data->name = $request->get('name');
+        $data->email = $request->get('email');
+        $data->role = $request->get('role');
+        
+        if(isset($request->user_photo)){
+            $imageFile = $request->name.'/'.\Str::random(60).'.'.$request->user_photo->getClientOriginalExtension();
+            $image_path = $request->file('user_photo')->move(storage_path('app/public/user/'.$request->name), $imageFile);
+
+            $data->user_photo = $imageFile;
+        }
+        $data->save();
+
+        return redirect(route('user.index'));
+
+
+
     }
 
     /**
@@ -81,6 +161,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data1 = User::find($id);
+        $find_name = $data1->name;
+        
+        $data2 = User::find($id)->delete();
+        return redirect(route('user.index'))->with('toast_error',"User Dengan Nama '$find_name', Berhasil Di Hapus");
     }
 }

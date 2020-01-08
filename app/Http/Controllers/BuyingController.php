@@ -10,8 +10,14 @@ use App\Models\MsStock;
 
 use App\Exports\BuyingExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Auth;
 use Mail;
+
+// sweetalert
+use Alert;
+
+
+
 
 
 class BuyingController extends Controller
@@ -23,9 +29,16 @@ class BuyingController extends Controller
      */
     public function index(Request $request)
     {
-        $data = MsBuying::with('product','name_supplier')->paginate(10); 
-        // return $data;
-        return view('buying', compact('data'));
+        if (Auth::user()->role == 'admin') {
+            $data = MsBuying::with('product','name_supplier')->paginate(10); 
+            return view('buying', compact('data'));
+        }
+        elseif (Auth::user()->role == 'kasir') {
+            $nama_user = Auth::user()->name;
+            Alert::error('Sorry...', "$nama_user, Anda Bukan Admin...");
+            return redirect(route('home_kasir'));
+        }
+
     
     }
 

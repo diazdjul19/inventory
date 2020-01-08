@@ -42,6 +42,10 @@
                                         <th>Tanggal & Waktu</th>
                                         <td>{{$data->created_at}}</td>
                                     </tr>
+                                    <tr>
+                                        <th>Code BarCode</th>
+                                        <td>{!! DNS2D::getBarcodeHTML("$data->supplier_name", "QRCODE") !!}</td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="col-sm-6">

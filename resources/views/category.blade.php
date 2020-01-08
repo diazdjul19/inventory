@@ -48,7 +48,12 @@
                     <tr>
                         <th>NO</th>
                         <th>Name</th>
-                        <th>Action</th>
+
+                        @if (Auth::user()->role == 'admin')
+                            <th>Action</th>
+                        @elseif(Auth::user()->role == 'kasir')
+                            {{-- KOSONG --}}
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -56,11 +61,16 @@
                         <tr>        
                             <td>{{$loop->iteration}}</td>
                             <td>{{$d->category_name}}</td>
-                            <td>
-                                <a class="btn btn-success btn-rounded btn-sm" href="{{route('category.edit', $d->id)}}">Edit</a> 
-                                <a class="btn btn-danger btn-rounded btn-sm" href="{{route('category.destroy', $d->id)}}">Delete</a> 
-                                {{-- <button type="button" id="button" data-id="{{$d->id}}">Delete</button> --}}
-                            </td>
+
+                            @if (Auth::user()->role == 'admin')
+                                <td>
+                                    <a class="btn btn-success btn-rounded btn-sm" href="{{route('category.edit', $d->id)}}">Edit</a> 
+                                    <a class="btn btn-danger btn-rounded btn-sm" href="{{route('category.destroy', $d->id)}}">Delete</a> 
+                                    {{-- <button type="button" id="button" data-id="{{$d->id}}">Delete</button> --}}
+                                </td>
+                            @elseif(Auth::user()->role == 'kasir')
+                                {{-- KOSONG --}}
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

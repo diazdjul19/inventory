@@ -38,6 +38,13 @@ Route::get('/export_product', 'ProductController@export_product')->name('export_
     // buying
     Route::get('/generate_detail_buying/{id}/','BuyingController@detail_buying_pdf')->name('generate_detail_buying');
     Route::get('/data_buying','BuyingController@data_pdf_buying')->name('data_buying');
+
+    // Cetak QR Product
+    Route::get('/product_qr','ProductController@download_all_qr')->name('product_qr');
+
+    Route::get('/each_product_qr/{id}','ProductController@download_each_qr')->name('each_product_qr');
+
+
 // akhir pdf
 
 Route::get('/', function () {
@@ -46,7 +53,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Role Admin & Kasir
+Route::group(['middleware' => ['Admin']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+});
+
+Route::group(['middleware' => ['Kasir']], function () {
+    Route::get('/home_kasir', 'HomeController@kasir')->name('home_kasir');
+});
+
+
+
 
 // keuntungan_kerugian
 Route::get('/keuntungan_toko', 'HomeController@keuntungan_kerugian')->name('keuntungan_toko');
@@ -61,8 +78,13 @@ Route::get('/export_laporan_keuntungan_all_product_to_excel', 'HomeController@ex
 
 
 
+
+
+
 // User
 Route::resource('user', 'UserController');
+Route::get('user/delete/{id}',"UserController@destroy")->name("user.destroy");
+Route::get('/search_user', "UserController@search_user");
 
 
 // Category
@@ -124,6 +146,10 @@ Route::get('get_supplier', "BuyingController@getemail");
 
 
 
-Route::get('testing',function(){
-    return \App\Models\MsProduct::with('category')->paginate(5);
-});
+// Route::get('testing',function(){
+//     return \App\Models\MsProduct::with('category')->paginate(5);
+// })->name('testing')->middleware('Admin');
+
+// Route::get('/', 'HomeController@index')->name('home');
+
+

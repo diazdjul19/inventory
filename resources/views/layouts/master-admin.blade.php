@@ -73,7 +73,7 @@
         
         <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <img class="img-xs rounded-circle ml-2" src="/stellar-master/images/faces/face8.jpg" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a>
+            <img class="img-xs rounded-circle ml-2" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 
             <a class="dropdown-item" href="{{ route('logout') }}"
@@ -105,12 +105,18 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
             <div class="profile-image">
-                <img class="img-xs rounded-circle" src="/stellar-master/images/faces/face8.jpg" alt="profile image">
+                <img class="img-xs rounded-circle" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="profile image">
                 <div class="dot-indicator bg-success"></div>
             </div>
             <div class="text-wrapper">
                 <p class="profile-name">{{ Auth::user()->name }} </p>
-                <p class="designation">Administrator</p>
+                <p class="designation">
+                    @if (Auth::user()->role == 'admin')
+                        <span>Admin</span>
+                    @elseif(Auth::user()->role == 'kasir')
+                        <span>Kasir</span>
+                    @endif
+                </p>
             </div>
             
             </a>
@@ -127,12 +133,16 @@
 
         <li class="nav-item nav-category"><span class="nav-link">All Features</span></li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('user.index')}}">
-            <span class="menu-title">Management User</span>
-            <i class="fas fa-users-cog menu-icon"></i>
-            </a>
-        </li>
+        @if (Auth::user()->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('user.index')}}">
+                <span class="menu-title">Management User</span>
+                <i class="fas fa-users-cog menu-icon"></i>
+                </a>
+            </li> 
+        @else
+        @endif
+        
         <li class="nav-item">
             <a class="nav-link" href="{{route('category.index')}}">
             <span class="menu-title">Category</span>
@@ -163,18 +173,28 @@
             <i class=" icon-basket menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('supplier.index')}}">
-            <span class="menu-title">Supplier</span>
-            <i class=" icon-rocket menu-icon"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('buying.index')}}">
-            <span class="menu-title">Menu Pembelian</span>
-            <i class=" icon-basket-loaded menu-icon"></i>
-            </a>
-        </li>
+
+        @if (Auth::user()->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('supplier.index')}}">
+                <span class="menu-title">Supplier</span>
+                <i class=" icon-rocket menu-icon"></i>
+                </a>
+            </li>
+        @else    
+        @endif
+        
+
+        @if (Auth::user()->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('buying.index')}}">
+                <span class="menu-title">Menu Pembelian</span>
+                <i class=" icon-basket-loaded menu-icon"></i>
+                </a>
+            </li>
+        @else
+        @endif
+
         </ul>
     </nav>
     <!-- partial -->

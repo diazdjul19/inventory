@@ -156,9 +156,9 @@ class ProductController extends Controller
         $data->save();
 
 
-            $edco = $request->product_code;
+        $edco = $request->product_code;
 
-            return redirect(route('product.index'))->with('toast_info',"Product Dengan Kode Product '$edco', Berhasil Di Ubah");
+        return redirect(route('product.index'))->with('toast_info',"Product Dengan Kode Product '$edco', Berhasil Di Ubah");
 
         
     }
@@ -209,6 +209,21 @@ class ProductController extends Controller
         return Excel::download(new ProductExport, 'Product.xlsx');
     }
 
+
+
+    // download QR Code
+    public function download_all_qr(){
+        $data = MsProduct::all();
+        $pdf = \PDF::loadView('barcode_&_qr.qr_all_product' , compact('data'))->setPaper('a4');
+        return $pdf->download('All-QRCode.pdf');
+    }
+
+    public function download_each_qr($id){
+        $each_data = MsProduct::find($id);
+        $pdf = \PDF::loadView('barcode_&_qr.qr_each_product' , compact('each_data'))->setPaper('a4');
+        
+        return $pdf->download('Each-QrCode-'.$each_data['product_name'].'.pdf');
+    }
 
 
 }

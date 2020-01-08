@@ -279,7 +279,7 @@ class SalesController extends Controller
 
     public function data_pdf_sales(){
         $data = MsSales::all();
-        $pdf = \PDF::loadView('pdf.download_sales' , compact('data'))->setPaper('legal')->setOrientation('landscape');
+        $pdf = \PDF::loadView('pdf.download_sales' , compact('data'))->setPaper('a4')->setOrientation('landscape');
         return $pdf->download('SalesDownload-'.$this->code_download(10).'.pdf');
     }
 
