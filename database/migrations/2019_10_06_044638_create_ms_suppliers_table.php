@@ -25,6 +25,7 @@ class CreateMsSuppliersTable extends Migration
             $table->string('bank_name');
             $table->string('districts');
             $table->string('city');
+            $table->string('village_office');
             $table->timestamps();
         });
     }

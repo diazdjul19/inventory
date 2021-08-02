@@ -19,7 +19,7 @@ class CreateMsProductTable extends Migration
             $table->string('product_name');
             $table->string('product_code');
             $table->string('item_price');
-            $table->string('status');
+            $table->string('satuan');
             $table->string('stock');
             $table->string('product_photo');
             $table->date('registration_date');

@@ -127,30 +127,34 @@ class SalesController extends Controller
         $data->customer_email = $request->customer_email;
         $data->save();
 
+        return redirect()->route('sales.index')->with('toast_success', "Successful Transaction");
+
+        // KITA AKAN GUNAKAN FUNCTION DI BAWAH INI JIKA, INGIN KIRIM DATA VIA EMAIL
+
         // Kirim Ke Email
-        if ($data) {
-            // $email = MsSales::first('customer_email');
-            // dd($email);
-            // Kirim email, Jika barang berhasil disimpan
+        // if ($data) {
+        //     // $email = MsSales::first('customer_email');
+        //     // dd($email);
+        //     // Kirim email, Jika barang berhasil disimpan
 
-            Mail::send('sand_to_email.sales_to_email_owner', ['data' => $data], function($data) {
-                $data->to('diazdjul19@gmail.com', 'Lapor')->subject('Laporan Penjualan Barang');
-                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
-            });
+        //     Mail::send('sand_to_email.sales_to_email_owner', ['data' => $data], function($data) {
+        //         $data->to('diazdjul19@gmail.com', 'Lapor')->subject('Laporan Penjualan Barang');
+        //         $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+        //     });
 
-            Mail::send('sand_to_email.sales_to_email_customer', ['data' => $data], function($data) use($request){
-                $data->to($request->customer_email, 'Lapor')->subject('Laporan Pembelian Barang');
-                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
-            });
+        //     Mail::send('sand_to_email.sales_to_email_customer', ['data' => $data], function($data) use($request){
+        //         $data->to($request->customer_email, 'Lapor')->subject('Laporan Pembelian Barang');
+        //         $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+        //     });
 
-            // name alert
-            $daca = MsCustomer::where('id', $request->customers)->first();
-            $naca = $daca->name;
-            return redirect()->route('sales.index')->with('toast_success', "$naca, Successful Transaction");;
-        }else{
-            // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
-            return "Gagal";
-        }
+        //     // name alert
+        //     $daca = MsCustomer::where('id', $request->customers)->first();
+        //     $naca = $daca->name;
+        //     return redirect()->route('sales.index')->with('toast_success', "$naca, Successful Transaction");
+        // }else{
+        //     // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
+        //     return "Gagal";
+        // }
     }
 
     /**

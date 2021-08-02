@@ -31,6 +31,7 @@ class BuyingController extends Controller
     {
         if (Auth::user()->role == 'admin') {
             $data = MsBuying::with('product','name_supplier')->paginate(10); 
+            // dd($data);
             return view('buying', compact('data'));
         }
         elseif (Auth::user()->role == 'kasir') {
@@ -100,7 +101,7 @@ class BuyingController extends Controller
         
         $data = new MsBuying();
         $data->no_invoice = 'NoCode-'.$this->noInvoice(10);
-        $data->supplier = $request->supplier;
+        $data->supplier_name = $request->supplier;
         $data->item_id = $request->item_id;
         $data->qty = $request->qty;
         $data->satuan = $request->satuan;
@@ -117,27 +118,30 @@ class BuyingController extends Controller
         // $total = $request->qty * $request->item_price + $request->delivery_fee;
         // $data->total_price_item = $total;
         $data->save();
+        return redirect()->route('buying.index')->with('toast_success', "salesSuccessful Transaction");;
 
 
-        if ($data) {
+        // KITA AKAN GUNAKAN FUNCTION DI BAWAH INI JIKA, INGIN KIRIM DATA VIA EMAIL
 
-            Mail::send('sand_to_email.buying_to_email_owner', ['data' => $data], function($data){
-                $data->to('diazdjul19@gmail.com', 'Lapor')->subject('Laporan Pembelian Barang');
-                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
-            });
+        // if ($data) {
 
-            Mail::send('sand_to_email.buying_to_email_supplier', ['data' => $data], function($data) use($request){
-                $data->to($request->supplier_email, 'Lapor')->subject('Laporan Penjualan Barang');
-                $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
-            });
+        //     Mail::send('sand_to_email.buying_to_email_owner', ['data' => $data], function($data){
+        //         $data->to('diazdjul19@gmail.com', 'Lapor')->subject('Laporan Pembelian Barang');
+        //         $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+        //     });
 
-            $dasu = MsSupplier::where('id', $request->supplier)->first();
-            $nasu = $dasu->supplier_name;
-            return redirect()->route('buying.index')->with('toast_success', "$nasu ,Successful Transaction");;
-        }else{
-            // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
-            return "Gagal";
-        }
+        //     Mail::send('sand_to_email.buying_to_email_supplier', ['data' => $data], function($data) use($request){
+        //         $data->to($request->supplier_email, 'Lapor')->subject('Laporan Penjualan Barang');
+        //         $data->from(env('MAIL_USERNAME', 'diazdjul19@gmail.com'), 'Toko INVENTORY Indonesia');
+        //     });
+
+        //     $dasu = MsSupplier::where('id', $request->supplier)->first();
+        //     $nasu = $dasu->supplier_name;
+        //     return redirect()->route('buying.index')->with('toast_success', "$nasu ,Successful Transaction");;
+        // }else{
+        //     // return redirect()->route('sales.create')->with('status', 'Barang gagal ditambahkan.');
+        //     return "Gagal";
+        // }
 
     }
 

@@ -67,6 +67,10 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+
+            // ROLE INI DI TAMBAHKAN UNTUK OTOMATIS MEMASUKAN VALUE ADMIN KE FIELD ROLE
+            'role' => "admin",
+
         ]);
     }
 }

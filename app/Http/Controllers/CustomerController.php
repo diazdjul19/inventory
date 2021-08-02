@@ -60,7 +60,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $data = MsCustomer::create($request->all());
-        // dd($data);
+        dd($data);
         $result_name = $request->name;
         $request_email = $request->email;
 

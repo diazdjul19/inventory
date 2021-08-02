@@ -25,6 +25,8 @@ class CreateMsSalesTable extends Migration
             $table->string('payment_nominal');
             $table->string('return_nominal');
             $table->string('discounts_item');
+            $table->string('customer_email');
+
             
             $table->timestamps();
         });
