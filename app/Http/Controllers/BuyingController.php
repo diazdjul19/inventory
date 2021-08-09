@@ -118,7 +118,7 @@ class BuyingController extends Controller
         // $total = $request->qty * $request->item_price + $request->delivery_fee;
         // $data->total_price_item = $total;
         $data->save();
-        return redirect()->route('buying.index')->with('toast_success', "salesSuccessful Transaction");;
+        return redirect()->route('buying.index')->with('toast_success', "Successful Transaction");;
 
 
         // KITA AKAN GUNAKAN FUNCTION DI BAWAH INI JIKA, INGIN KIRIM DATA VIA EMAIL
