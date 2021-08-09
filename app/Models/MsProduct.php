@@ -12,7 +12,7 @@ class MsProduct extends Model
 
     public function category(){
 
-        return $this->belongsTo(MsCategory::class,'id_category','category_name');
+        return $this->belongsTo(MsCategory::class,'id_category','id');
         
     }
 }
