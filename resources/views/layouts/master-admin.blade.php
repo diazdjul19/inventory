@@ -77,7 +77,7 @@
             {{-- <img class="img-xs rounded-circle ml-2" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a> --}}
 
             {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
-            <img class="img-xs rounded-circle ml-2" src="{{url(Auth::user()->user_photo, TRUE)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a>
+            {{-- <img class="img-xs rounded-circle ml-2" src="{{url(Auth::user()->user_photo)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a> --}}
             
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 
@@ -114,7 +114,7 @@
                 {{-- <img class="img-xs rounded-circle" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="profile image"> --}}
 
                 {{-- MENGAMBIL IMAGE DARI SORAGE CLOUDINARY --}}
-                <img class="img-xs rounded-circle" src="{{url(Auth::user()->user_photo, TRUE)}}" alt="profile image">
+                {{-- <img class="img-xs rounded-circle" src="{{url(Auth::user()->user_photo, TRUE)}}" alt="profile image"> --}}
 
                 <div class="dot-indicator bg-success"></div>
             </div>
