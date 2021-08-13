@@ -70,7 +70,7 @@
                             
                                     {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
                                     @if($data->product_photo)
-                                        <img src="{{url($data->product_photo)}}"
+                                        <img src="{{$data->product_photo}}"
                                         width="120px">
                                     @endif
                                     <input type="file" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">

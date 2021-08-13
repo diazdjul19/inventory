@@ -85,7 +85,7 @@
                                     
                                     {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
                                     @if($data->user_photo)
-                                        <img src="{{url($data->user_photo)}}"
+                                        <img src="{{$data->user_photo}}"
                                         width="100px">
                                     @endif
 

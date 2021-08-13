@@ -42,7 +42,7 @@
                                         {{-- <img style="width: 50px; height:50px;" src="{{url('/storage/user/'.$du->user_photo)}}"> --}}
 
                                         {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
-                                        <img style="width: 50px; height:50px;" src="{{url($du->user_photo)}}">
+                                        <img style="width: 50px; height:50px;" src="{{$du->user_photo}}">
 
                                     </td>
                                     <td>{{$du->name}}</td>
