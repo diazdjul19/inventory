@@ -72,7 +72,7 @@ class BuyingController extends Controller
         $data_supplier = MsSupplier::all();
         $data_product = MsProduct::all();
 
-        return view("create_buying", compact('data_supplier', 'data_product', 'datato'));
+        return view("create_buying", compact('data_supplier', 'data_product'));
     }
 
     /**
