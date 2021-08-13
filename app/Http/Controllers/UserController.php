@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
+use JD\Cloudder\Facades\Cloudder;
+
 // sweetalert2
 use Alert;
 
@@ -83,12 +85,26 @@ class UserController extends Controller
         $data->password = Hash::make($request->password);
         $data->role = $request->role;
 
-        if(isset($request->user_photo)){
-            $imageFile = $request->name.'/'.\Str::random(60).'.'.$request->user_photo->getClientOriginalExtension();
-            $image_path = $request->file('user_photo')->move(storage_path('app/public/user/'.$request->name), $imageFile);
+        // MENGUPLOAD IMAGE KE STORAGE BAWAAN LARAVEL
+        // if(isset($request->user_photo)){
+        //     $imageFile = $request->name.'/'.\Str::random(60).'.'.$request->user_photo->getClientOriginalExtension();
+        //     $image_path = $request->file('user_photo')->move(storage_path('app/public/user/'.$request->name), $imageFile);
 
-            $data->user_photo = $imageFile;
+        //     $data->user_photo = $imageFile;
+        // }
+
+        // MENGUPLOAD IMAGE KE STORAGE  CLOUDINARY
+        if ($image = $request->file('user_photo')) {
+            $image_path = $image->getRealPath();
+            Cloudder::upload($image_path, null);
+            //直前にアップロードされた画像のpublicIdを取得する。
+            $publicId = Cloudder::getPublicId();
+            $logoUrl = Cloudder::secureShow($publicId);
+            $data->user_photo = $logoUrl;
         }
+
+        // dd($data);
+
         $data->save();
 
         // alert
@@ -139,12 +155,24 @@ class UserController extends Controller
         $data->email = $request->get('email');
         $data->role = $request->get('role');
         
-        if(isset($request->user_photo)){
-            $imageFile = $request->name.'/'.\Str::random(60).'.'.$request->user_photo->getClientOriginalExtension();
-            $image_path = $request->file('user_photo')->move(storage_path('app/public/user/'.$request->name), $imageFile);
+        // MENGUPLOAD IMAGE KE STORAGE BAWAAN LARAVEL
+        // if(isset($request->user_photo)){
+        //     $imageFile = $request->name.'/'.\Str::random(60).'.'.$request->user_photo->getClientOriginalExtension();
+        //     $image_path = $request->file('user_photo')->move(storage_path('app/public/user/'.$request->name), $imageFile);
 
-            $data->user_photo = $imageFile;
+        //     $data->user_photo = $imageFile;
+        // }
+
+        // MENGUPLOAD IMAGE KE STORAGE  CLOUDINARY
+        if ($image = $request->file('user_photo')) {
+            $image_path = $image->getRealPath();
+            Cloudder::upload($image_path, null);
+            //直前にアップロードされた画像のpublicIdを取得する。
+            $publicId = Cloudder::getPublicId();
+            $logoUrl = Cloudder::secureShow($publicId);
+            $data->user_photo = $logoUrl;
         }
+
         $data->save();
 
         return redirect(route('user.index'));

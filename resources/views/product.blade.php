@@ -75,8 +75,12 @@
                             <td>{{$d->id_category}}</td>
                             <td>{{$d->product_code}}</td>
                             
+                            {{-- Mengambil image dari srorage bawaan laravel --}}
+                            {{-- <td><img class="rounded mx-auto d-block" style="width: 70px; height:60px;" src="{{url('/storage/product/'.$d->product_photo)}}"></td> --}}
 
-                            <td><img class="rounded mx-auto d-block" style="width: 70px; height:60px;" src="{{url('/storage/product/'.$d->product_photo)}}"></td>
+                            {{-- Mengambil image dari storage cloudinary --}}
+                            <td><img class="rounded mx-auto d-block" style="width: 70px; height:60px;" src="{{url($d->product_photo)}}"></td>
+
 
 
 

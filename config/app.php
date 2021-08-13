@@ -170,6 +170,8 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         // Barcode
         Milon\Barcode\BarcodeServiceProvider::class,
+        // Cloudinary
+        JD\Cloudder\CloudderServiceProvider::class,
 
         
 
@@ -248,6 +250,8 @@ return [
         // Barcode
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        // Cloudinary
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
 
     ],
 

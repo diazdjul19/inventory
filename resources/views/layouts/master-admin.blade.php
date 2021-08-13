@@ -73,7 +73,12 @@
         
         <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-            <img class="img-xs rounded-circle ml-2" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a>
+            {{-- MENGAMBIL IMAGE DARI SORAGE BAWAAN LARAVEL --}}
+            {{-- <img class="img-xs rounded-circle ml-2" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a> --}}
+
+            {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
+            <img class="img-xs rounded-circle ml-2" src="{{url(Auth::user()->user_photo)}}" alt="Profile image"> <span class="font-weight-normal">  {{ Auth::user()->name }} </span></a>
+            
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 
             <a class="dropdown-item" href="{{ route('logout') }}"
@@ -105,7 +110,12 @@
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
             <div class="profile-image">
-                <img class="img-xs rounded-circle" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="profile image">
+                {{-- MENGAMBIL IMAGE DARI SORAGE BAWAAN LARAVEL --}}
+                {{-- <img class="img-xs rounded-circle" src="{{url('/storage/user/'.Auth::user()->user_photo)}}" alt="profile image"> --}}
+
+                {{-- MENGAMBIL IMAGE DARI SORAGE CLOUDINARY --}}
+                <img class="img-xs rounded-circle" src="{{url(Auth::user()->user_photo)}}" alt="profile image">
+
                 <div class="dot-indicator bg-success"></div>
             </div>
             <div class="text-wrapper">

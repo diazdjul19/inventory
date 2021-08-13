@@ -38,7 +38,12 @@
                                 <tr>
                                     <td class="text-center">{{$loop->iteration}}</td>
                                     <td class="py-1 text-center">
-                                        <img style="width: 50px; height:50px;" src="{{url('/storage/user/'.$du->user_photo)}}">
+                                        {{-- MENGAMBIL IMAGE DARI STORAGE BAWAAN LARAVEL --}}
+                                        {{-- <img style="width: 50px; height:50px;" src="{{url('/storage/user/'.$du->user_photo)}}"> --}}
+
+                                        {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
+                                        <img style="width: 50px; height:50px;" src="{{url($du->user_photo)}}">
+
                                     </td>
                                     <td>{{$du->name}}</td>
                                     <td>{{$du->email}}</td>

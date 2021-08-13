@@ -77,11 +77,18 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label">Foto / Icon</label>
                                 <div class="col-sm-8">
-                                    
-                                    @if($data->user_photo)
+                                    {{-- MENGAMBIL IMAGE DARI SORAGE BAWAAN LARAVEL --}}
+                                    {{-- @if($data->user_photo)
                                         <img src="{{url('/storage/user/'.$data->user_photo)}}"
                                         width="100px">
+                                    @endif --}}
+                                    
+                                    {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
+                                    @if($data->user_photo)
+                                        <img src="{{url($data->user_photo)}}"
+                                        width="100px">
                                     @endif
+
                                     <input type="file" class="form-control form-control-lg" name="user_photo" id="user_photo" placeholder="User Photo">
                                 </div>
                             </div>

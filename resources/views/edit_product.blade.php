@@ -62,11 +62,17 @@
                                 <div class="form-group row">
                                 <label  class="col-sm-3 col-form-label" for="exampleInputEmail1">Foto Product</label>
                                 <div class="col-sm-9">
-                                    @if($data->product_photo)
+                                    {{-- MENGAMBIL IMAGE DARI STORAGE BAWAAN LARAVEL --}}
+                                    {{-- @if($data->product_photo)
                                         <img src="{{url('/storage/product/'.$data->product_photo)}}"
                                         width="120px">
-                                    @endif
+                                    @endif --}}
                             
+                                    {{-- MENGAMBIL IMAGE DARI STORAGE CLOUDINARY --}}
+                                    @if($data->product_photo)
+                                        <img src="{{url($data->product_photo)}}"
+                                        width="120px">
+                                    @endif
                                     <input type="file" name="product_photo" class="form-control" id="exampleInputEmail1"  placeholder=" Product Photo">
                                 </div>
                                 </div>
