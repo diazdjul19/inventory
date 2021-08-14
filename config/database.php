@@ -104,7 +104,8 @@ return [
     |
     */
 
-    'migrations' => 'migrations',
+    // 'migrations' => 'migrations',
+    'migrations' => 'public.migrations',
 
     /*
     |--------------------------------------------------------------------------
