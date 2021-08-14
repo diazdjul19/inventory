@@ -101,7 +101,7 @@ class BuyingController extends Controller
         
         $data = new MsBuying();
         $data->no_invoice = 'NoCode-'.$this->noInvoice(10);
-        $data->supplier_id = $request->supplier_id;
+        $data->supplier_id = $request->supplier;
         $data->supplier_email = $request->supplier_email;
         $data->company = $request->company;
         $data->item_id = $request->item_id;
