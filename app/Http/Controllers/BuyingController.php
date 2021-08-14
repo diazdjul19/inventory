@@ -72,7 +72,7 @@ class BuyingController extends Controller
         $data_supplier = MsSupplier::all();
         $data_product = MsProduct::all();
 
-        return view("create_buying", compact('data_supplier', 'data_product'));
+        return view("create_buying", compact('data_supplier', 'data_product', 'datato'));
     }
 
     /**
@@ -101,7 +101,9 @@ class BuyingController extends Controller
         
         $data = new MsBuying();
         $data->no_invoice = 'NoCode-'.$this->noInvoice(10);
-        $data->supplier_name = $request->supplier;
+        $data->supplier_id = $request->supplier_id;
+        $data->supplier_email = $request->supplier_email;
+        $data->company = $request->company;
         $data->item_id = $request->item_id;
         $data->qty = $request->qty;
         $data->satuan = $request->satuan;
@@ -111,13 +113,11 @@ class BuyingController extends Controller
         $data->total_price_item = $request->total_price_item;
         $data->total_all_price = $request->total_all_price;
         $data->discounts_item = $request->discounts_item;
-        $data->supplier_email = $request->supplier_email;
-        $data->company = $request->company;
+        
 
         // $data->total_price_item = $request->total_price_item;
         // $total = $request->qty * $request->item_price + $request->delivery_fee;
         // $data->total_price_item = $total;
-        dd($data);
         $data->save();
         return redirect()->route('buying.index')->with('toast_success', "Successful Transaction");;
 
