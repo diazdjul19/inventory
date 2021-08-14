@@ -29,8 +29,6 @@ class CreateMsBuyingsTable extends Migration
             $table->string('satuan');
             $table->string('discounts_item');           
             
-
-
             $table->timestamps();
         });
     }
