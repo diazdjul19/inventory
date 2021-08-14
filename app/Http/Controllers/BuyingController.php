@@ -101,9 +101,7 @@ class BuyingController extends Controller
         
         $data = new MsBuying();
         $data->no_invoice = 'NoCode-'.$this->noInvoice(10);
-        $data->supplier_id = $request->supplier;
-        $data->supplier_email = $request->supplier_email;
-        $data->company = $request->company;
+        $data->supplier_name = $request->supplier;
         $data->item_id = $request->item_id;
         $data->qty = $request->qty;
         $data->satuan = $request->satuan;
@@ -113,7 +111,10 @@ class BuyingController extends Controller
         $data->total_price_item = $request->total_price_item;
         $data->total_all_price = $request->total_all_price;
         $data->discounts_item = $request->discounts_item;
-        
+        $data->supplier_email = $request->supplier_email;
+        $data->company = $request->company;
+
+        dd($data);
 
         // $data->total_price_item = $request->total_price_item;
         // $total = $request->qty * $request->item_price + $request->delivery_fee;

@@ -17,8 +17,6 @@ class CreateMsBuyingsTable extends Migration
             $table->Increments('id');
             $table->string('no_invoice');
             $table->integer('supplier_id');
-            $table->string('supplier_email');
-            $table->string('company');
             $table->integer('item_id');           
             $table->string('qty');           
             $table->string('item_price');
@@ -29,6 +27,8 @@ class CreateMsBuyingsTable extends Migration
             $table->string('satuan');
             $table->string('discounts_item');           
             
+
+
             $table->timestamps();
         });
     }
