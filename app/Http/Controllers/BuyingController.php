@@ -117,6 +117,7 @@ class BuyingController extends Controller
         // $data->total_price_item = $request->total_price_item;
         // $total = $request->qty * $request->item_price + $request->delivery_fee;
         // $data->total_price_item = $total;
+        dd($data);
         $data->save();
         return redirect()->route('buying.index')->with('toast_success', "Successful Transaction");;
 
