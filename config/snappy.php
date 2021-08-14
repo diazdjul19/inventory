@@ -53,14 +53,14 @@ return [
 
     'pdf' => array(
         'enabled' => true,
-        'binary'  => '/usr/local/bin/wkhtmltopdf',
+        'binary'  => 'wkhtmltopdf',
         'timeout' => false,
         'options' => array(),
         'env'     => array(),
     ),
     'image' => array(
         'enabled' => true,
-        'binary'  => '/usr/local/bin/wkhtmltopdf',
+        'binary'  => 'wkhtmltopdf',
         'timeout' => false,
         'options' => array(),
         'env'     => array(),
