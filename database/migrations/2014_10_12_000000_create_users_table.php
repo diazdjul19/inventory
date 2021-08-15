@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('user_photo')->nullable();
+            $table->string('user_photo_publicid')->nullable();
+
         });
     }
 

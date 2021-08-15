@@ -22,6 +22,7 @@ class CreateMsProductTable extends Migration
             $table->string('satuan');
             $table->string('stock')->nullable();
             $table->string('product_photo');
+            $table->string('product_photo_publicid');
             $table->date('registration_date');
             
 

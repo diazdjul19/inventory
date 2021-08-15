@@ -98,6 +98,8 @@ class ProductController extends Controller
             //直前にアップロードされた画像のpublicIdを取得する。
             $publicId = Cloudder::getPublicId();
             $logoUrl = Cloudder::secureShow($publicId);
+
+            $data->product_photo_publicid = $publicId;
             $data->product_photo = $logoUrl;
         }
 
@@ -160,11 +162,24 @@ class ProductController extends Controller
         $data->registration_date = $request->get('registration_date');
         $data->satuan = $request->get('satuan');
 
-        if(isset($request->product_photo)){
-            $imageFile = $request->product_name.'/'.\Str::random(60).'.'.$request->product_photo->getClientOriginalExtension();
-            $image_path = $request->file('product_photo')->move(storage_path('app/public/product/'.$request->product_name), $imageFile);
+        // MENGUPLOAD IMAGE KE STORAGE BAWAAN LARAVEL
+        // if(isset($request->product_photo)){
+        //     $imageFile = $request->product_name.'/'.\Str::random(60).'.'.$request->product_photo->getClientOriginalExtension();
+        //     $image_path = $request->file('product_photo')->move(storage_path('app/public/product/'.$request->product_name), $imageFile);
 
-            $data->product_photo = $imageFile;
+        //     $data->product_photo = $imageFile;
+        // }
+
+        // MENGUPLOAD IMAGE KE STORAGE CLOUDINARY
+        if ($image = $request->file('product_photo')) {
+            $image_path = $image->getRealPath();
+            Cloudder::upload($image_path, null);
+            //直前にアップロードされた画像のpublicIdを取得する。
+            $publicId = Cloudder::getPublicId();
+            $logoUrl = Cloudder::secureShow($publicId);
+
+            $data->product_photo_publicid = $publicId;
+            $data->product_photo = $logoUrl;
         }
 
         // return $data;
@@ -188,6 +203,10 @@ class ProductController extends Controller
     {
         $data = MsProduct::find($id);
         $haco = $data->product_code;
+
+        if(isset($data->product_photo_publicid)){
+            Cloudder::destroyImage($data->product_photo_publicid);
+        }
 
         $data = MsProduct::find($id)->delete();
 

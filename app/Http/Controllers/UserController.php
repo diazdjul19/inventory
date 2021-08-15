@@ -100,6 +100,8 @@ class UserController extends Controller
             //直前にアップロードされた画像のpublicIdを取得する。
             $publicId = Cloudder::getPublicId();
             $logoUrl = Cloudder::secureShow($publicId);
+
+            $data->user_photo_publicid = $publicId;
             $data->user_photo = $logoUrl;
         }
 
@@ -170,6 +172,8 @@ class UserController extends Controller
             //直前にアップロードされた画像のpublicIdを取得する。
             $publicId = Cloudder::getPublicId();
             $logoUrl = Cloudder::secureShow($publicId);
+
+            $data->user_photo_publicid = $publicId;
             $data->user_photo = $logoUrl;
         }
 
@@ -192,6 +196,9 @@ class UserController extends Controller
         $data1 = User::find($id);
         $find_name = $data1->name;
         
+        if(isset($data1->user_photo_publicid)){
+            Cloudder::destroyImage($data1->user_photo_publicid);
+        }
         $data2 = User::find($id)->delete();
         return redirect(route('user.index'))->with('toast_error',"User Dengan Nama '$find_name', Berhasil Di Hapus");
     }
