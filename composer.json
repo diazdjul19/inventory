@@ -18,6 +18,7 @@
         "maatwebsite/excel": "^3.1",
         "milon/barcode": "^6.0",
         "realrashid/sweet-alert": "^2.0",
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
         "yajra/laravel-datatables-oracle": "^9.6",
         "yoelpc4/laravel-cloudinary": "^2.1"
     },
