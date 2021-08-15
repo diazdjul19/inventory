@@ -16,7 +16,7 @@ class CreateMsBuyingsTable extends Migration
         Schema::create('ms_buyings', function (Blueprint $table) {
             $table->Increments('id');
             $table->string('no_invoice');
-            $table->integer('supplier_id');
+            $table->integer('supplier_name');
             $table->integer('item_id');           
             $table->string('qty');           
             $table->string('item_price');
