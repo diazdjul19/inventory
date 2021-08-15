@@ -114,7 +114,6 @@ class BuyingController extends Controller
         $data->supplier_email = $request->supplier_email;
         $data->company = $request->company;
 
-        dd($data);
 
         // $data->total_price_item = $request->total_price_item;
         // $total = $request->qty * $request->item_price + $request->delivery_fee;
