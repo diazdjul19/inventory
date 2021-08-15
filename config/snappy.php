@@ -33,37 +33,24 @@ return [
     |
     */
     
-    // 'pdf' => [
-    //     'enabled' => true,
-    //     // 'binary'  => '/usr/local/bin/wkhtmltopdf',
-    //     'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
-    //     'timeout' => false,
-    //     'options' => [],
-    //     'env'     => [],
-    // ],
+    'pdf' => [
+        'enabled' => true,
+        // 'binary'  => '/usr/local/bin/wkhtmltopdf',
+        // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
+        'binary'  => 'wkhtmltopdf',
+        'timeout' => false,
+        'options' => [],
+        'env'     => [],
+    ],
     
-    // 'image' => [
-    //     'enabled' => true,
-    //     // 'binary'  => '/usr/local/bin/wkhtmltoimage',
-    //     'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage"',
-    //     'timeout' => false,
-    //     'options' => [],
-    //     'env'     => [],
-    // ],
-
-    'pdf' => array(
+    'image' => [
         'enabled' => true,
-        'binary'  => 'wkhtmltopdf',
+        // 'binary'  => '/usr/local/bin/wkhtmltoimage',
+        // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage"',
+        'binary'  => 'wkhtmltoimage',
         'timeout' => false,
-        'options' => array(),
-        'env'     => array(),
-    ),
-    'image' => array(
-        'enabled' => true,
-        'binary'  => 'wkhtmltopdf',
-        'timeout' => false,
-        'options' => array(),
-        'env'     => array(),
-    ),
+        'options' => [],
+        'env'     => [],
+    ],
 
 ];
