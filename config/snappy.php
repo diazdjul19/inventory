@@ -33,6 +33,7 @@ return [
     |
     */
     
+    
     'pdf' => [
         'enabled' => true,
         // 'binary'  => '/usr/local/bin/wkhtmltopdf',
@@ -52,5 +53,9 @@ return [
         'options' => [],
         'env'     => [],
     ],
+
+
+    // WKHTMLTOPDF FOR HOSTING
+    // https://github.com/barryvdh/laravel-snappy/issues/60#issuecomment-207197449
 
 ];
