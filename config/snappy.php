@@ -34,25 +34,20 @@ return [
     */
     
     
-    'pdf' => [
+    'pdf' => array(
         'enabled' => true,
-        // 'binary'  => '/usr/local/bin/wkhtmltopdf',
-        // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
-        'binary' => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf'),
+        'binary' => base_path('vendor/wemersonjanuario/wkhtmltopdf-windows/bin/64bit/wkhtmltopdf.exe'),
         'timeout' => false,
-        'options' => [],
-        'env'     => [],
-    ],
-    
-    'image' => [
+        'options' => array(),
+        'env'     => array(),
+    ),
+    'image' => array(
         'enabled' => true,
-        // 'binary'  => '/usr/local/bin/wkhtmltoimage',
-        // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage"',
-        'binary' => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltoimage'),
+        'binary' => base_path('vendor/wemersonjanuario/wkhtmltopdf-windows/bin/64bit/wkhtmltoimage.exe'),
         'timeout' => false,
-        'options' => [],
-        'env'     => [],
-    ],
+        'options' => array(),
+        'env'     => array(),
+    ),
 
 
     // WKHTMLTOPDF FOR HOSTING
