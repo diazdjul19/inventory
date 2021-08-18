@@ -56,14 +56,14 @@ return [
 
     'pdf' => array(
         'enabled' => true,
-        'binary' => '/app/bin/wkhtmltopdf-amd64',
+        'binary' => '/app/bin/wkhtmltopdf ...',
         'timeout' => false,
         'options' => array(),
         'env' => array(),
     ),
     'image' => array(
         'enabled' => true,
-        'binary' => '/app/bin/wkhtmltoimage-amd64',
+        'binary' => '/app/bin/wkhtmltoimage ...',
         'timeout' => false,
         'options' => array(),
         'env' => array(),
