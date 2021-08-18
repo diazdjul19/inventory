@@ -70,6 +70,8 @@ return [
     ),
 
 
+    
+
     // WKHTMLTOPDF FOR HOSTING
     //https://github.com/barryvdh/laravel-snappy/issues/60#issuecomment-207197449
 

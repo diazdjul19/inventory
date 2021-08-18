@@ -247,9 +247,11 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // sweetalert 2
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        
         // Barcode
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+
         // Cloudinary
         'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
 
