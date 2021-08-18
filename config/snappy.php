@@ -38,7 +38,7 @@ return [
         'enabled' => true,
         // 'binary'  => '/usr/local/bin/wkhtmltopdf',
         // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
-        'binary'  => '/app/bin/wkhtmltopdf'
+        'binary'  => 'wkhtmltopdf',
         'timeout' => false,
         'options' => [],
         'env'     => [],
@@ -48,7 +48,7 @@ return [
         'enabled' => true,
         // 'binary'  => '/usr/local/bin/wkhtmltoimage',
         // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage"',
-        'binary'  => '/app/bin/wkhtmltopdf'
+        'binary'  => 'wkhtmltoimage',
         'timeout' => false,
         'options' => [],
         'env'     => [],
